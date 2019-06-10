@@ -20,6 +20,10 @@ development:
   database: sample_postgres_development
   pool: 5
 
+
+test:
+  adapter: postgresql
+  database: travis_ci_test
 # development:
 # <<: *default
 # database: bookstore_development
