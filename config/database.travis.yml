@@ -1,5 +1,5 @@
-development:
+test:
   adapter: postgresql
   encoding: unicode
-  database: sample_postgres_development
+  database: travis_ci_test
   pool: 5
