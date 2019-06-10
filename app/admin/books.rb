@@ -17,7 +17,7 @@ ActiveAdmin.register Book do
   end
 
   filter :title
-  filter :author, as: :select, collection: Author.all.map { |author| ["#{author.last_name}, #{author.first_name}", author.id] }
+  filter :author, as: :select, collection: -> { Author.all.map { |author| ["#{author.last_name}, #{author.first_name}", author.id] } }
 
   show do
     attributes_table do
@@ -35,7 +35,7 @@ ActiveAdmin.register Book do
   form do |f|
     f.inputs 'Book' do
       f.input :title, required: true
-      f.input :author, as: :select, collection: Author.all.map { |author| ["#{author.last_name}, #{author.first_name}", author.id] }
+      f.input :author, as: :select, collection: -> { Author.all.map { |author| ["#{author.last_name}, #{author.first_name}", author.id] } }
       f.input :category, as: :select, collection: Category.all
     end
     f.button :Save
