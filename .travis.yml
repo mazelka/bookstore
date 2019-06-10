@@ -3,8 +3,8 @@ rvm:
   - 2.4.5
 services:
   - postgresql
-before_script:
-  - cp config/database.travis.yml config/database.yml
+# before_script:
+# - cp config/database.travis.yml config/database.yml
 script:
   - bundle exec rails db:migrate RAILS_ENV=development
   - bundle exec rspec
