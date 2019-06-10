@@ -1,9 +1,10 @@
 language: ruby
 rvm:
   - 2.4.5
-  # - 1.9.3
-  # - jruby-19mode
-  # - rbx-2
+services:
+  - postgresql
+before_script:
+  - cp config/database.travis.yml config/database.yml
 script:
   - bundle exec rails db:migrate RAILS_ENV=development
   - bundle exec rspec
