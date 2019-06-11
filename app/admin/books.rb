@@ -16,7 +16,6 @@ ActiveAdmin.register Book do
     actions
   end
 
-  # proc { Smbd.all.map { |author| ["#{author.last_name}, #{author.first_name}", author.id] } }
   filter :title
   filter :author, as: :select, collection: proc { Author.all.map { |author| ["#{author.last_name}, #{author.first_name}", author.id] } }
 
@@ -44,7 +43,6 @@ ActiveAdmin.register Book do
       f.input :title, required: true
       f.input :cover, as: :file, :hint => image_tag(f.object.cover.url(:thumb))
       f.input :author, as: :select, collection: Author.all.map { |author| ["#{author.last_name}, #{author.first_name}", author.id] }
-      # .map { |author| ["#{author.last_name}, #{author.first_name}", author.id] } }
       f.input :category, as: :select, collection: Category.all
     end
     f.button :Save

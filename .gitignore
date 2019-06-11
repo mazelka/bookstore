@@ -17,6 +17,10 @@
 /storage/*
 !/storage/.keep
 .env
+.simplecov
+/coverage/*
+.rufo
+
 
 /node_modules
 /yarn-error.log
