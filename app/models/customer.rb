@@ -1,4 +1,5 @@
 class Customer < ApplicationRecord
+  has_many :reviews
   before_validation :downcase_email
   before_save :downcase_email
   # Include default devise modules. Others available are:

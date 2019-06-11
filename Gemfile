@@ -46,6 +46,8 @@ gem 'travis'
 
 gem 'devise'
 gem 'cancancan'
+gem 'carrierwave', '~> 1.0'
+gem 'rmagick'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -53,6 +55,10 @@ group :development, :test do
   gem 'ffaker'
   gem 'factory_bot_rails'
   gem 'rspec'
+  gem 'database_cleaner'
+  gem 'capybara'
+  gem 'shoulda-matchers'
+  gem 'simplecov', require: false
 end
 
 group :development do
