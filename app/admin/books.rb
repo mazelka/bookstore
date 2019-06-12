@@ -1,6 +1,5 @@
 ActiveAdmin.register Book do
   permit_params :title, :description, :price, :inventory, :author_id, :category_id, :review_id, :cover
-  actions :index, :new, :show, :create, :update, :edit, :destroy
 
   index do
     selectable_column

@@ -1,6 +1,6 @@
 ActiveAdmin.register Review do
   permit_params :title, :text, :customer, :book
-  actions :index, :show, :update
+  actions :all, except: [:destroy, :new]
 
   index do
     selectable_column

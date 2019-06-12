@@ -2,30 +2,10 @@ require 'spec_helper'
 require 'rails_helper'
 
 RSpec.describe Book, type: :model do
-  it { should validate_presence_of(:title) }
-  it { should validate_presence_of(:price) }
-  it { should validate_presence_of(:inventory) }
-  it { should validate_length_of(:title) }
-  it { should validate_numericality_of(:inventory) }
-  it { should validate_numericality_of(:price) }
-  it { should have_many(:reviews) }
-  it { should belong_to(:author) }
-  it { should belong_to(:category) }
-
   context 'associations' do
-    book = FactoryBot.create(:book)
-
-    it 'belongs to category' do
-      expect(book).to respond_to :category
-    end
-
-    it 'belongs to author' do
-      expect(book).to respond_to :author
-    end
-
-    it 'has many reviews' do
-      expect(book).to respond_to :reviews
-    end
+    it { should have_many(:reviews) }
+    it { should belong_to(:author) }
+    it { should belong_to(:category) }
   end
 
   context 'validations' do

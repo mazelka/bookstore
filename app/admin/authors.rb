@@ -1,6 +1,6 @@
 ActiveAdmin.register Author do
   permit_params :first_name, :last_name, :biography
-  actions :index, :new, :create, :update, :edit, :destroy
+  actions :all, except: [:show]
 
   index do
     selectable_column
@@ -8,7 +8,7 @@ ActiveAdmin.register Author do
     column :first_name
     column :last_name
     column :biography
-    actions
+    actions exclude: :show
   end
 
   filter :first_name

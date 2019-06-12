@@ -1,6 +1,6 @@
 ActiveAdmin.register Category do
   permit_params :title
-  actions :index, :new, :create, :update, :edit, :destroy
+  actions :all, except: [:show]
 
   index do
     selectable_column

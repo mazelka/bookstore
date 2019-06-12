@@ -2,17 +2,8 @@ require 'spec_helper'
 require 'rails_helper'
 
 RSpec.describe Category, type: :model do
-  it { should validate_presence_of(:title) }
-  it { should validate_uniqueness_of(:title) }
-  it { should validate_length_of(:title) }
-  it { should have_many(:books) }
-
   context 'associations' do
-    category = FactoryBot.create(:category)
-
-    it 'has many books' do
-      expect(category).to respond_to :books
-    end
+    it { should have_many(:books) }
   end
 
   context 'validations' do
