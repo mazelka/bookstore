@@ -43,7 +43,6 @@ gem 'haml-rails'
 gem 'kaminari'
 gem 'travis'
 
-
 gem 'devise'
 gem 'cancancan'
 gem 'carrierwave', '~> 1.0'

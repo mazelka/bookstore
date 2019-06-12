@@ -7,4 +7,6 @@ ActiveAdmin.register Category do
     id_column
     column :title
   end
+
+  filter :title
 end

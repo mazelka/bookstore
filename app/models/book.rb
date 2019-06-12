@@ -1,4 +1,3 @@
-
 class Book < ApplicationRecord
   belongs_to :author
   belongs_to :category
@@ -6,6 +5,6 @@ class Book < ApplicationRecord
   mount_uploader :cover, CoverUploader
 
   validates :title, presence: true, length: { maximum: 50 }
-  validates :price, presence: true
-  validates :count, presence: true
+  validates :price, presence: true, numericality: true
+  validates :inventory, presence: true, numericality: { only_integer: true }
 end

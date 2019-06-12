@@ -5,9 +5,8 @@ require 'simplecov'
 SimpleCov.start 'rails'
 require 'support/factory_bot'
 require 'support/database_cleaner'
-require 'database_cleaner'
+require 'capybara/rspec'
 require 'devise'
-require 'factory_bot'
 require 'ffaker'
 puts 'required simplecov'
 require File.expand_path('../../config/environment', __FILE__)
@@ -42,6 +41,7 @@ end
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
+  config.include Capybara::DSL
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
