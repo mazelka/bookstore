@@ -1,6 +1,6 @@
 ActiveAdmin.register Review do
   permit_params :title, :text, :customer, :book
-  actions :all, except: [:destroy, :new]
+  actions :all, except: [:destroy, :new, :edit]
 
   index do
     selectable_column
@@ -29,14 +29,4 @@ ActiveAdmin.register Review do
       row :text
     end
   end
-
-  # form do |f|
-  #   f.inputs 'Book' do
-  #     f.input :title, required: true
-  #     f.input :author, as: :select, collection: -> { Author.all.map { |author| ["#{author.last_name}, #{author.first_name}", author.id] } }
-  #     f.input :category, as: :select, collection: Category.all
-  #   end
-  #   f.button :Save
-  #   f.button :Cancel
-  # end
 end
