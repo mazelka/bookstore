@@ -11,7 +11,7 @@ RSpec.describe Book, type: :model do
   context 'validations' do
     it 'has valid cover image' do
       book = FactoryBot.create :book
-      expect(book.cover_url).to eq('/uploads/book/cover/1/2017-07-24_12.22.44.jpg')
+      expect(book.cover_url).to include('2017-07-24_12.22.44.jpg')
     end
     it 'is invalid without a title' do
       expect((FactoryBot.build :book, title: nil)).not_to be_valid
@@ -25,8 +25,13 @@ RSpec.describe Book, type: :model do
       expect((FactoryBot.build :book, price: nil)).not_to be_valid
     end
 
-    it 'is invalid with a wrong format of price ' do
+    it 'is invalid with a wrong format of price' do
       expect((FactoryBot.build :book, price: 'YTTREW')).not_to be_valid
+    end
+
+    it 'saves price as integer' do
+      book = FactoryBot.create :book, price: 9.99
+      expect(book.price).to eq(999)
     end
 
     it 'is invalid without an inventory' do
