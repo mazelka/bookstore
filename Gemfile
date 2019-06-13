@@ -42,14 +42,28 @@ gem 'dotenv-rails'
 gem 'haml-rails'
 gem 'kaminari'
 gem 'travis'
-
+gem 'bootstrap-sass', '~> 3.4.1'
+gem 'sassc-rails', '>= 2.1.0'
+gem 'compass-rails', github: 'Compass/compass-rails'
 
 gem 'devise'
 gem 'cancancan'
+gem 'carrierwave', '~> 1.0'
+gem 'rmagick'
+gem 'money'
+gem 'normalize_attributes'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'ffaker'
+  gem 'factory_bot_rails'
+  gem 'rspec'
+  gem 'rspec-rails', '~> 3.8'
+  gem 'database_cleaner'
+  gem 'capybara'
+  gem 'shoulda-matchers'
+  gem 'simplecov', require: false
 end
 
 group :development do
