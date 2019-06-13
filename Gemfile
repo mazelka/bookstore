@@ -42,11 +42,15 @@ gem 'dotenv-rails'
 gem 'haml-rails'
 gem 'kaminari'
 gem 'travis'
+gem 'bootstrap-sass', '~> 3.4.1'
+gem 'sassc-rails', '>= 2.1.0'
+gem 'compass-rails', github: 'Compass/compass-rails'
 
 gem 'devise'
 gem 'cancancan'
 gem 'carrierwave', '~> 1.0'
 gem 'rmagick'
+gem 'money'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

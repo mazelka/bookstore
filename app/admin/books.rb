@@ -1,3 +1,5 @@
+require 'money'
+
 ActiveAdmin.register Book do
   permit_params :title, :description, :price, :inventory, :author_id, :category_id, :review_id, :cover
 
@@ -9,7 +11,9 @@ ActiveAdmin.register Book do
       "#{i.author.first_name} #{i.author.last_name}"
     end
     column :category
-    column :price
+    column :price do |book|
+      Money.new(book.price, 'USD').format
+    end
     column :inventory
 
     actions
@@ -29,7 +33,9 @@ ActiveAdmin.register Book do
         "#{i.author.first_name} #{i.author.last_name}"
       end
       row :category
-      row :price
+      row :price do |book|
+        Money.new(book.price, 'USD').format
+      end
       row :inventory
       row :review do |book|
         book.reviews
