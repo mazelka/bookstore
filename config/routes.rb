@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
-  resources :reviews
+  root to: 'home#index'
   devise_for :customers
+  # devise÷_sc :customer
+  # do
+  #   get '/login' => 'devise/sessions#new'
+  #   post '/login' => 'devise/sessions#create'
+  #   post '/sign_up' => 'devise/registrations#new'
+  # end
+  resources :reviews
   resources :categories
   resources :books
   resources :authors
