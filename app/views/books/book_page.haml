@@ -66,13 +66,20 @@
         .col-sm-6
           .product-gallery
             .mb-20
-              %img.img-responsive{src: @book.cover_url}
+              %img.img-responsive{src: "https://www.bramstein.com/static/smashing-book-5-photo-stack.9d5d114e3e.jpg"}
+            .images.clearfix
+              %a.img-link{href: "#"}
+                %img{src: "https://www.smashingmagazine.com/wp-content/uploads/2015/09/smashing-book-5-2-large.jpg"}
+              %a.img-link{href: "#"}
+                %img{src: "https://www.smashingmagazine.com/wp-content/uploads/2015/09/smashing-book-5-2-large.jpg"}
+              %a.img-link{href: "#"}
+                %img{src: "https://www.smashingmagazine.com/wp-content/uploads/2015/09/smashing-book-5-2-large.jpg"}
         .col-sm-6
-          %h1.mt-res-0= @book.title
-          %p.lead.small= "#{@book.author.first_name} #{@book.author.last_name}"
+          %h1.mt-res-0 Real-Life Responsive Web Design
+          %p.lead.small Vitaly Friedman, Daniel Mall,Vitaly Friedman
           .row
             .col-xs-12.col-md-4
-              %p.h1.in-gold-500.mt-10= Money.new(@book.price, 'USD').format
+              %p.h1.in-gold-500.mt-10 = @book.price
             .col-xs-5.col-md-3
               .input-group.general-position
                 %a.input-link{href: "#"}
@@ -85,12 +92,29 @@
           .general-info-wrap.divider-lg
             %p Description
             %p.lead.small.line-height-2
-              %div.book-description
-                = @book.description
-              %a.in-gold-500.ml-10.read-more-link{href: "#"} Read More
-
+              Smashing Book 5: Real-Life Responsive Web Design is our brand new, upcoming book with smart front-end techniques and design patterns derived from real-life responsive projects. With 13 chapters on responsive workflow, SVG, Flexbox, Web fonts, responsive images, responsive email, content strategy, debugging ...
+              %a.in-gold-500.ml-10{href: "#"} Read More
+          .general-info-wrap.divider-lg
+            .clearfix
+              %p.pull-left Year of publication
+              %p.lead.small.pull-right 2016
+          .general-info-wrap.divider-lg
+            .clearfix
+              %p.pull-left Dimensions
+              %p.lead.small.pull-right H:6.4\" x W: 0.9\" x D: 5.0
+          .general-info-wrap.divider-lg
+            .clearfix
+              %p.pull-left Materials
+              %p.lead.small.pull-right Hardcove, glossy paper
       .mb-80
         %h3 Write a Review
+        %p.general-info-text Score
+        .mb-15
+          %i.fa.fa-star.rate-empty
+          %i.fa.fa-star.rate-empty
+          %i.fa.fa-star.rate-empty
+          %i.fa.fa-star.rate-empty
+          %i.fa.fa-star.rate-empty
         %form.row
           .col-md-8
             .mb-40
@@ -166,40 +190,4 @@
                 %a.nav-link{href: "#"}
                   %i.fa.fa-instagram{'aria-hidden': "true"}
     %link{href: "https://use.fontawesome.com/67602d7308.js", rel: "text/javascript"}
-    %link{:rel => :stylesheet, :type => :"text/javascript", :href => "/assets/javascripts/application.js"}
-
-:javascript
-  const book_description = document.querySelector('.book-description')
-  const read_more = document.querySelector('.read-more-link')
-  const full_text = book_description.innerText
-  book_description.innerText = full_text.slice(0, 300)
-
-  read_more.addEventListener('click', expand)
-
-  function expand(e) {
-    e.preventDefault()
-    book_description.innerText = full_text;
-    read_more.classList.add('hidden')
-  }
-
-%p#notice= notice
-
-%p
-  %b Title:
-  = @book.title
-%p
-  %b Description:
-  = @book.description
-%p
-  %b Price:
-  = @book.price
-%p
-  %b Count:
-  = @book.inventory
-%p
-  %b Author:
-  = @book.author
-
-= link_to 'Edit', edit_book_path(@book)
-\|
-= link_to 'Back', books_path
+    %link{:rel => :stylesheet, :type => :"text/javascript", :href => "/assets/javascripts/application.js"}}

@@ -40,6 +40,8 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'omniauth-facebook'
 gem 'dotenv-rails'
 gem 'haml-rails'
+gem 'jquery-rails'
+gem 'rails-ujs'
 gem 'kaminari'
 gem 'travis'
 gem 'bootstrap-sass', '~> 3.4.1'

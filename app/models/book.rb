@@ -2,7 +2,7 @@ class Book < ApplicationRecord
   before_save :normalize_price
 
   belongs_to :author
-  belongs_to :category
+  belongs_to :category, counter_cache: true
   has_many :reviews
   mount_uploader :cover, CoverUploader
 
