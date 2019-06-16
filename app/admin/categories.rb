@@ -6,6 +6,7 @@ ActiveAdmin.register Category do
     selectable_column
     id_column
     column :title
+    actions
   end
 
   filter :title
