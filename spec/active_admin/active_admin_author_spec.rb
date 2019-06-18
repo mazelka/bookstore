@@ -39,7 +39,7 @@ describe 'Author', type: :feature do
     expect(page).to have_content('Stephen')
   end
 
-  it 'deletes author' do
+  it 'deletes author without associated books' do
     visit 'admin/authors'
     authors_before_delete = page.all('#index_table_authors tbody tr').length
     within('#author_2') do
@@ -47,6 +47,16 @@ describe 'Author', type: :feature do
     end
     authors_after_delete = page.all('#index_table_authors tbody tr').length
     expect(authors_after_delete).to eq(authors_before_delete - 1)
-    expect(page).to have_content('Author was successfully destroyed.')
+    expect(page).to have_content('Author has been deleted.')
+  end
+
+  it 'deletes author with associated books' do
+    author = Author.create(first_name: 'Richard', last_name: 'Bachman')
+    Book.create(title: 'Wonderland', price: 999, inventory: 1, author: author, category_id: 1)
+    visit 'admin/authors'
+    within("#author_#{author.id}") do
+      click_link 'Delete'
+    end
+    expect(page).to have_content('Author has been deleted.')
   end
 end
