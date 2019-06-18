@@ -1,8 +1,8 @@
 = render :partial => "shared/header"
 %main.container
   %a.general-back-link{href: "/books"}
-    %i.fa.fa-long-arrow-left.mr-15
-    {:onclick => 'history.back(); return false;'}Back to results 
+    %i.fa.fa-long-arrow-left.mr-15{:onclick => 'history.back()'}
+    Back to results
   .row
     .col-sm-6
       .product-gallery
@@ -16,10 +16,10 @@
           %p.h1.in-gold-500.mt-10= Money.new(@book.price, 'USD').format
         .col-xs-5.col-md-3
           .input-group.general-position
-            %a.input-link{href: "#"} 
+            %a.input-link.decrease-quantity{href: '#'}
               %i.fa.fa-minus.line-height-40
-            %input.form-control.quantity-input{type: "text"}
-            %a.input-link{href: "#"}
+            %input.form-control.quantity-input{type: "text", value: 1}
+            %a.input-link.increase-quantity{href: "#"}
               %i.fa.fa-plus.line-height-40
         .col-xs-7.col-md-5
           %button.btn.btn-default.pull-right.general-position Add to Cart
@@ -29,20 +29,21 @@
           %div.book-description
             = @book.description
           %a.in-gold-500.ml-10.read-more-link{href: "#"} Read More
-
-  .mb-80
-    %h3 Write a Review
-    %form.row
-      .col-md-8
-        .mb-40
-          .form-group
-            %label.control-label.input-label.in-grey-600{for: "title"} Title
-            %input#title.form-control{name:"title", type: "text"}
-          .form-group
-            %label.control-label.input-label.in-grey-600{for: "review"} Review
-            %textarea#review.form-control{name:"review", type: "text"}
-        .text-right
-          %button.btn.disabled.mb-20 Post
+  - if customer_signed_in?
+    .mb-80
+      %h3 Write a Review
+      %form.row
+        .col-md-8
+          .mb-40
+            .form-group
+              %label.control-label.input-label.in-grey-600{for: "title"} Title
+              %input#title.form-control{name:"title", type: "text"}
+            .form-group
+              %label.control-label.input-label.in-grey-600{for: "review"} Review
+              %textarea#review.form-control{name:"review", type: "text"}
+          .text-right
+            %button.btn.disabled.mb-20 Post
+  
   .mb-80
     %h3.in-gold-500.mb-25 Reviews (3)
     .general-message-wrap.divider-lg
@@ -78,6 +79,8 @@
             %i.fa.fa-star.rate-star.rate-empty
           %p If ‘Get a better job’ had landed on my desk a year ago, I might have been dismissive of it. Instead I was prepared to be open-minded. There have been many occasions where I turned to career books with practical activities to look for some inspiration when developing education activities for learners or assessment.
 = render :partial => "shared/footer"
+
+-# Read more
 :javascript
   const book_description = document.querySelector('.book-description')
   const read_more = document.querySelector('.read-more-link')
@@ -91,3 +94,19 @@
     book_description.innerText = full_text;
     read_more.classList.add('hidden')
   }
+
+-# Quantity handling
+:javascript
+  const input = document.querySelector('.quantity-input');
+
+  document.querySelector('.increase-quantity').addEventListener('click', (e) => {
+    e.preventDefault();
+
+    input.value = Number(input.value) + 1;
+  })
+
+  document.querySelector('.decrease-quantity').addEventListener('click', (e) => {
+    e.preventDefault();
+
+    input.value = (Number(input.value) - 1) || 1;
+  })

@@ -22,3 +22,12 @@
 @import "bookstore/utils/helpers";
 @import "variables";
 @import "overrides";
+
+.test-view-more-button {
+  padding: 0;
+
+  & > a {
+    display: block;
+    padding: 8px 32px;
+  }
+}
