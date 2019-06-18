@@ -1,13 +1,11 @@
 class BooksController < ApplicationController
   def index
-    @books = Book.limit(20).order(created_at: :asc)
-    @popular_categories = Category.all.sort { |b, a| a.books.count <=> b.books.count }[0...3]
-    @all_categories = Category.all.count
+    @books = Book.page(params[:page]).per(12)
+    @popular_categories = Category.all.sort { |b, a| a.books.count <=> b.books.count }[0...5]
+    @all_books = Book.all.count
   end
 
   def show
-    # p params
-    # p id
     @book = Book.find(params[:id])
   end
 
