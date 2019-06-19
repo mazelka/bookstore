@@ -1,11 +1,14 @@
 require 'rails_helper'
 
 describe 'Author', type: :feature do
-  before :all do
-    preconditions
-    Author.create(first_name: 'Richard', last_name: 'Bachman')
-  end
+  let(:author) { create(:author, first_name: 'WithBook') }
+  let(:author_without_book) { create(:author) }
+  let(:book) { create(:book, author: author) }
+
   before :each do
+    author
+    author_without_book
+    book
     sign_in
   end
 
@@ -28,7 +31,9 @@ describe 'Author', type: :feature do
   end
 
   it 'edits existed author' do
-    visit 'admin/authors/1/edit'
+    visit 'admin/authors'
+    search_author_by_first_name(author_without_book.first_name)
+    click_link 'Edit'
     within('.inputs') do
       find('#author_first_name').set('Stephen')
       find('#author_last_name').set('King')
@@ -42,21 +47,17 @@ describe 'Author', type: :feature do
   it 'deletes author without associated books' do
     visit 'admin/authors'
     authors_before_delete = page.all('#index_table_authors tbody tr').length
-    within('#author_2') do
-      click_link 'Delete'
-    end
+    search_author_by_first_name(author_without_book.first_name)
+    click_link 'Delete'
     authors_after_delete = page.all('#index_table_authors tbody tr').length
     expect(authors_after_delete).to eq(authors_before_delete - 1)
     expect(page).to have_content('Author has been deleted.')
   end
 
   it 'deletes author with associated books' do
-    author = Author.create(first_name: 'Richard', last_name: 'Bachman')
-    Book.create(title: 'Wonderland', price: 999, inventory: 1, author: author, category_id: 1)
     visit 'admin/authors'
-    within("#author_#{author.id}") do
-      click_link 'Delete'
-    end
+    search_author_by_first_name(author.first_name)
+    click_link 'Delete'
     expect(page).to have_content('Author has been deleted.')
   end
 end

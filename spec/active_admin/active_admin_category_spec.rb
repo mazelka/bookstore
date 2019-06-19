@@ -1,11 +1,9 @@
 require 'rails_helper'
 
 describe 'Category', type: :feature do
-  before :all do
-    preconditions
-    Category.create(title: 'Thriller')
-  end
+  let(:category) { create(:category) }
   before :each do
+    category
     sign_in
   end
 
@@ -26,7 +24,9 @@ describe 'Category', type: :feature do
   end
 
   it 'edits existed category' do
-    visit 'admin/categories/1/edit'
+    visit 'admin/categories'
+    search_by_title(category.title)
+    click_link 'Edit'
     within('.inputs') do
       find('#category_title').set('Comedy')
     end
@@ -38,9 +38,8 @@ describe 'Category', type: :feature do
   it 'deletes category' do
     visit 'admin/categories'
     categories_before_delete = page.all('#index_table_categories tbody tr').length
-    within('#category_2') do
-      click_link 'Delete'
-    end
+    search_by_title(category.title)
+    click_link 'Delete'
     categories_after_delete = page.all('#index_table_categories tbody tr').length
     expect(categories_after_delete).to eq(categories_before_delete - 1)
     expect(page).to have_content('Category was successfully destroyed.')
