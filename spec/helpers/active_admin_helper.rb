@@ -1,13 +1,6 @@
 require 'rails_helper'
 
 module Features
-  def preconditions
-    AdminUser.create(email: 'admin@example.com', password: 'password')
-    Author.create(first_name: 'Janna', last_name: 'Aguzarova')
-    Category.create(title: 'Horror')
-    Book.create(title: 'Wonderland', price: 999, inventory: 1, author_id: 1, category_id: 1)
-  end
-
   def sign_in
     create(:admin_user)
     visit '/admin/login'
