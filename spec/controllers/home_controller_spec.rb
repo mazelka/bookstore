@@ -10,7 +10,7 @@ RSpec.describe HomeController do
   end
 
   context 'latest books' do
-    let(:books) { 3.times { create(:book) } }
+    let(:books) { create_list(:book, 3) }
     before :each do
       books
     end
@@ -27,7 +27,7 @@ RSpec.describe HomeController do
   end
 
   context 'bestsellers' do
-    let(:books) { 3.times { create(:book) } }
+    let(:books) { create_list(:book, 3) }
     before :each do
       books
     end

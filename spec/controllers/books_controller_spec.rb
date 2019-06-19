@@ -44,7 +44,7 @@ RSpec.describe BooksController do
   end
 
   context 'books sorting' do
-    let(:books) { 3.times { create(:book) } }
+    let(:books) { create_list(:book, 3) }
 
     before :each do
       books

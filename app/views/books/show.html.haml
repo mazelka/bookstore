@@ -1,7 +1,7 @@
 = render :partial => "shared/header"
 %main.container
-  %a.general-back-link{href: "/books"}
-    %i.fa.fa-long-arrow-left.mr-15{:onclick => 'history.back()'}
+  %a.general-back-link{href: '#', :onclick => 'handleBack(event)'}
+    %i.fa.fa-long-arrow-left.mr-15
     Back to results
   .row
     .col-sm-6
@@ -110,3 +110,9 @@
 
     input.value = (Number(input.value) - 1) || 1;
   })
+
+:javascript
+  function handleBack(e){
+    e.preventDefault();
+    history.back();
+  }
