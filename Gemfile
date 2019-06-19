@@ -64,6 +64,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'rspec'
   gem 'rspec-rails', '~> 3.8'
+  gem 'rails-controller-testing'
   gem 'database_cleaner'
   gem 'capybara'
   gem 'shoulda-matchers'
