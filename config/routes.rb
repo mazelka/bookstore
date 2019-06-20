@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   root to: 'home#index'
-  devise_for :customers
+  devise_for :customers, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
   # devise÷_sc :customer
   # do
   #   get '/login' => 'devise/sessions#new'

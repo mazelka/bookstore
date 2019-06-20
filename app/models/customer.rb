@@ -4,7 +4,7 @@ class Customer < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, omniauth_providers: %i[facebook]
+         :recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: %i[facebook]
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
 
@@ -12,6 +12,40 @@ class Customer < ApplicationRecord
   validates :last_name, presence: true, length: { maximum: 50 }, format: { with: /[a-zA-Z]/ }
   validates :email, presence: true, uniqueness: true, length: { maximum: 63 }, format: { with: VALID_EMAIL_REGEX }
   validate :check_password_format
+
+  def self.from_omniauth(auth)
+    where(auth.slice(:provider, :uid)).first_or_create do |customer|
+      customer.provider = auth.provider
+      customer.uid = auth.uid
+      customer.email = auth.info.email unless auth.info.email.nil?
+      customer.first_name = auth.info.name.split(' ').first
+      customer.last_name = auth.info.name.split(' ').last
+    end
+  end
+
+  def self.new_with_session(params, session)
+    if session['devise.customer_attributes']
+      new(session['devise.customer_attributes']) do |customer|
+        p params
+        customer.attributes = params
+        customer.valid?
+      end
+    else
+      super
+    end
+  end
+
+  def password_required?
+    super && provider.blank?
+  end
+
+  def update_with_password(params, *options)
+    if encrypted_password.blank?
+      update_attributes(params, *options)
+    else
+      super
+    end
+  end
 
   private
 
@@ -28,7 +62,7 @@ class Customer < ApplicationRecord
   end
 
   def trim_password
-    password.strip!
+    password.strip! if password
   end
 
   def downcase_email

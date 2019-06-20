@@ -75,9 +75,10 @@
           %label.control-label.input-label{for: "last_name"} Enter Last Name
           %input#last_name.form-control{name:"customer[last_name]", type: "last_name", placeholder: "Enter last name"}
         .form-group.mb-30
-          %label.control-label.input-label{for: "password"} Password
-          %input#password.form-control{name:"customer[password]", type: "password", placeholder: "Password"}
-          %a.help-block.in-gold-500{href: "#"} Forgot password?
+          -if @customer.password_required?
+            %label.control-label.input-label{for: "password"} Password
+            %input#password.form-control{name:"customer[password]", type: "password", placeholder: "Password"}
+            %a.help-block.in-gold-500{href: "#"} Forgot password?
         .form-group.mb-30
           -# %label.control-label.input-label{for: "confirm"} Confirm Password
           -# %input#confirm.form-control{name:"confirm", type: "password", placeholder: "Confirm Password"}

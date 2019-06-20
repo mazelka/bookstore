@@ -1,9 +1,7 @@
-class ReviewsController < InheritedResources::Base
-
+class ReviewsController < ApplicationController
   private
 
-    def review_params
-      params.require(:review).permit(:title, :text, :book_id)
-    end
-
+  def review_params
+    params.require(:review).permit(:id, :title, :text, :book_id)
+  end
 end

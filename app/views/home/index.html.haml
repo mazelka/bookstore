@@ -59,6 +59,10 @@
               %li
                 %a{href: "#"} My account
     %main.container
+      %ul
+        - flash.each do |_type, message|
+          %li= message
+
       #slider.carousel.slide{'data-ride': "carousel"}
         %ol.carousel-indicators
           %li.active{'data-target': "#slider", 'data-slide-to': "0"}

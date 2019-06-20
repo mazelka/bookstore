@@ -61,7 +61,7 @@
     %main.container.general-main-wrap
       .text-center
         %h3.general-login-title Log In
-        %a.general-login-icon{href: "#"}
+        %a.general-login-icon{href: "/customers/auth/facebook"}
           %i.fa.fa-facebook-official
         %p.general-login-text or
       %form.general-form{ :action => "/customers/sign_in", :method => "post" }
@@ -117,5 +117,4 @@
               %li
                 %a.nav-link{href: "#"}
                   %i.fa.fa-instagram{'aria-hidden': "true"}
-    %link{href: "https://use.fontawesome.com/67602d7308.js", rel: "text/javascript"}
-    %link{:rel => :stylesheet, :type => :"text/javascript", :href => "/assets/javascripts/application.js"}
+
