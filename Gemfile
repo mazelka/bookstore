@@ -40,6 +40,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'omniauth-facebook'
 gem 'dotenv-rails'
 gem 'haml-rails'
+gem 'jquery-rails'
 gem 'kaminari'
 gem 'travis'
 gem 'bootstrap-sass', '~> 3.4.1'
@@ -52,6 +53,8 @@ gem 'carrierwave', '~> 1.0'
 gem 'rmagick'
 gem 'money'
 gem 'normalize_attributes'
+gem "font-awesome-rails"
+gem "font-awesome-sass"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

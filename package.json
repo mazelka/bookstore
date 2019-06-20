@@ -1,5 +1,30 @@
 {
   "name": "bookstore",
   "private": true,
-  "dependencies": {}
+  "devDependencies": {
+    "bootstrap-sass": "^3.3.7",
+    "gulp": "^3.9.1",
+    "gulp-haml": "^0.1.6",
+    "gulp-livereload": "^3.8.1",
+    "gulp-sass": "^3.1.0"
+  },
+  "description": "This README would normally document whatever steps are necessary to get the application up and running.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mazelka/bookstore.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mazelka/bookstore/issues"
+  },
+  "homepage": "https://github.com/mazelka/bookstore#readme"
 }

@@ -12,7 +12,7 @@ ActiveAdmin.register Book do
     end
     column :category
     column :price do |book|
-      Money.new(book.price, 'USD').format
+      Money.new(book.price).format
     end
     column :inventory
 
@@ -34,7 +34,7 @@ ActiveAdmin.register Book do
       end
       row :category
       row :price do |book|
-        Money.new(book.price, 'USD').format
+        Money.new(book.price).format
       end
       row :inventory
       row :review do |book|
@@ -44,12 +44,14 @@ ActiveAdmin.register Book do
   end
 
   form do |f|
+    f.object.price = f.object.price / 100 unless f.object.price.nil?
     f.inputs 'Book' do
       f.input :title, required: true
       f.input :price, required: true
       f.input :inventory, required: true
       f.input :cover, as: :file
       # :hint => image_tag(f.object.cover.url(:thumb)) unless f.object.cover.url.nil?
+      f.input :description
       f.input :author, as: :select, collection: Author.all.map { |author| ["#{author.last_name}, #{author.first_name}", author.id] }
       f.input :category, as: :select, collection: Category.all
     end
