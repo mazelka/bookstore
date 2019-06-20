@@ -69,6 +69,7 @@ group :development, :test do
   gem 'capybara'
   gem 'shoulda-matchers'
   gem 'simplecov', require: false
+  gem 'pry-rails'
 end
 
 group :development do

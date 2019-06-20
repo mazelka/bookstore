@@ -31,8 +31,8 @@
     %h2.h1 Welcome to our amazing Bookstore!
     .mb-res-50
       %p We pore through hundreds of new books each month and select the five best we can find to share with our members.
-    %button.btn.btn-default
-      Get Started
+      = link_to 'Get Started', books_path, class:'btn btn-default'
+      -# Get Started
   #bestsellers.mb-35
     %h3 Best Sellers
     .row
@@ -43,7 +43,7 @@
               %img.img-shadow.general-thumbnail-img{src: book.cover_url, alt: book.title}
               .thumb-hover
                 .general-thumb-link-wrap
-                  %a.thumb-hover-link{href: "/books/#{book.id}"}
+                  %a.thumb-hover-link.show-book{href: "/books/#{book.id}"}
                     %i.fa.fa-eye.thumb-icon{'aria-hidden': "true"}
                   %a.thumb-hover-link{href: "#"}
                     %i.fa.fa-shopping-cart.thumb-icon

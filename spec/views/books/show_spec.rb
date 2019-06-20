@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-describe 'books/show.html.haml', type: :view do
+describe 'books/show.html.haml', type: :feature do
   context 'attributes' do
     let(:book) { create(:book) }
     before :each do
-      assign(:book, book)
+      book
     end
 
-    it 'shows book detail' do
+    it 'shows book details' do
       visit "/books/#{book.id}"
       expect(page).to have_content(book.title)
       expect(page).to have_content("#{book.author.first_name} #{book.author.last_name}")
@@ -20,28 +20,23 @@ describe 'books/show.html.haml', type: :view do
     end
   end
   context 'description' do
-    description = FFaker::BaconIpsum.paragraphs
-    let(:book) { create(:book, description: description) }
-    before :each do
-      assign(:book, book)
-    end
+    description = FFaker::BaconIpsum.paragraphs.join(' ')
+    let!(:book) { create(:book, description: description) }
+
     it 'shows description' do
       visit "/books/#{book.id}"
-      expect(page).to have_content(book.description)
+      expect(page).to have_selector('.book-description', text: book.description)
     end
   end
 
   context 'navigating' do
-    let(:book) { create(:book) }
-    before :each do
-      assign(:book, book)
-    end
+    let!(:book) { create(:book) }
 
-    # it 'navigates to back' do
-    #   visit '/books'
-    #   visit "/books/#{book.id}"
-    #   page.find('.general-back-link')
-    #   expect(page).to have_current_path('/books')
-    # end
+    it 'navigates to back' do
+      visit '/books'
+      page.find('.show-book').click
+      page.find('.general-back-link').click
+      expect(page).to have_current_path('/books')
+    end
   end
 end

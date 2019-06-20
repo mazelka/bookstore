@@ -1,8 +1,7 @@
 = render :partial => "shared/header"
 %main.container
-  %a.general-back-link{href: '#', :onclick => 'handleBack(event)'}
-    %i.fa.fa-long-arrow-left.mr-15
-    Back to results
+  %i.fa.fa-long-arrow-left.mr-15
+  = link_to 'Back to results', :back, class: 'general-back-link'
   .row
     .col-sm-6
       .product-gallery
@@ -43,7 +42,7 @@
               %textarea#review.form-control{name:"review", type: "text"}
           .text-right
             %button.btn.disabled.mb-20 Post
-  
+
   .mb-80
     %h3.in-gold-500.mb-25 Reviews (3)
     .general-message-wrap.divider-lg
@@ -111,8 +110,3 @@
     input.value = (Number(input.value) - 1) || 1;
   })
 
-:javascript
-  function handleBack(e){
-    e.preventDefault();
-    history.back();
-  }

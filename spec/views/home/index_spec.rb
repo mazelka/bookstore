@@ -20,12 +20,9 @@ describe 'home/index.html.haml', type: :view do
     expect(page).to have_selector('p', text: "#{book.author.first_name} #{book.author.last_name}")
   end
 
-  it 'opens books show page' do
+  it 'opens book show page' do
     visit '/'
-    p Book.all
-    within('#bestsellers') do
-      page.find_all('a')[0].click
-    end
+    page.find('.show-book').click
     expect(response).to render_template(:show)
   end
 end

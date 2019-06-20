@@ -31,23 +31,24 @@
     - @books.in_groups_of(4) do |group|
     .row
     - group.each do |book|
-      .col-xs-6.col-sm-3
-        .general-thumb-wrap
-          .thumbnail.general-thumbnail
-            %img.img-shadow.general-thumbnail-img{src: book.cover_url, alt: book.title}
-            .thumb-hover
-              .general-thumb-link-wrap
-                %a.thumb-hover-link{href: "/books/#{book.id}"}
-                  %i.fa.fa-eye.thumb-icon{'aria-hidden': "true"}
-                %a.thumb-hover-link{href: "#"}
-                  %i.fa.fa-shopping-cart.thumb-icon
-        .general-thumb-info
-          %p.title= book.title
-          %p.font-16.in-gold-500= Money.new(book.price, 'USD').format
-          %span.divider-sm
-          %p.lead.small= "#{book.author.first_name} #{book.author.last_name}"
+      - if book
+        .col-xs-6.col-sm-3
+          .general-thumb-wrap
+            .thumbnail.general-thumbnail
+              %img.img-shadow.general-thumbnail-img{src: book.cover_url, alt: book.title}
+              .thumb-hover
+                .general-thumb-link-wrap
+                  %a.thumb-hover-link.show-book{href: "/books/#{book.id}"}
+                    %i.fa.fa-eye.thumb-icon{'aria-hidden': "true"}
+                  %a.thumb-hover-link{href: "#"}
+                    %i.fa.fa-shopping-cart.thumb-icon
+          .general-thumb-info
+            %p.title= book.title
+            %p.font-16.in-gold-500= Money.new(book.price, 'USD').format
+            %span.divider-sm
+            %p.lead.small= "#{book.author.first_name} #{book.author.last_name}"
 
   .text-center.mb-20
     - unless @books.last_page?
-      %button.btn.btn-primary.test-view-more-button= link_to_next_page @books, 'View More'
+      %button.btn.btn-primary.test-view-more-button= link_to_next_page(@books, 'View More')
 = render :partial => "shared/footer"
