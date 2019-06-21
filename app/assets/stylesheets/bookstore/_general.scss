@@ -192,7 +192,7 @@ img {
   font-weight: 300;
   margin-bottom: 25px;
 }
-.general-form{
+.general-form {
   max-width: 370px;
   margin: 0 auto 20px;
 }
@@ -231,7 +231,6 @@ img {
   color: $grey-600;
   float: right;
 }
-
 
 @media (min-width: $grid-float-breakpoint) {
   .general-main-wrap {
@@ -332,5 +331,13 @@ img {
     padding-right: 0;
     padding-left: 0;
     margin-bottom: 85px;
+  }
+}
+.test-view-more-button {
+  padding: 0;
+
+  & > a {
+    display: block;
+    padding: 8px 32px;
   }
 }
