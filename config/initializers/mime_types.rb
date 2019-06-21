@@ -3,4 +3,4 @@
 # Add new mime types for use in respond_to blocks:
 Mime::Type.register 'application/font-woff', :js
 Mime::Type.register 'application/font-woff', :woff
-Mime::Type.register 'text/html', :jpg
+# Mime::Type.register 'text/html', :jpg
