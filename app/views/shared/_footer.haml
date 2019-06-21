@@ -7,23 +7,25 @@
             %a.nav-link{href: "/"} Home
           %li
             %a.nav-link{href: "/books"} Shop
-          %li
-            %a.nav-link{href: "#"} Orders
-          %li
-            %a.nav-link{href: "#"} Settings
+          - if customer_signed_in?
+            %li
+              %a.nav-link{href: "#"} Orders
+            %li
+              %a.nav-link{href: "#"} Settings
+
       .col-sm-3
         %p.general-nav-mail support@bookstore.com
         %p.general-nav-number (555)-555-5555
         %ul.list-inline.general-align
           %li
-            %a.nav-link{href: "#"}
+            %a.nav-link{href: "https://www.facebook.com/"}
               %i.fa.fa-facebook{'aria-hidden': "true"}
           %li
-            %a.nav-link{href: "#"}
+            %a.nav-link{href: "https://twitter.com/"}
               %i.fa.fa-twitter{'aria-hidden': "true"}
           %li
-            %a.nav-link{href: "#"}
+            %a.nav-link{href: "https://aboutme.google.com/u/0/?referer=gplus"}
               %i.fa.fa-google-plus{'aria-hidden': "true"}
           %li
-            %a.nav-link{href: "#"}
+            %a.nav-link{href: "https://www.instagram.com/ruby.garage/"}
               %i.fa.fa-instagram{'aria-hidden': "true"}

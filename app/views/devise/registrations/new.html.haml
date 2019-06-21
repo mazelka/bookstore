@@ -1,7 +1,7 @@
 %main.container.general-main-wrap
   .text-center
     %h3.general-login-title Sign Up
-    %a.general-login-icon{href: "#"}
+    %a.general-login-icon{href: "/customers/auth/facebook"}
       %i.fa.fa-facebook-official
     %p.general-login-text or
   %form.general-form{ :action => "/customers", :method => "post" }
@@ -20,7 +20,7 @@
       -if @customer.password_required?
         %label.control-label.input-label{for: "password"} Password
         %input#password.form-control{name:"customer[password]", type: "password", placeholder: "Password"}
-        %a.help-block.in-gold-500{href: "password/new"} Forgot password? Forgot password?
+        %a.help-block.in-gold-500{href: "password/new"} Forgot password?
     .form-group.checkbox.text-center.mb-30
     .text-center
       %button.btn.btn-default.mb-20 Sign Up

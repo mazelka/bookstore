@@ -7,12 +7,6 @@ describe 'home/index.html.haml', type: :view do
     assign(:bestsellers, [book])
   end
 
-  it 'renders partial' do
-    render
-    expect(response).to render_template(partial: '_footer')
-    expect(response).to render_template(partial: '_header')
-  end
-
   it 'shows book attributes' do
     visit '/'
     expect(page).to have_content(book.title)
