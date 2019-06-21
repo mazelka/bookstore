@@ -50,8 +50,8 @@ ActiveAdmin.register Book do
       f.input :price, required: true
       f.input :inventory, required: true
       f.input :cover, as: :file
-      # :hint => image_tag(f.object.cover.url(:thumb)) unless f.object.cover.url.nil?
       f.input :description
+      # :hint => image_tag(f.object.cover.url(:thumb)) unless f.object.cover.url.nil?
       f.input :author, as: :select, collection: Author.all.map { |author| ["#{author.last_name}, #{author.first_name}", author.id] }
       f.input :category, as: :select, collection: Category.all
     end

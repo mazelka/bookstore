@@ -1,6 +1,6 @@
 class Customer < ApplicationRecord
   has_many :reviews
-  before_save :downcase_email, :trim_password
+  before_save :downcase_email, on: [:create, :update]
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
