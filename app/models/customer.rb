@@ -17,7 +17,8 @@ class Customer < ApplicationRecord
     where(auth.slice(:provider, :uid)).first_or_create do |customer|
       customer.provider = auth.provider
       customer.uid = auth.uid
-      customer.email = auth.info.email unless auth.info.email.nil?
+      # customer.email = auth.info.email unless auth.info.email.nil?
+      auth.info.email.present? and customer.email = auth.info.email
       customer.first_name = auth.info.name.split(' ').first
       customer.last_name = auth.info.name.split(' ').last
     end
@@ -26,7 +27,6 @@ class Customer < ApplicationRecord
   def self.new_with_session(params, session)
     if session['devise.customer_attributes']
       new(session['devise.customer_attributes']) do |customer|
-        p params
         customer.attributes = params
         customer.valid?
       end
