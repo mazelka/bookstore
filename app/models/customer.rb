@@ -17,7 +17,6 @@ class Customer < ApplicationRecord
     where(auth.slice(:provider, :uid)).first_or_create do |customer|
       customer.provider = auth.provider
       customer.uid = auth.uid
-      # customer.email = auth.info.email unless auth.info.email.nil?
       auth.info.email.present? and customer.email = auth.info.email
       customer.first_name = auth.info.name.split(' ').first
       customer.last_name = auth.info.name.split(' ').last
