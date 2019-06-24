@@ -1,4 +1,3 @@
-= render :partial => "shared/header"
 %main.container
   %h1.general-title-margin Сatalog
   .hidden-xs.clearfix
@@ -50,5 +49,4 @@
 
   .text-center.mb-20
     - unless @books.last_page?
-      %button.btn.btn-primary.test-view-more-button= link_to_next_page(@books, 'View More')
-= render :partial => "shared/footer"
+      = link_to_next_page(@books, 'View More', class: 'btn btn-primary')
