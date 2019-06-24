@@ -8,7 +8,7 @@ class BooksController < ApplicationController
 
   def show
     @book = Book.find(params[:id])
-    @reviews = @book.reviews.order('created_at': :desc)
+    @reviews = @book.reviews.approved
     @quantity = 1
   end
 

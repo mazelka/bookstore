@@ -52,23 +52,23 @@
           .text-right
             %button.btn.btn-primary.mb-20{type: 'submit'} Post
 
-  -if @reviews
+  -if @reviews && !@reviews.empty?
     .mb-80
       %h3.in-gold-500.mb-25= "Reviews (#{@reviews.count})"
-      .general-message-wrap.divider-lg
       -@reviews.each do |review|
+        .general-message-wrap.divider-lg
         .general-message-date= review.created_at.to_date
         .general-message-name= "#{review.customer.first_name} #{review.customer.last_name}"
         .mb-15.review-body
           %p= review.title
           %p= review.text
-        .general-message-wrap.divider-lg
+      .general-message-wrap.divider-lg-bottom 
 
 = render :partial => "shared/footer"
 
 -# Read more
 :javascript
-  const book_description = document.querySelector('.book-description')
+  let book_description = document.querySelector('.book-description')
   const read_more = document.querySelector('.read-more-link')
   const full_text = book_description.innerText
   book_description.innerText = full_text.slice(0, 300)
@@ -83,7 +83,7 @@
 
 -# Quantity handling
 :javascript
-  const input = document.querySelector('.quantity-input');
+  let input = document.querySelector('.quantity-input');
 
   document.querySelector('.increase-quantity').addEventListener('click', (e) => {
     e.preventDefault();

@@ -4,5 +4,6 @@ FactoryBot.define do
     book
     title { FFaker::String.from_regexp(/\A[a-zA-Z0-9]{70}\z/) }
     text { FFaker::String.from_regexp(/\A[a-zA-Z0-9]{200}\z/) }
+    aasm_state { 'unprocessed' }
   end
 end
