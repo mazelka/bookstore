@@ -3,8 +3,7 @@ class ReviewsController < ApplicationController
 
   def create
     @review = Review.new(title: params[:title], text: params[:review], book_id: params[:book_id], customer: @current_customer)
-    if @review.valid?
-      @review.save
+    if @review.save
       flash.notice = 'Review was sent to approve!'
     else
       flash.notice = @review.errors.full_messages
