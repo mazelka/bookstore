@@ -1,0 +1,11 @@
+%main.container.general-main-wrap
+  .text-center
+    %h1.mb-30 Forgot your password?
+    %p.general-password-text We'll email you instructions on how to reset it
+  %form.general-form{ :action => "/customers/password", :method => "post" }
+    = render "devise/shared/error_messages", resource: resource
+    .form-group.mb-25
+      %input#email.form-control{name:"customer[email]", type: "email", placeholder: "Enter your email"}
+    %button.btn.btn-default.center-block.mb-20 Email Instructions
+    .text-center
+      %a.in-gold-500.mb-20{href: "#"} Cancel

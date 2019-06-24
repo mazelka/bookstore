@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   root to: 'home#index'
-  devise_for :customers
+  devise_for :customers, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
   get '/books/popular_first' => 'books#popular_first'
   get '/books/price_low_to_high' => 'books#price_low_to_high'
   get '/books/price_high_to_low' => 'books#price_high_to_low'

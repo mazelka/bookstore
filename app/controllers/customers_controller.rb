@@ -1,4 +1,4 @@
-class CustomersController < InheritedResources::Base
+class CustomersController < ApplicationController
   private
 
   def customer_params
