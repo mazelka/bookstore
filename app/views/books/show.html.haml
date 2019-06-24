@@ -1,4 +1,12 @@
 %main.container
+  %ul
+  - flash.each do |_type, message|
+    -if message.is_a?(Array)
+      -message.each do |m|
+        %li= m
+    -else
+      %li= message
+
   %i.fa.fa-long-arrow-left.mr-15
   = link_to 'Back to results', :back, class: 'general-back-link'
   .row
@@ -30,7 +38,8 @@
   - if customer_signed_in?
     .mb-80
       %h3 Write a Review
-      %form.row
+      %form.row{action: reviews_path, method: 'post'}
+        %input{ type:'hidden', name:'book_id', value:@book.id}
         .col-md-8
           .mb-40
             .form-group
@@ -40,46 +49,25 @@
               %label.control-label.input-label.in-grey-600{for: "review"} Review
               %textarea#review.form-control{name:"review", type: "text"}
           .text-right
-            %button.btn.disabled.mb-20 Post
+            %button.btn.btn-primary.mb-20{type: 'submit'} Post
 
-  .mb-80
-    %h3.in-gold-500.mb-25 Reviews (3)
-    .general-message-wrap.divider-lg
-      .clearfix
-        %img.img-circle.logo-size.inlide-block.pull-left{src: "https://www.smashingmagazine.com/wp-content/uploads/2015/09/smashing-book-5-2-large.jpg"}
-        .ml-70
-          %div
-            .general-message-date.hidden-xs 11/11/16
-            .max-240
-              .general-message-verified Verified Reviewer
-              .general-message-name Rita J. Lewis
-          .mb-15
-            %i.fa.fa-star.rate-star
-            %i.fa.fa-star.rate-star
-            %i.fa.fa-star.rate-star
-            %i.fa.fa-star.rate-star
-            %i.fa.fa-star.rate-star
-          %p Thank you BookStore, I was very pleased to receive my order for the Moleskine diary so soon after placing the order.
-    .general-message-wrap.divider-lg
-      .clearfix
-        %span.img-circle.logo-size.inlide-block.pull-left.logo-empty M
-        .ml-70
-          %div
-            .general-message-date.hidden-xs 11/11/16
-            .max-240
-              .general-message-verified.pull-right Verified Reviewer
-              .general-message-name May J. Novoa
-          .mb-15
-            %i.fa.fa-star.rate-star
-            %i.fa.fa-star.rate-star
-            %i.fa.fa-star.rate-star
-            %i.fa.fa-star.rate-star
-            %i.fa.fa-star.rate-star.rate-empty
-          %p If ‘Get a better job’ had landed on my desk a year ago, I might have been dismissive of it. Instead I was prepared to be open-minded. There have been many occasions where I turned to career books with practical activities to look for some inspiration when developing education activities for learners or assessment.
+  -if @reviews && !@reviews.empty?
+    .mb-80
+      %h3.in-gold-500.mb-25= "Reviews (#{@reviews.count})"
+      -@reviews.each do |review|
+        .general-message-wrap.divider-lg
+        .general-message-date= review.created_at.to_date
+        .general-message-name= "#{review.customer.first_name} #{review.customer.last_name}"
+        .mb-15.review-body
+          %p= review.title
+          %p= review.text
+      .general-message-wrap.divider-lg-bottom 
+
+= render :partial => "shared/footer"
 
 -# Read more
 :javascript
-  const book_description = document.querySelector('.book-description')
+  let book_description = document.querySelector('.book-description')
   const read_more = document.querySelector('.read-more-link')
   const full_text = book_description.innerText
   book_description.innerText = full_text.slice(0, 300)
@@ -94,7 +82,7 @@
 
 -# Quantity handling
 :javascript
-  const input = document.querySelector('.quantity-input');
+  let input = document.querySelector('.quantity-input');
 
   document.querySelector('.increase-quantity').addEventListener('click', (e) => {
     e.preventDefault();

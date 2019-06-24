@@ -211,7 +211,7 @@ img {
   font-weight: 300;
 }
 .general-message-wrap {
-  padding: 30px 0 25px;
+  padding: 10px 0 0;
 }
 .general-message-verified {
   font-size: $font-size-small;
@@ -222,14 +222,18 @@ img {
   margin-bottom: 10px;
 }
 .general-message-name {
-  font-size: $font-size-base;
+  font-size: $font-size-large;
   color: $gold-500;
   margin-bottom: 10px;
 }
 .general-message-date {
   font-size: $font-size-base;
   color: $grey-600;
+  margin-right: 25px;
   float: right;
+}
+.review-body {
+  margin-left: 25px;
 }
 
 @media (min-width: $grid-float-breakpoint) {
