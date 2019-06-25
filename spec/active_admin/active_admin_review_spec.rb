@@ -34,19 +34,27 @@ describe 'Review', type: :feature do
     end
   end
 
-  context 'change status' do
+  context 'when unprocessed review' do
     let(:review) { create(:review) }
     before :each do
       review
       sign_in
     end
 
-    it 'unprocessed review has Approve and Reject button' do
+    it 'has Approve and Reject button' do
       visit '/admin/reviews'
       search_by_title(review.title)
       click_link 'View'
       expect(page).to have_link('Approve')
       expect(page).to have_link('Reject')
+    end
+  end
+
+  context 'change status' do
+    let(:review) { create(:review) }
+    before :each do
+      review
+      sign_in
     end
 
     it 'approves unprocessed review' do
@@ -102,26 +110,28 @@ describe 'Review', type: :feature do
       expect(page).to have_no_content(unprocessed_review.title)
     end
 
-    it 'updates after status changing to approve' do
-      visit '/admin/reviews?scope=unprocessed'
-      search_by_title(unprocessed_review.title)
-      click_link 'View'
-      click_link 'Approve'
-      visit '/admin/reviews?scope=unprocessed'
-      expect(page).to have_no_content(unprocessed_review.title)
-      visit '/admin/reviews?scope=approved'
-      expect(page).to have_content(unprocessed_review.title)
-    end
+    context 'after changing status' do
+      it 'shown in Approved after approve' do
+        visit '/admin/reviews?scope=unprocessed'
+        search_by_title(unprocessed_review.title)
+        click_link 'View'
+        click_link 'Approve'
+        visit '/admin/reviews?scope=unprocessed'
+        expect(page).to have_no_content(unprocessed_review.title)
+        visit '/admin/reviews?scope=approved'
+        expect(page).to have_content(unprocessed_review.title)
+      end
 
-    it 'updates after status changing to reject' do
-      visit '/admin/reviews?scope=unprocessed'
-      search_by_title(unprocessed_review.title)
-      click_link 'View'
-      click_link 'Reject'
-      visit '/admin/reviews?scope=unprocessed'
-      expect(page).to have_no_content(unprocessed_review.title)
-      visit '/admin/reviews?scope=rejected'
-      expect(page).to have_content(unprocessed_review.title)
+      it 'shown in Rejected after reject' do
+        visit '/admin/reviews?scope=unprocessed'
+        search_by_title(unprocessed_review.title)
+        click_link 'View'
+        click_link 'Reject'
+        visit '/admin/reviews?scope=unprocessed'
+        expect(page).to have_no_content(unprocessed_review.title)
+        visit '/admin/reviews?scope=rejected'
+        expect(page).to have_content(unprocessed_review.title)
+      end
     end
   end
 end
