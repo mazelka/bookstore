@@ -1,23 +1,4 @@
-class AuthorsController < InheritedResources::Base
-  def index
-    Author.all
-  end
-
-  def create(first_name, last_name)
-    @author = Author.new(first_name, last_name)
-    if @author.valid?
-      @author.save
-    end
-  end
-
-  def save
-    save
-  end
-
-  def show(id)
-    Author.find(id)
-  end
-
+class AuthorsController < ApplicationController
   def destroy
     Author.find(params[:id]).destroy
     flash[:notice] = 'Author has been deleted.'

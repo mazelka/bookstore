@@ -2,7 +2,7 @@ class ReviewsController < ApplicationController
   before_action :authenticate_customer!, only: :create
 
   def create
-    @review = Review.new(title: params[:title], text: params[:review], book_id: params[:book_id], customer: @current_customer)
+    @review = Review.new(title: params[:title], text: params[:review], book_id: params[:book_id], customer: current_customer)
     if @review.save
       flash.notice = 'Review was sent to approve!'
     else
