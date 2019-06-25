@@ -9,16 +9,15 @@ describe 'reviews', type: :feature do
     let(:reviews) { create_list(:review, 3, aasm_state: 'approved', book: book) }
     before :each do
       book
+      reviews
     end
 
     it 'sees reviews if exist' do
-      reviews
       visit "/books/#{book.id}"
       expect(page).to have_content('Reviews (3)')
     end
 
     it 'sees only approved reviews' do
-      reviews
       unprocessed_review
       rejected_review
       visit "/books/#{book.id}"
@@ -26,7 +25,6 @@ describe 'reviews', type: :feature do
     end
 
     it 'cannot create new review' do
-      reviews
       visit "/books/#{book.id}"
       expect(page).to have_no_content('Write a Review')
       expect(page).to have_no_selector('button', text: 'Write a Review')
@@ -35,7 +33,6 @@ describe 'reviews', type: :feature do
 
   context 'logged user' do
     let(:book) { create(:book) }
-    let(:customer) { create(:customer) }
     before :each do
       book
       customer_sign_in
