@@ -14,6 +14,6 @@ class ApplicationController < ActionController::Base
   private
 
   def find_order
-    session[:order] ||= Order.new
+    session[:cart] ||= []
   end
 end
