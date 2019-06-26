@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :author do
-    first_name { FFaker::String.from_regexp(/\A[a-zA-Z]{49}\z/) }
-    last_name { FFaker::String.from_regexp(/\A[a-zA-Z]{49}\z/) }
+    first_name { FFaker::Lorem.characters.gsub(/[0-9]/, '').slice(0, 49) }
+    last_name { FFaker::Lorem.characters.gsub(/[0-9]/, '').slice(0, 49) }
     biography { FFaker::BaconIpsum.sentence }
   end
 end

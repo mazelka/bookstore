@@ -40,4 +40,26 @@ RSpec.describe Review, type: :model do
       expect((FactoryBot.build :review, title: "!#$%&'*+-\/=?^_`{|}~")).to be_valid
     end
   end
+
+  context 'state' do
+    it 'allows transition from unprocessed to approved' do
+      expect((FactoryBot.create :review)).to transition_from(:unprocessed).to(:approved).on_event(:approve)
+    end
+
+    it 'allows transition from unprocessed to reject' do
+      expect((FactoryBot.create :review)).to transition_from(:unprocessed).to(:rejected).on_event(:reject)
+    end
+
+    it 'does not allow transition from approve to reject' do
+      expect((FactoryBot.create :review, aasm_state: 'approved')).to_not allow_transition_to(:rejected)
+    end
+
+    it 'does not allow transition from reject to approve' do
+      expect((FactoryBot.create :review, aasm_state: 'rejected')).to_not allow_transition_to(:approved)
+    end
+
+    it 'has default state unprocessed' do
+      expect((FactoryBot.create :review)).to have_state(:unprocessed)
+    end
+  end
 end

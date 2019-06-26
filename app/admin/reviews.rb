@@ -35,6 +35,10 @@ ActiveAdmin.register Review do
         "#{i.customer.first_name} #{i.customer.last_name}"
       end
       row :text
+      row 'Status', :aasm_state do |review|
+        state = review.aasm_state
+        status_tag(state.to_s, label: state.to_s, class: customize_status_tag(state))
+      end
     end
   end
 
