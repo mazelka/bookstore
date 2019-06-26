@@ -9,10 +9,10 @@
       %a.navbar-brand Bookstore
       %a.shop-link.pull-right.visible-xs{href: "#"}
         %span.shop-icon
-          %span.shop-quantity 3
-    %a.shop-link.pull-right.hidden-xs{href: "#"}
+          %span.shop-quantity= session[:cart] ? session[:cart].count : 0
+    %a.shop-link.pull-right.hidden-xs{href: "/cart"}
       %span.shop-icon
-        %span.shop-quantity 3
+        %span.shop-quantity= session[:cart] ? session[:cart].count : 0
     #navbar.navbar-collapse.collapse.pl-30{'aria-expanded': "false"}
       .hidden-xs
         %ul.nav.navbar-nav
