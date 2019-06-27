@@ -47,7 +47,7 @@
                 .general-thumb-link-wrap
                   %a.thumb-hover-link.show-book{href: "/books/#{book.id}"}
                     %i.fa.fa-eye.thumb-icon{'aria-hidden': "true"}
-                    = link_to((fa_icon 'shopping-cart', class: 'thumb-icon'), books_add_to_cart_path(id: book.id, quantity: 1), method: 'post', class: 'thumb-hover-link')
+                    = link_to((fa_icon 'shopping-cart', class: 'thumb-icon'), books_add_to_cart_path(id: book.id, quantity: 1), method: 'post', class: 'thumb-hover-link add-to-cart')
           .general-thumb-info
             %p.title= book.title
             %p.font-16.in-gold-500= Money.new(book.price, 'USD').format
