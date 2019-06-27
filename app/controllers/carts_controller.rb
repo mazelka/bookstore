@@ -10,7 +10,7 @@ class CartsController < ApplicationController
   end
 
   def add_book(book_id, new_quantity)
-    current_item = @cart.find { |item| item[:book_id] == book_id.to_i }
+    current_item = find_in_cart(book_id.to_i)
     if current_item
       current_item[:quantity] += new_quantity.to_i
     else
@@ -23,13 +23,13 @@ class CartsController < ApplicationController
 
   def show_cart
     @coupon = session[:coupon] || 0
-    @cart = session[:cart] || []
+    @cart = find_order
     render 'cart'
   end
 
   def remove_item
     @cart = session[:cart]
-    current_item = @cart.find { |item| item[:book_id] == params[:id].to_i }
+    current_item = find_in_cart(params[:id].to_i)
     @cart.delete(current_item)
     session[:cart] = @cart
     redirect_to cart_path
@@ -37,7 +37,7 @@ class CartsController < ApplicationController
 
   def increase_quantity
     @cart = session[:cart]
-    current_item = @cart.find { |item| item[:book_id] == params[:book_id].to_i }
+    current_item = find_in_cart(params[:book_id].to_i)
     current_item[:quantity] += 1
     session[:cart] = @cart
     redirect_to cart_path
@@ -45,8 +45,8 @@ class CartsController < ApplicationController
 
   def decrease_quantity
     @cart = session[:cart]
-    current_item = @cart.find { |item| item[:book_id] == params[:book_id].to_i }
-    current_item[:quantity] -= 1
+    current_item = find_in_cart(params[:book_id].to_i)
+    current_item[:quantity] == 1 ? current_item[:quantity] : current_item[:quantity] -= 1
     session[:cart] = @cart
     redirect_to cart_path
   end
@@ -56,14 +56,17 @@ class CartsController < ApplicationController
       @cart = session[:cart]
       @coupon = DISCOUNT
       session[:coupon] = @coupon
-      render 'cart', locals: { resorce: @coupon }
+      flash[:notice] = 'Your coupon is applied!'
+      render 'cart'
     else
       flash[:notice] = 'Sorry, we don`t have this coupon'
       redirect_to cart_path
     end
   end
 
-  def cart_params
-    params.permit(:coupon, :last_name, :biography)
+  private
+
+  def find_in_cart(id)
+    @cart.find { |item| item[:book_id] == id }
   end
 end
