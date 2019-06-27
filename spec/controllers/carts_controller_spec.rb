@@ -14,6 +14,11 @@ RSpec.describe CartsController do
       get :show_cart
       expect(assigns(:coupon)).to eq(0)
     end
+
+    it 'has cart details' do
+      get :show_cart
+      expect(assigns(:cart_details)).to_not be_nil
+    end
   end
 
   context 'when adds 1 book to cart' do
@@ -203,6 +208,11 @@ RSpec.describe CartsController do
     it 'has updated value in session' do
       post :apply_coupon, params: { coupon: coupon }, session: { cart: cart }
       expect(session[:coupon]).to be_present
+    end
+
+    it 'has cart details' do
+      post :apply_coupon, params: { coupon: coupon }, session: { cart: cart }
+      expect(assigns(:cart_details)).not_to be_nil
     end
   end
 

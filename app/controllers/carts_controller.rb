@@ -1,3 +1,5 @@
+require_relative '../services/cart_details'
+
 class CartsController < ApplicationController
   COUPON = 'RUBY'
   DISCOUNT = 100
@@ -24,6 +26,7 @@ class CartsController < ApplicationController
   def show_cart
     @coupon = session[:coupon] || 0
     @cart = find_order
+    @cart_details = CartDetails.new(@cart, @coupon)
     render 'cart'
   end
 
@@ -57,6 +60,7 @@ class CartsController < ApplicationController
       @coupon = DISCOUNT
       session[:coupon] = @coupon
       flash[:notice] = 'Your coupon is applied!'
+      @cart_details = CartDetails.new(@cart, @coupon)
       render 'cart'
     else
       flash[:notice] = 'Sorry, we don`t have this coupon'

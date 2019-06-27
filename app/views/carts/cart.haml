@@ -46,11 +46,13 @@
   .general-order-wrap
     .row
       .col-sm-4
-        %form.input-group.general-input-group{action: cart_apply_coupon_path, method: 'post'}
-          %label.input-label Enter Your Coupon Code
-          %input.form-control.mb-30{type: "text", placeholder: "Enter Your Coupon Code ", name: 'coupon'}
-          %div
-            %button.btn.btn-primary.mr-5.mb-15{type: 'submit'} Apply Coupon
+        -if @cart_details.raw_coupon == 0
+          %form.input-group.general-input-group{action: cart_apply_coupon_path, method: 'post'}
+            %label.input-label Enter Your Coupon Code
+            %input.form-control.coupon-input.mb-30{type: "text", placeholder: "Enter Your Coupon Code ", name: 'coupon'}
+            %div
+              %button.btn.btn-primary.mr-5.mb-15{type: 'submit'} Apply Coupon
+
       .col-sm-8
         .res-mr-200.text-center.general-text-right
           %p.in-gold-500.font-18 Order Summary
@@ -59,18 +61,18 @@
               %td
                 %p.font-16 Subtotal:
               %td
-                %p.font-16= cart_subtotal(@cart)
+                %p.font-16= @cart_details.subtotal
             %tr
               %td
                 %p.font-16 Coupon:
               %td
                 %p.font-16
-                  = discount(@coupon)
+                  = @cart_details.discount
             %tr
               %td
                 %strong.font-18 Order Total:
               %td
-                %strong.font-18= total
+                %strong.font-18= @cart_details.total
           %button.btn.btn-default.mb-20.visible-xs-inline-block Checkout
   %button.btn.btn-default.mb-20.hidden-xs.center-block Checkout
 
