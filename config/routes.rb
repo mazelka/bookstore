@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get 'cart/increase_quantity' => 'carts#increase_quantity'
   get 'cart/decrease_quantity' => 'carts#decrease_quantity'
   post 'cart/apply_coupon' => 'carts#apply_coupon'
+  post 'orders' => 'orders#create'
 
   # devise÷_sc :customer
   # do increase_quantity
