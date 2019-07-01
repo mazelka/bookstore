@@ -33,10 +33,6 @@ class CoverUploader < CarrierWave::Uploader::Base
     process resize_to_limit: [150, 150]
   end
 
-  version :cart do
-    process resize_to_limit: [80, 128]
-  end
-
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
   # def extension_whitelist

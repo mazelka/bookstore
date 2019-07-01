@@ -29,10 +29,9 @@
           All
           %span.badge.general-badge= @all_books
       - @popular_categories.each do |category|
-        %li.mr-35
-          %a.filter-link{href: "categories/#{category.id}"}
-            = category.title
-            %span.badge.general-badge= category.books.count
+        %li.mr-35.filter-link
+          = link_to(category.title, books_category_path(id: category.id), class: 'filter-link')
+          %span.badge.general-badge= category.books.count
 
   - paginate(@books)
     - @books.in_groups_of(4) do |group|
