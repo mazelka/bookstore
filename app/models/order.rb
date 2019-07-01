@@ -1,9 +1,9 @@
 class Order < ApplicationRecord
   include AASM
 
-  scope :in_progress, -> { where(aasm_state: :in_progress) }
-  scope :in_queue, -> { where(aasm_state: :approved) }
-  scope :rejected, -> { where(aasm_state: :rejected) }
+  scope :in_progress, -> { where(aasm_state: [:in_progress, :in_queue, :in_delivery]) }
+  scope :delivered, -> { where(aasm_state: :delivered) }
+  scope :canceled, -> { where(aasm_state: :canceled) }
 
   aasm do
     state :in_progress, initial: true

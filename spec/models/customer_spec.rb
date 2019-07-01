@@ -32,7 +32,7 @@ RSpec.describe Customer, type: :model do
     end
 
     it 'has unique email' do
-      FactoryBot.create(:customer, email: 'email@unique.com') 
+      FactoryBot.create(:customer, email: 'email@unique.com')
       expect((FactoryBot.build :customer, email: 'email@unique.com')).not_to be_valid
     end
 
