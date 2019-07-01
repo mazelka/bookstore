@@ -15,13 +15,13 @@ describe Customer::OmniauthCallbacksController do
     end
   end
 
-  context 'successful sign_up with a facebook' do
+  context 'failed sign_up with facebook' do
     before do
       no_email_facebook_login_setup
       @request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:facebook]
       get 'facebook'
     end
-    it 'failed to sign_up with a facebook user without email' do
+    it 'user without email' do
       expect(subject.current_customer).to be_nil
       expect(session['devise.customer_attributes']).to include({ 'email' => '' })
     end

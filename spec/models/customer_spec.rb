@@ -31,10 +31,7 @@ RSpec.describe Customer, type: :model do
       expect((FactoryBot.build :customer, email: 'notvalidemail')).not_to be_valid
     end
 
-    it 'has unique email' do
-      FactoryBot.create(:customer, email: 'email@unique.com')
-      expect((FactoryBot.build :customer, email: 'email@unique.com')).not_to be_valid
-    end
+    it { is_expected.to validate_uniqueness_of(:email) }
 
     it 'is invalid with email more than 63 characters' do
       expect((FactoryBot.build :customer, email: "#{FFaker::String.from_regexp(/\A[a-zA-Z0-9]{55}\z/)}@mail.com")).not_to be_valid
