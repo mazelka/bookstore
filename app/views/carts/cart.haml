@@ -8,40 +8,43 @@
       %li= message
 
   %h1.general-title-margin Cart
-  .hidden-xs
-    %table.table.table-hover
-      %tr.no-hover
-        %th.col-pic.pl-0
-          %span.in-grey-600 Product
-        %th.col-title
-        %th.col-price
-          %span.in-grey-600 Price
-        %th.col-quantity
-          %span.in-grey-600 Quantity
-        %th.col-total
-          %span.in-grey-600 SubTotal
-        %th.col-close
-      - @cart.each do |item|
-        %tr
-          %td
-            .general-img-wrap-table
-              %img.cart-img-shadow.pull-left{src: item[:url], alt: item[:title]}
-          %td
-            %p.title= item[:title]
-          %td
-            %span.font-16.in-gold-500= Money.new(item[:price], 'USD').format
-          %td
-            .input-group
-              -if item[:quantity] > 1
-                = link_to((fa_icon('minus', class: 'line-height-40')), cart_decrease_quantity_path(book_id: item[:book_id]), class: 'input-link decrease')
-              -else
-                %i.fa.fa-minus.line-height-40.input-link
-              %input.form-control.quantity-input{type: "text", value: item[:quantity], readonly: true}
-              = link_to((fa_icon('plus', class: 'line-height-40')), cart_increase_quantity_path(book_id: item[:book_id]), class: 'input-link increase')
-          %td
-            %span.font-16.in-gold-500= Money.new(item[:price].to_i*item[:quantity].to_i, 'USD').format
-          %td
-            = link_to('&times;'.html_safe, cart_remove_item_path(id: item[:book_id]), class: 'close general-cart-close')
+  - if @cart.size <= 0
+    %p You don`t have added books. Go and find something in Catalog!
+  -else
+    .hidden-xs
+      %table.table.table-hover
+        %tr.no-hover
+          %th.col-pic.pl-0
+            %span.in-grey-600 Product
+          %th.col-title
+          %th.col-price
+            %span.in-grey-600 Price
+          %th.col-quantity
+            %span.in-grey-600 Quantity
+          %th.col-total
+            %span.in-grey-600 SubTotal
+          %th.col-close
+        - @cart.each do |item|
+          %tr
+            %td
+              .general-img-wrap-table
+                %img.cart-img-shadow.pull-left{src: item[:url], alt: item[:title]}
+            %td
+              %p.title= item[:title]
+            %td
+              %span.font-16.in-gold-500= Money.new(item[:price], 'USD').format
+            %td
+              .input-group
+                -if item[:quantity] > 1
+                  = link_to((fa_icon('minus', class: 'line-height-40')), cart_decrease_quantity_path(book_id: item[:book_id]), class: 'input-link decrease')
+                -else
+                  %i.fa.fa-minus.line-height-40.input-link
+                %input.form-control.quantity-input{type: "text", value: item[:quantity], readonly: true}
+                = link_to((fa_icon('plus', class: 'line-height-40')), cart_increase_quantity_path(book_id: item[:book_id]), class: 'input-link increase')
+            %td
+              %span.font-16.in-gold-500= Money.new(item[:price].to_i*item[:quantity].to_i, 'USD').format
+            %td
+              = link_to('&times;'.html_safe, cart_remove_item_path(id: item[:book_id]), class: 'close general-cart-close')
 
   .general-order-wrap
     .row
@@ -75,19 +78,3 @@
                 %strong.font-18= @cart_details.total
           %button.btn.btn-default.mb-20.visible-xs-inline-block Checkout
   %button.btn.btn-default.mb-20.hidden-xs.center-block Checkout
-
-  -# Quantity handling
-:javascript
-  let input = document.querySelector('.quantity-input');
-
-  document.querySelector('.increase-quantity').addEventListener('click', (e) => {
-    e.preventDefault();
-
-    input.value = Number(input.value) + 1;
-  })
-
-  document.querySelector('.decrease-quantity').addEventListener('click', (e) => {
-    e.preventDefault();
-
-    input.value = (Number(input.value) - 1) || 1;
-  })

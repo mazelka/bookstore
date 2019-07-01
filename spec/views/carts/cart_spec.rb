@@ -5,6 +5,7 @@ describe 'carts', type: :feature do
     it 'does not have added books on session start' do
       visit '/cart'
       expect(page).to have_selector('.shop-quantity', text: '0')
+      expect(page).to have_content('You don`t have added books. Go and find something in Catalog!')
     end
   end
 

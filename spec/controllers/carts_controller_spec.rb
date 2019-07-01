@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe CartsController do
+  before :each do
+    session[:cart] ||= []
+  end
+
   context 'empty cart' do
     it 'render cart' do
       get :show_cart
