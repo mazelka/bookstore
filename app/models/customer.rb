@@ -1,6 +1,5 @@
 class Customer < ApplicationRecord
   has_many :reviews
-  before_save :downcase_email, on: [:create, :update]
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -10,7 +9,7 @@ class Customer < ApplicationRecord
 
   validates :first_name, presence: true, length: { maximum: 50 }, format: { with: /[a-zA-Z]/ }
   validates :last_name, presence: true, length: { maximum: 50 }, format: { with: /[a-zA-Z]/ }
-  validates :email, presence: true, uniqueness: true, length: { maximum: 63 }, format: { with: VALID_EMAIL_REGEX }
+  validates :email, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 63 }, format: { with: VALID_EMAIL_REGEX }
   validate :check_password_format
 
   def self.from_omniauth(auth)

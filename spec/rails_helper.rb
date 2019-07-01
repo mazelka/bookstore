@@ -5,6 +5,7 @@ require 'simplecov'
 SimpleCov.start 'rails'
 require 'support/factory_bot'
 require 'support/database_cleaner'
+require 'support/controller_macros'
 require 'capybara/rspec'
 require 'devise'
 require 'ffaker'
@@ -42,6 +43,7 @@ RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
   config.include Capybara::DSL
+  config.include Devise::Test::ControllerHelpers, :type => :controller
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
