@@ -127,7 +127,7 @@ RSpec.describe CartsController do
     end
   end
 
-  context 'when uncrease quantity' do
+  context 'when increase quantity' do
     let(:book) { create(:book) }
     let(:cart) { [{ book_id: book.id, title: book.title, price: book.price, url: book.cover_url, quantity: 1 }] }
     before :each do
@@ -135,7 +135,9 @@ RSpec.describe CartsController do
       allow(Book).to receive(:find).and_return book
     end
 
-    it 'redirects to cart' do
+    it 'redirects back' do
+      request.env['HTTP_REFERER'] = '/cart'
+      get :show_cart
       post :increase_quantity, params: { book_id: book.id }, session: { cart: cart }
       expect(response).to redirect_to('/cart')
     end
@@ -158,7 +160,9 @@ RSpec.describe CartsController do
       allow(Book).to receive(:find).and_return book
     end
 
-    it 'redirects to cart' do
+    it 'redirects back' do
+      request.env['HTTP_REFERER'] = '/cart'
+      get :show_cart
       cart = [{ book_id: book.id, title: book.title, price: book.price, url: book.cover_url, quantity: 2 }]
       post :decrease_quantity, params: { book_id: book.id }, session: { cart: cart }
       expect(response).to redirect_to('/cart')
@@ -185,8 +189,8 @@ RSpec.describe CartsController do
 
   context 'applying valid coupon' do
     let(:book) { create(:book) }
+    let(:coupon) { create(:coupon) }
     let(:cart) { [{ book_id: book.id, title: book.title, price: book.price, url: book.cover_url, quantity: 1 }] }
-    let(:coupon) { 'RUBY' }
     before :each do
       book
       cart
@@ -194,28 +198,27 @@ RSpec.describe CartsController do
     end
 
     it 'renders cart' do
-      post :apply_coupon, params: { coupon: coupon }, session: { cart: cart }
+      post :apply_coupon, params: { coupon: coupon.name }, session: { cart: cart }
       expect(response).to render_template :cart
     end
 
     it 'has success message' do
-      post :apply_coupon, params: { coupon: coupon }, session: { cart: cart }
+      post :apply_coupon, params: { coupon: coupon.name }, session: { cart: cart }
       expect(flash[:notice]).to be_present
     end
 
     it 'has disacount value' do
-      coupon_discount = 100
-      post :apply_coupon, params: { coupon: coupon }, session: { cart: cart }
-      expect(assigns(:coupon)).to eq(coupon_discount)
+      post :apply_coupon, params: { coupon: coupon.name }, session: { cart: cart }
+      expect(assigns(:coupon)).to eq(coupon.discount)
     end
 
     it 'has updated value in session' do
-      post :apply_coupon, params: { coupon: coupon }, session: { cart: cart }
+      post :apply_coupon, params: { coupon: coupon.name }, session: { cart: cart }
       expect(session[:coupon]).to be_present
     end
 
     it 'has cart details' do
-      post :apply_coupon, params: { coupon: coupon }, session: { cart: cart }
+      post :apply_coupon, params: { coupon: coupon.name }, session: { cart: cart }
       expect(assigns(:cart_details)).not_to be_nil
     end
   end
@@ -223,25 +226,26 @@ RSpec.describe CartsController do
   context 'applying invalid coupon' do
     let(:book) { create(:book) }
     let(:cart) { [{ book_id: book.id, title: book.title, price: book.price, url: book.cover_url, quantity: 1 }] }
-    let(:coupon) { 'notvalid' }
     before :each do
       cart
       book
       allow(Book).to receive(:find).and_return book
     end
 
-    it 'redirects cart' do
-      post :apply_coupon, params: { coupon: coupon }, session: { cart: cart }
+    it 'redirects back' do
+      request.env['HTTP_REFERER'] = '/cart'
+      get :show_cart
+      post :apply_coupon, params: { coupon: 'not existed' }, session: { cart: cart }
       expect(response).to redirect_to('/cart')
     end
 
     it 'has error message' do
-      post :apply_coupon, params: { coupon: coupon }, session: { cart: cart }
+      post :apply_coupon, params: { coupon: 'not existed' }, session: { cart: cart }
       expect(flash[:notice]).to be_present
     end
 
     it 'does not have disacount value' do
-      post :apply_coupon, params: { coupon: coupon }, session: { cart: cart }
+      post :apply_coupon, params: { coupon: 'not existed' }, session: { cart: cart }
       expect(assigns(:coupon)).to be_nil
     end
   end

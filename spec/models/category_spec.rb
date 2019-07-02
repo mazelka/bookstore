@@ -17,7 +17,7 @@ RSpec.describe Category, type: :model do
       expect((FactoryBot.build :category, title: FFaker::String.from_regexp(/\A[a-zA-Z]{81}\z/))).not_to be_valid
     end
 
-    it 'is invalid wiht not unique title' do
+    it 'is invalid with not unique title' do
       expect((FactoryBot.create :category, title: 'unique_title')).to be_valid
       expect((FactoryBot.build :category, title: 'unique_title')).not_to be_valid
     end

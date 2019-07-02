@@ -3,9 +3,6 @@ require_relative '../services/cart_details'
 class CartsController < ApplicationController
   after_action :cart_to_session, except: [:show_cart, :apply_coupon]
 
-  COUPON = 'RUBY'
-  DISCOUNT = 100
-
   def add_to_cart
     add_book(params[:id], params[:quantity])
     flash[:notice] = 'Added to Cart!'
@@ -32,32 +29,32 @@ class CartsController < ApplicationController
   def remove_item
     current_item = find_in_cart(params[:id].to_i)
     @cart.delete(current_item)
-    redirect_to cart_path
+    redirect_back fallback_location: root_path
   end
 
   def increase_quantity
     current_item = find_in_cart(params[:book_id].to_i)
     current_item[:quantity] += 1
-    redirect_to cart_path
+    redirect_back fallback_location: root_path
   end
 
   def decrease_quantity
     @cart = session[:cart]
     current_item = find_in_cart(params[:book_id].to_i)
     current_item[:quantity] == 1 ? current_item[:quantity] : current_item[:quantity] -= 1
-    redirect_to cart_path
+    redirect_back fallback_location: root_path
   end
 
   def apply_coupon
-    if params[:coupon] == COUPON
-      @coupon = DISCOUNT
+    if coupon_exists?(params[:coupon])
+      @coupon = get_discount(params[:coupon])
       session[:coupon] = @coupon
       flash[:notice] = 'Your coupon is applied!'
       @cart_details = CartDetails.new(@cart, @coupon)
       render 'cart'
     else
       flash[:notice] = 'Sorry, we don`t have this coupon'
-      redirect_to cart_path
+      redirect_back fallback_location: root_path
     end
   end
 
@@ -69,5 +66,13 @@ class CartsController < ApplicationController
 
   def cart_to_session
     session[:cart] = @cart
+  end
+
+  def get_discount(name)
+    Coupon.all.find_by(name: name).discount
+  end
+
+  def coupon_exists?(name)
+    !Coupon.all.find_by(name: name).nil?
   end
 end

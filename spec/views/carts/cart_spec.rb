@@ -93,7 +93,9 @@ describe 'carts', type: :feature do
 
   context 'apply coupon' do
     let(:book) { create(:book) }
+    let(:coupon) { create(:coupon) }
     before :each do
+      coupon
       book
       visit '/books'
       page.find('.add-to-cart').click
@@ -106,7 +108,7 @@ describe 'carts', type: :feature do
 
     it 'valid coupon' do
       visit '/cart'
-      page.find('.coupon-input').set('RUBY')
+      page.find('.coupon-input').set(coupon.name)
       page.find_button(text: 'Apply Coupon').click
       expect(page).to have_no_selector('.general-input-group')
       expect(page).to have_content('Your coupon is applied!')
