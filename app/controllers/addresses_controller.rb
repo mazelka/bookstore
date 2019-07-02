@@ -1,7 +1,8 @@
 class AddressesController < ApplicationController
   def create
     p params
-    @address = Address.new(params)
+    @address = Address.new
+    @address.attributes = params
     @address.errors unless @address.save
   end
 

@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   post 'orders' => 'orders#create'
   get 'books/category' => 'books#category'
   get 'settings' => 'settings#index'
-  post 'address/create' => 'address#create'
+  post 'checkout/update' => 'checkout#update'
 
   # devise÷_sc :customer
   # do increase_quantity

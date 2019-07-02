@@ -11,8 +11,10 @@ class CheckoutController < ApplicationController
 
   def update
     @order = Order.new
-    address = Address.create(params)
-    @order.shipping_address = address
+    p address_params
+    @address = Address.create(address_params)
+    @order.shipping_address = @address
+    render 'delivery'
   end
 
   def customer_has_address?
@@ -25,7 +27,7 @@ class CheckoutController < ApplicationController
     @order.current_step = session[:order_step]
   end
 
-  def create
+  def __create
     session[:order_params].deep_merge!(params[:order]) if params[:order]
     @order = Order.new(session[:order_params])
     @order.current_step = session[:order_step]
@@ -46,5 +48,9 @@ class CheckoutController < ApplicationController
       flash[:notice] = 'Order saved!'
       redirect_to @order
     end
+  end
+
+  def address_params
+    params.require(:address).permit(:id, :address, :country, :city, :zip, :phone)
   end
 end
