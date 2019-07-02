@@ -30,6 +30,7 @@ module Bookstore
     # Don't generate system test files.
     config.generators.system_tests = nil
     config.assets.paths << "#{Rails.root}/app/assets"
+    config.autoload_paths << Rails.root.join('lib')
     config.assets.enabled = false
   end
 end

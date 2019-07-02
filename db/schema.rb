@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_27_140515) do
+ActiveRecord::Schema.define(version: 2019_07_01_130006) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,19 @@ ActiveRecord::Schema.define(version: 2019_06_27_140515) do
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
     t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
+  end
+
+  create_table "addresses", force: :cascade do |t|
+    t.string "address"
+    t.string "country"
+    t.string "city"
+    t.string "zip"
+    t.string "phone"
+    t.string "addressable_type"
+    t.bigint "addressable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable_type_and_addressable_id"
   end
 
   create_table "admin_users", force: :cascade do |t|
@@ -88,6 +101,14 @@ ActiveRecord::Schema.define(version: 2019_06_27_140515) do
     t.index ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true
   end
 
+  create_table "deliveries", force: :cascade do |t|
+    t.string "name"
+    t.integer "days"
+    t.float "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "order_items", force: :cascade do |t|
     t.integer "quantity"
     t.bigint "book_id"
@@ -102,6 +123,7 @@ ActiveRecord::Schema.define(version: 2019_06_27_140515) do
     t.datetime "updated_at", null: false
     t.bigint "customer_id"
     t.float "coupon"
+    t.string "delivery"
     t.index ["customer_id"], name: "index_orders_on_customer_id"
   end
 

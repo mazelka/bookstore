@@ -1,6 +1,8 @@
 class Customer < ApplicationRecord
   has_many :reviews
   has_many :orders
+  has_many :addresses, as: :addressable
+  accepts_nested_attributes_for :addresses
   before_save :downcase_email, on: [:create, :update]
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable

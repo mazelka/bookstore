@@ -11,10 +11,22 @@ class OrdersController < ApplicationController
     end
   end
 
+  def coupon
+    @coupon = session[:coupon] || 0
+  end
+
+  def total_price
+    session[:cart].map { |item| item[:price] * item[:quantity] }.sum - coupon
+  end
+
+  def sub_total
+    total_price - coupon
+  end
+
   private
 
   def order_params
-    params.require(:order).permit(:id, :items, :total_price)
+    params.require(:order).permit(:id, :items, :total_price, { address_attributes: [:address, :country, :city, :zip, :phone] })
   end
 
   def items_from_cart
@@ -27,13 +39,5 @@ class OrdersController < ApplicationController
     item = OrderItem.new(book: Book.find(book_id), quantity: quantity, order: @order)
     binding.pry
     item.save
-  end
-
-  def coupon
-    @coupon = session[:coupon] || 0
-  end
-
-  def total_price
-    session[:cart].map { |item| item[:price] * item[:quantity] }.sum - coupon
   end
 end

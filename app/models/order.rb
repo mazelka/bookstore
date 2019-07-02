@@ -1,6 +1,12 @@
 class Order < ApplicationRecord
   include AASM
 
+  has_many :order_items
+  has_one :delivery
+  belongs_to :customer
+  has_many :addresses, as: :addressable
+  accepts_nested_attributes_for :addresses
+
   scope :in_progress, -> { where(aasm_state: [:in_progress, :in_queue, :in_delivery]) }
   scope :delivered, -> { where(aasm_state: :delivered) }
   scope :canceled, -> { where(aasm_state: :canceled) }
@@ -28,9 +34,6 @@ class Order < ApplicationRecord
       transitions from: [:in_progress, :in_progress, :in_delivery, :delivered], to: :canceled
     end
   end
-
-  has_many :order_items
-  belongs_to :customer
 
   validates :total_price, presence: true
 end

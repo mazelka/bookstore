@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   post 'cart/apply_coupon' => 'carts#apply_coupon'
   post 'orders' => 'orders#create'
   get 'books/category' => 'books#category'
+  get 'settings' => 'settings#index'
+  post 'address/create' => 'address#create'
 
   # devise÷_sc :customer
   # do increase_quantity
@@ -24,6 +26,7 @@ Rails.application.routes.draw do
   resources :categories
   resources :books
   resources :authors
+  resources :checkout
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
