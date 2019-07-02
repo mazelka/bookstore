@@ -39,15 +39,15 @@
   - if customer_signed_in?
     %h3 Write a Review
     %form.row{action: reviews_path, method: 'post'}
-      %input{ type:'hidden', name:'book_id', value:@book.id}
+      %input{ type:'hidden', name:'review[book_id]', value:@book.id}
       .col-md-8
         .mb-40
           .form-group
             %label.control-label.input-label.in-grey-600{for: "title"} Title
-            %input#title.form-control{name:"title", type: "text"}
+            %input#title.form-control{name:"review[title]", type: "text"}
           .form-group
-            %label.control-label.input-label.in-grey-600{for: "review"} Review
-            %textarea#review.form-control{name:"review", type: "text"}
+            %label.control-label.input-label.in-grey-600{for: "text"} Review
+            %textarea#review.form-control{name:"review[text]", type: "text"}
         .text-right
           %button.btn.btn-primary.mb-20{type: 'submit'} Post
 
