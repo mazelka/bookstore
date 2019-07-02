@@ -20,6 +20,16 @@
     %li.step
       %span.step-number 5
       %span.step-text.hidden-xs Complete
+  %form
+    = form_for @order, url: { } do |f|
+      = fields_for :shipping_address, f.object.shipping_address do |ship_f|
+        = ship_f.label :city
+        = ship_f.text_field :city
+      = fields_for :billing_address, f.object.billing_address do |bill_f|
+        = bill_f.label :city
+        = bill_f.text_field :city
+      = f.submit
+
   %form.res-mb-100{:action => "/checkout/update", :method => "post" }
     .hidden-xs.hidden-sm
       .row

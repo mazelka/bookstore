@@ -5,6 +5,7 @@ class CheckoutController < ApplicationController
   steps :address, :delivery, :payment, :confirmation, :complete
 
   def show
+    @order = Order.new
     @addresses = current_customer.addresses || []
     render_wizard
   end
