@@ -5,9 +5,15 @@ Rails.application.routes.draw do
   get '/books/price_low_to_high' => 'books#price_low_to_high'
   get '/books/price_high_to_low' => 'books#price_high_to_low'
   get '/books/:id/increase_quantity' => 'books#increase_quantity'
+  post 'books/add_to_cart' => 'carts#add_to_cart'
+  get 'cart' => 'carts#show_cart'
+  get 'cart/remove_item' => 'carts#remove_item'
+  get 'cart/increase_quantity' => 'carts#increase_quantity'
+  get 'cart/decrease_quantity' => 'carts#decrease_quantity'
+  post 'cart/apply_coupon' => 'carts#apply_coupon'
 
   # devise÷_sc :customer
-  # do
+  # do increase_quantity
   #   get '/login' => 'devise/sessions#new'
   #   post '/login' => 'devise/sessions#create'
   #   post '/sign_up' => 'devise/registrations#new'
