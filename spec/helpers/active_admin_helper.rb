@@ -24,4 +24,11 @@ module Features
       click_button 'Filter'
     end
   end
+
+  def search_by_name(name)
+    within('#filters_sidebar_section') do
+      find('#q_name').set(name)
+      click_button 'Filter'
+    end
+  end
 end

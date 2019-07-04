@@ -32,8 +32,8 @@ RSpec.describe Customer, type: :model do
     end
 
     it 'has unique email' do
-      FactoryBot.create(:customer, email: 'email@unique.com')
-      expect((FactoryBot.build :customer, email: 'email@unique.com')).not_to be_valid
+      customer = build(:customer)
+      expect(customer).to validate_uniqueness_of(:email).case_insensitive
     end
 
     it 'is invalid with email more than 63 characters' do

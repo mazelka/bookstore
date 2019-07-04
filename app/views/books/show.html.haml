@@ -37,20 +37,19 @@
             = @book.description
           %a.in-gold-500.ml-10.read-more-link{href: "#"} Read More
   - if customer_signed_in?
-    .mb-80
-      %h3 Write a Review
-      %form.row{action: reviews_path, method: 'post'}
-        %input{ type:'hidden', name:'review[book_id]', value:@book.id}
-        .col-md-8
-          .mb-40
-            .form-group
-              %label.control-label.input-label.in-grey-600{for: "title"} Title
-              %input#title.form-control{name:"review[title]", type: "text"}
-            .form-group
-              %label.control-label.input-label.in-grey-600{for: "review"} Review
-              %textarea#review.form-control{name:"review[text]", type: "text"}
-          .text-right
-            %button.btn.btn-primary.mb-20{ type: 'submit'} Post
+    %h3 Write a Review
+    %form.row{action: reviews_path, method: 'post'}
+      %input{ type:'hidden', name:'review[book_id]', value:@book.id}
+      .col-md-8
+        .mb-40
+          .form-group
+            %label.control-label.input-label.in-grey-600{for: "title"} Title
+            %input#title.form-control{name:"review[title]", type: "text"}
+          .form-group
+            %label.control-label.input-label.in-grey-600{for: "text"} Review
+            %textarea#review.form-control{name:"review[text]", type: "text"}
+        .text-right
+          %button.btn.btn-primary.mb-20{type: 'submit'} Post
 
   -if @reviews && !@reviews.empty?
     .mb-80

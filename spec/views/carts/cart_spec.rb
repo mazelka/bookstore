@@ -5,6 +5,7 @@ describe 'carts', type: :feature do
     it 'does not have added books on session start' do
       visit '/cart'
       expect(page).to have_selector('.shop-quantity', text: '0')
+      expect(page).to have_content('You don`t have added books. Go and find something in Catalog!')
     end
   end
 
@@ -92,7 +93,9 @@ describe 'carts', type: :feature do
 
   context 'apply coupon' do
     let(:book) { create(:book) }
+    let(:coupon) { create(:coupon) }
     before :each do
+      coupon
       book
       visit '/books'
       page.find('.add-to-cart').click
@@ -105,7 +108,7 @@ describe 'carts', type: :feature do
 
     it 'valid coupon' do
       visit '/cart'
-      page.find('.coupon-input').set('RUBY')
+      page.find('.coupon-input').set(coupon.name)
       page.find_button(text: 'Apply Coupon').click
       expect(page).to have_no_selector('.general-input-group')
       expect(page).to have_content('Your coupon is applied!')

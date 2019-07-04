@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :find_cart
 
   def after_sign_in_path_for(resource)
     stored_location_for(resource) || root_path
@@ -13,7 +14,7 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def find_order
-    session[:cart] ||= []
+  def find_cart
+    @cart = session[:cart] || []
   end
 end
