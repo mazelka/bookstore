@@ -2,9 +2,10 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(customer: current_customer, total_price: total_price, coupon: coupon)
     if @order.save
-      items_from_cart
-      binding.pry
-      render 'orders'
+      # items_from_cart
+      # binding.pry
+      # render 'orders'
+      redirect_to next_step
     else
       flash[:notice] = @order.errors.full_messages
       redirect_to cart_path
@@ -26,7 +27,7 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order).permit(:id, :items, :total_price, { address_attributes: [:address, :country, :city, :zip, :phone] })
+    params.permit(:id, :items, :total_price, { shipping_address_attributes: [:address_line, :country, :city, :zip, :phone] }, { billing_address_attributes: [:address_line, :country, :city, :zip, :phone] }).merge(customer: current_customer)
   end
 
   def items_from_cart

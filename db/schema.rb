@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_01_130006) do
+ActiveRecord::Schema.define(version: 2019_07_04_065927) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 2019_07_01_130006) do
   end
 
   create_table "addresses", force: :cascade do |t|
-    t.string "address"
+    t.string "address_line"
     t.string "country"
     t.string "city"
     t.string "zip"
@@ -85,6 +85,13 @@ ActiveRecord::Schema.define(version: 2019_07_01_130006) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "coupons", force: :cascade do |t|
+    t.string "name"
+    t.float "discount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "customers", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -107,6 +114,8 @@ ActiveRecord::Schema.define(version: 2019_07_01_130006) do
     t.float "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "order_id"
+    t.index ["order_id"], name: "index_deliveries_on_order_id"
   end
 
   create_table "order_items", force: :cascade do |t|
@@ -122,9 +131,19 @@ ActiveRecord::Schema.define(version: 2019_07_01_130006) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "customer_id"
-    t.float "coupon"
-    t.string "delivery"
+    t.string "aasm_state"
     t.index ["customer_id"], name: "index_orders_on_customer_id"
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.string "card_number"
+    t.string "cvv"
+    t.string "name"
+    t.string "expire"
+    t.bigint "order_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_payments_on_order_id"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -150,9 +169,11 @@ ActiveRecord::Schema.define(version: 2019_07_01_130006) do
 
   add_foreign_key "books", "authors"
   add_foreign_key "books", "categories"
+  add_foreign_key "deliveries", "orders"
   add_foreign_key "order_items", "books"
   add_foreign_key "order_items", "orders"
   add_foreign_key "orders", "customers"
+  add_foreign_key "payments", "orders"
   add_foreign_key "reviews", "books"
   add_foreign_key "reviews", "customers"
 end

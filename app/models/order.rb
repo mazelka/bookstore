@@ -2,12 +2,13 @@ class Order < ApplicationRecord
   include AASM
 
   has_many :order_items
-  has_one :delivery
+  has_one :delivery, dependent: :destroy
+  has_one :payment, dependent: :destroy
   belongs_to :customer
-  # has_many :addresses, as: :addressable
   has_one :billing_address, as: :addressable, class_name: 'Address'
   has_one :shipping_address, as: :addressable, class_name: 'Address'
-  accepts_nested_attributes_for :billing_address, :shipping_address
+
+  accepts_nested_attributes_for :billing_address, :shipping_address, :payment
 
   scope :in_progress, -> { where(aasm_state: [:in_progress, :in_queue, :in_delivery]) }
   scope :delivered, -> { where(aasm_state: :delivered) }
@@ -33,9 +34,9 @@ class Order < ApplicationRecord
     end
 
     event :cancel do
-      transitions from: [:in_progress, :in_progress, :in_delivery, :delivered], to: :canceled
+      transitions from: [:in_queue, :in_delivery, :delivered], to: :canceled
     end
   end
 
-  validates :total_price, presence: true
+  # validates :total_price, presence: true
 end

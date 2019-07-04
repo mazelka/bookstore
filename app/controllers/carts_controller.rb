@@ -68,6 +68,10 @@ class CartsController < ApplicationController
     end
   end
 
+  def create_order
+    redirect_to checkout_path
+  end
+
   private
 
   def find_in_cart(id)

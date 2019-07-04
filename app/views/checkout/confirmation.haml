@@ -1,0 +1,113 @@
+%main.container.general-main-wrap
+  %h1.general-title-margin Checkout
+  %ul.steps.list-inline
+    %li.step.active
+      %span.step-number 1
+      %span.step-text.hidden-xs Address
+    %li.step-divider
+    %li.step
+      %span.step-number 2
+      %span.step-text.hidden-xs Delivery
+    %li.step-divider
+    %li.step
+      %span.step-number 3
+      %span.step-text.hidden-xs Payment
+    %li.step-divider
+    %li.step
+      %span.step-number 4
+      %span.step-text.hidden-xs Confirm
+    %li.step-divider
+    %li.step
+      %span.step-number 5
+      %span.step-text.hidden-xs Complete
+  .row.mb-20
+    .col-sm-3
+      %h3.general-subtitle Shipping Address
+      %p.general-address
+        = "#{@order.customer.first_name} #{@order.customer.last_name}"
+        %span.general-edit edit
+        %br
+        = @order.shipping_address.address_line
+        %br
+        = "#{@order.shipping_address.city} #{@order.shipping_address.zip}"
+        %br
+        = @order.shipping_address.country
+        %br
+        = @order.shipping_address.phone
+    .col-sm-3
+      %h3.general-subtitle Billing Address
+      %p.general-address
+        = "#{@order.customer.first_name} #{@order.customer.last_name}"
+        %span.general-edit edit
+        %br
+        = @order.billing_address.address_line
+        %br
+        = "#{@order.billing_address.city} #{@order.billing_address.zip}"
+        %br
+        = @order.billing_address.country
+        %br
+        = @order.billing_address.phone
+    .col-sm-3
+      %h3.general-subtitle Shipments
+      %p.general-address
+        = @order.delivery.name
+        %span.general-edit edit
+        %br
+        = "#{@order.delivery.days} days"
+    .col-sm-3
+      %h3.general-subtitle Payment Information
+      %p.general-address
+        = @order.payment.card_number
+        %span.general-edit edit
+        %br
+        = @order.payment.cvv
+  .hidden-xs.divider-lg.pt-20
+    %table.table.table-hover
+      %thead
+        %tr
+          %th
+            %span.in-grey-600 Book
+          %th.col-method
+          %th
+            %span.in-grey-600 Price
+          %th
+            %span.in-grey-600 Quantity
+          %th
+            %span.in-grey-600 Total
+      %tbody
+      = form_tag(url: wizard_path, method: 'put') do |f|
+        - @order.order_items.each do |item|
+          %tr
+            %td
+              .general-img-wrap-table
+                %img.cart-img-shadow.pull-left{src: item.book.cover_url, alt: item.book.title}
+            %td
+              %p.title= item.book.title
+              %p.in-grey-600.fw-300= item.book.description
+            %td
+              %span.font-16.in-gold-500= Money.new(item.book.price).format
+            %td
+              %span.ml-30= item.quantity
+            %td
+              %span.font-16.in-gold-500= Money.new(item.book.price*item.quantity).format
+  .text-center.general-text-right
+    %p.in-gold-500.font-18 Order Summary
+    %table.general-summary-table.general-summary-table-right.general-text-right
+      %tr
+        %td
+          %p.font-16 Subtotal:
+        %td
+          %p.font-16= @cart_details.subtotal
+      %tr
+        %td
+          %p.font-16 Coupon:
+        %td
+          %p.font-16= @cart_details.discount
+      %tr
+        %td
+          %strong.font-18 Order Total:
+        %td
+          %strong.font-18= @cart_details.total
+  .text-center
+    = f.submit_tag('Place Order' class: 'btn btn-default mb-20')
+
