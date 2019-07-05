@@ -1,90 +1,27 @@
 %main.container.general-main-wrap
-  %h1.general-title-margin Checkout
-  %ul.steps.list-inline
-    %li.step.done
-      %span.step-number
-        %i.fa.fa-check.step-icon
-      %span.step-text.hidden-xs Address
-    %li.step-divider
-    %li.step
-      %span.step-number 2
-      %span.step-text.hidden-xs Delivery
-    %li.step-divider
-    %li.step
-      %span.step-number 3
-      %span.step-text.hidden-xs Payment
-    %li.step-divider
-    %li.step
-      %span.step-number 4
-      %span.step-text.hidden-xs Confirm
-    %li.step-divider
-    %li.step.active
-      %span.step-number 5
-      %span.step-text.hidden-xs Complete
+  = render :partial => "checkout_steps", :formats => [:html]
   .text-center.mb-40
     %h3.general-subtitle Thank You for your Order!
-    %p.fw-300 An order confirmation has been has been sent to John Doe0411@gmail.com
+    %p.fw-300= "An order confirmation has been has been sent to #{current_customer.email}"
   .row.mb-20
     .col-sm-6
       .visible-xs
-        %p.general-order-number.mb-0 Order #R25314582
-        %p.general-address.mb-30 October 29, 2016
+        %p.general-order-number.mb-0= "Order #{@order.id}"
+        %p.general-address.mb-30= @order.updated_at
       %p.general-address
-        John Doe
+        = "#{current_customer.first_name} #{current_customer.last_name}"
         %span.general-edit edit
         %br
-        44 Fifth Ave v231
+        = @order.shipping_address.address_line
         %br
-        New York NY 1001
+        = "#{@order.shipping_address.city} #{@order.shipping_address.zip} "
         %br
-        United States
+        = @order.shipping_address.country
         %br
-        Phone +16507599755
+        = @order.shipping_address.phone
     .col-sm-6.hidden-xs.text-right
-      %p.general-order-number.mb-0 Order #R25314582
-      %p.general-address.mb-30 October 29, 2016
-  .visible-xs
-    .general-cart-item.divider-lg
-      .general-img-wrap-table
-        %img.cart-img-shadow{src: "http://jonathantweedy.com/resources/thumbs/SmashingBook5ResponsiveWebDesign.jpg", alt: "design-book"}
-      %p.title Android Programming for Beginners
-      %P.in-grey-600.fw-300 A recipe-based book to help you efficiently create amazing PHP-based applications with Laravel 5.x
-      %table.table
-        %tr
-          %td
-            %span.in-grey-600 Price
-          %td
-            %span.font-16.in-gold-500 €28.50
-        %tr
-          %td.vertical-middle
-            %span.in-grey-600 Quantity
-          %td
-            %span 1
-        %tr
-          %td
-            %span.in-grey-600 SubTotal
-          %td
-            %span.font-16.in-gold-500 €32.90
-    .general-cart-item.divider-lg.mb-55
-      .general-img-wrap-table
-        %img.cart-img-shadow{src: "http://jonathantweedy.com/resources/thumbs/SmashingBook5ResponsiveWebDesign.jpg", alt: "design-book"}
-      %p.title Android Programming for Beginners
-      %table.table
-        %tr
-          %td
-            %span.in-grey-600 Price
-          %td
-            %span.font-16.in-gold-500 €28.50
-        %tr
-          %td.vertical-middle
-            %span.in-grey-600 Quantity
-          %td
-            %span 1
-        %tr
-          %td
-            %span.in-grey-600 SubTotal
-          %td
-            %span.font-16.in-gold-500 €32.90
+      %p.general-order-number.mb-0= "Order #{@order.id}"
+      %p.general-address.mb-30= @order.updated_at
   .hidden-xs.divider-lg.pt-20
     %table.table.table-hover
       %thead
@@ -99,36 +36,39 @@
           %th
             %span.in-grey-600 Total
       %tbody
-        %tr
-          %td
-            .general-img-wrap-table
-              %img.cart-img-shadow.pull-left{src: "http://jonathantweedy.com/resources/thumbs/SmashingBook5ResponsiveWebDesign.jpg", alt: "design-book"}
-          %td
-            %p.title Android Programming for Beginners
-            %p.in-grey-600.fw-300 Maximize the potential of Bootstrap with a collection of real-world site projects for better, faster, more responsive web applications
-          %td
-            %span.font-16.in-gold-500 €28.50
-          %td
-            %span.ml-30 1
-          %td
-            %span.font-16.in-gold-500 €32.90
+        = form_tag(url: wizard_path, method: 'put') do |f|
+          %input{ type:'hidden', name:'_method', value:'put'}
+          - @order.order_items.each do |item|
+            %tr
+              %td
+                .general-img-wrap-table
+                  %img.cart-img-shadow.pull-left{src: item.book.cover_url, alt: item.book.title}
+              %td
+                %p.title= item.book.title
+                %p.in-grey-600.fw-300= item.book.description
+              %td
+                %span.font-16.in-gold-500= Money.new(item.book.price).format
+              %td
+                %span.ml-30= item.quantity
+              %td
+                %span.font-16.in-gold-500= Money.new(item.book.price*item.quantity).format
   .text-center.general-text-right
     %p.in-gold-500.font-18 Order Summary
     %table.general-summary-table.general-summary-table-right.general-text-right
       %tr
         %td
-          %p.font-16 Subtotal:
+          %p.font-16 Delivery:
         %td
-          %p.font-16 €117.69
+          %p.font-16= Money.new(@order.delivery.price).format
       %tr
         %td
           %p.font-16 Coupon:
         %td
-          %p.font-16 €0.00
+          %p.font-16= @order.coupon.nil? ? Money.new(0).format : Money.new(@order.coupon.discount).format
       %tr
         %td
           %strong.font-18 Order Total:
         %td
-          %strong.font-18 €117.69
+          %strong.font-18= Money.new(@order.total_price).format
   .text-center
-    %button.btn.btn-default.mb-20 Back to Store
+    = link_to('Back to Store', root_path, class: 'btn btn-default mb-20')

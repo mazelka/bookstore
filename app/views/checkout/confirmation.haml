@@ -1,31 +1,14 @@
 %main.container.general-main-wrap
-  %h1.general-title-margin Checkout
-  %ul.steps.list-inline
-    %li.step.active
-      %span.step-number 1
-      %span.step-text.hidden-xs Address
-    %li.step-divider
-    %li.step
-      %span.step-number 2
-      %span.step-text.hidden-xs Delivery
-    %li.step-divider
-    %li.step
-      %span.step-number 3
-      %span.step-text.hidden-xs Payment
-    %li.step-divider
-    %li.step
-      %span.step-number 4
-      %span.step-text.hidden-xs Confirm
-    %li.step-divider
-    %li.step
-      %span.step-number 5
-      %span.step-text.hidden-xs Complete
+  = render :partial => "checkout_steps", :formats => [:html]
+  - if @order && @order.errors.any?
+    - @order.errors.full_messages.each do |message|
+      %li= message
   .row.mb-20
     .col-sm-3
       %h3.general-subtitle Shipping Address
       %p.general-address
         = "#{@order.customer.first_name} #{@order.customer.last_name}"
-        %span.general-edit edit
+        = link_to('edit', wizard_path(:address), class: 'general-edit')
         %br
         = @order.shipping_address.address_line
         %br
@@ -38,7 +21,7 @@
       %h3.general-subtitle Billing Address
       %p.general-address
         = "#{@order.customer.first_name} #{@order.customer.last_name}"
-        %span.general-edit edit
+        = link_to('edit', wizard_path(:address), class: 'general-edit')
         %br
         = @order.billing_address.address_line
         %br
@@ -51,14 +34,14 @@
       %h3.general-subtitle Shipments
       %p.general-address
         = @order.delivery.name
-        %span.general-edit edit
+        = link_to('edit', wizard_path(:delivery), class: 'general-edit')
         %br
         = "#{@order.delivery.days} days"
     .col-sm-3
       %h3.general-subtitle Payment Information
       %p.general-address
         = @order.payment.card_number
-        %span.general-edit edit
+        = link_to('edit', wizard_path(:payment), class: 'general-edit')
         %br
         = @order.payment.cvv
   .hidden-xs.divider-lg.pt-20
@@ -76,6 +59,7 @@
             %span.in-grey-600 Total
       %tbody
       = form_tag(url: wizard_path, method: 'put') do |f|
+        %input{ type:'hidden', name:'_method', value:'put'}
         - @order.order_items.each do |item|
           %tr
             %td
@@ -90,24 +74,29 @@
               %span.ml-30= item.quantity
             %td
               %span.font-16.in-gold-500= Money.new(item.book.price*item.quantity).format
-  .text-center.general-text-right
-    %p.in-gold-500.font-18 Order Summary
-    %table.general-summary-table.general-summary-table-right.general-text-right
-      %tr
-        %td
-          %p.font-16 Subtotal:
-        %td
-          %p.font-16= @cart_details.subtotal
-      %tr
-        %td
-          %p.font-16 Coupon:
-        %td
-          %p.font-16= @cart_details.discount
-      %tr
-        %td
-          %strong.font-18 Order Total:
-        %td
-          %strong.font-18= @cart_details.total
-  .text-center
-    = f.submit_tag('Place Order' class: 'btn btn-default mb-20')
+          .text-center.general-text-right
+            %p.in-gold-500.font-18 Order Summary
+            %table.general-summary-table.general-summary-table-right.general-text-right
+              %tr
+                %td
+                  %p.font-16 Subtotal:
+                %td
+                  %p.font-16= @cart_details.subtotal
+              %tr
+                %td
+                  %p.font-16 Delivery:
+                %td
+                  %p.font-16= Money.new(@order.delivery.price).format
+              %tr
+                %td
+                  %p.font-16 Coupon:
+                %td
+                  %p.font-16= @order.coupon.nil? ? Money.new(0).format : Money.new(@order.coupon.discount).format
+              %tr
+                %td
+                  %strong.font-18 Order Total:
+                %td
+                  %strong.font-18= Money.new(@order.delivery.price).format
+        = submit_tag('Place Order', class: 'btn btn-default center-block mb-20')
+
 

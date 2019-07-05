@@ -49,6 +49,7 @@ class CartsController < ApplicationController
     if coupon_exists?(params[:coupon])
       @coupon = get_discount(params[:coupon])
       session[:coupon] = @coupon
+      session[:coupon_id] = Coupon.find_by(name: params[:coupon]).id
       flash[:notice] = 'Your coupon is applied!'
       @cart_details = CartDetails.new(@cart, @coupon)
       render 'cart'

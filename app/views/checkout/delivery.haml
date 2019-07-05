@@ -1,25 +1,8 @@
 %main.container.general-main-wrap
-  %h1.general-title-margin Checkout
-  %ul.steps.list-inline
-    %li.step.active
-      %span.step-number 1
-      %span.step-text.hidden-xs Address
-    %li.step-divider
-    %li.step
-      %span.step-number 2
-      %span.step-text.hidden-xs Delivery
-    %li.step-divider
-    %li.step
-      %span.step-number 3
-      %span.step-text.hidden-xs Payment
-    %li.step-divider
-    %li.step
-      %span.step-number 4
-      %span.step-text.hidden-xs Confirm
-    %li.step-divider
-    %li.step
-      %span.step-number 5
-      %span.step-text.hidden-xs Complete
+  = render :partial => "checkout_steps", :formats => [:html]
+  - if @order && @order.errors.any?
+    - @order.errors.full_messages.each do |message|
+      %li= message
   %h3.general-subtitle Delivery
   .hidden-xs.mb-res-50
     %table.table.table-hover
@@ -39,8 +22,8 @@
             %td
               .form-group.radio.mt-0.mb-0
                 %label.radio-label
-                  %span.radio-icon
-                    = radio_button_tag :delivery_id, delivery.id, false, class: 'radio-icon radio-input'
+                  %span.radio-test
+                    = radio_button_tag :delivery_id, delivery.id, true, class: 'test-radio'
                   %span.radio-text= delivery.name
             %td
               %span= delivery.days
@@ -64,6 +47,5 @@
                 %strong.font-18 Order Total:
               %td
                 %strong.font-18= @cart_details.total
-              .text-center
-          = submit_tag :'Save and Continue', class: 'btn btn-default center-block mb-20'
+        = submit_tag :'Save and Continue', class: 'btn btn-default center-block mb-20'
     

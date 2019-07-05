@@ -1,23 +1,28 @@
 class OrderSteps
   attr_writer :current_step
 
-  # validates_presence_of :shipping_name, :if => lambda { |o| o.current_step == 'shipping' }
-  # validates_presence_of :billing_name, :if => lambda { |o| o.current_step == 'billing' }
+  def initialize(order)
+    @order = order
+  end
+
+  def order
+    @order
+  end
 
   def current_step
-    @current_step || steps.first
+    order.current_step || steps.first
   end
 
   def steps
-    %w[address, delivery, payment, confirmation, complete]
+    %w[address delivery payment confirmation complete]
   end
 
   def next_step
-    self.current_step = steps[steps.index(current_step) + 1]
+    order.current_step = steps[steps.index(current_step) + 1]
   end
 
   def previous_step
-    self.current_step = steps[steps.index(current_step) - 1]
+    order.current_step = steps[steps.index(current_step) - 1]
   end
 
   def first_step?
@@ -28,10 +33,16 @@ class OrderSteps
     current_step == steps.last
   end
 
-  def all_valid?
-    steps.all? do |step|
-      self.current_step = step
-      valid?
+  def validate_properties(current_step)
+    case current_step
+    when :address
+      order.shipping_address.nil? && order.shipping_address.nil?
+    when :delivery
+      order.delivery.nil?
+    when :payment
+      order.payment.nil?
+    else
+      p 'ok'
     end
   end
 end

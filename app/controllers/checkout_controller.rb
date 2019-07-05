@@ -6,95 +6,90 @@ class CheckoutController < ApplicationController
 
   def show
     cart_details
+    @order = find_order
     case step
     when :address
-      create_order_with_items
-      @order = get_order
+      session[:order_id] = @order.id
+      prepopulate_addresses
     when :delivery
-      @order = get_order
       @delivery = Delivery.all
-    when :payment
-      @order = get_order
-    when :confirmation
-      @order = get_order
     else
       p 'asd'
     end
-    @shipping_addresses = current_customer.addresses || []
     render_wizard
   end
 
   def update
-    @order = get_order
+    @order = find_order
+    cart_details
     case step
     when :address
       UpdateOrderAddress.new(@order, address_params).update
     when :delivery
+      binding.pry
       UpdateOrderDelivery.new(@order, delivery_params).update
+      UpdateOrderSummary.new(@order, cart_details).update
     when :payment
       UpdateOrderPayment.new(@order, payment_params).update
     when :confirmation
-      session[:cart] = @items
+      ConfirmOrder.new(@order).confirm
     else
-      p 'asD'
+      @order.errors.add(:base, 'Order is invalid')
     end
-    binding.pry
+    unless OrderSteps.new(@order).validate_properties(step)
+      @order.errors.add(:base, 'You missed enter information for current step!')
+    end
     render_wizard(@order)
-    session[:order_id] = @order.id
   end
 
   def customer_has_address?
-    current_customer.addresses.exists?
+    current_customer.address
   end
 
   def order_has_address?
-    order.shipping_address.exists?
+    @order.shipping_address
   end
 
-  def get_order
-    if !session[:order_id].nil?
-      Order.find(session[:order_id])
+  def prepopulate_addresses
+    if customer_has_address? && !order_has_address?
+      @order.build_shipping_address(current_customer.address.last.address_params)
+    end
+  end
+
+  def find_order
+    if session[:order_id].nil?
+      create_order_with_items
     else
-      Order.new(customer: current_customer)
+      Order.find(session[:order_id])
     end
   end
 
   def create_order_with_items
-    @order = Order.create(customer: current_customer)
-    items_from_cart
+    @order = Order.create(customer: current_customer, coupon: find_coupon)
+    add_items_from_cart
     session[:order_id] = @order.id
+    @order
   end
 
   def cart_details
     @coupon = session[:coupon] || 0
-    @cart = find_order
+    @cart = find_cart
     @cart_details = CartDetails.new(@cart, @coupon)
   end
 
-  # def __create
-  #   session[:order_params].deep_merge!(params[:order]) if params[:order]
-  #   @order = Order.new(session[:order_params])
-  #   @order.current_step = session[:order_step]
-  #   if @order.valid?
-  #     if params[:back_button]
-  #       @order.previous_step
-  #     elsif @order.last_step?
-  #       @order.save if @order.all_valid?
-  #     else
-  #       @order.next_step
-  #     end
-  #     session[:order_step] = @order.current_step
-  #   end
-  #   if @order.new_record?
-  #     render 'new'
-  #   else
-  #     session[:order_step] = session[:order_params] = nil
-  #     flash[:notice] = 'Order saved!'
-  #     redirect_to @order
-  #   end
-  # end
+  def finish_wizard_path
+    session.delete(:cart)
+    session.delete(:coupon)
+    session.delete(:coupon_id)
+    session.delete(:order_id)
+    root_path(current_user)
+  end
 
-  def items_from_cart
+  def find_coupon
+    session[:coupon_id].nil? ? nil : Coupon.find(session[:coupon_id])
+  end
+
+  def add_items_from_cart
     session[:cart].map do |item|
       create_item(item[:book_id], item[:quantity])
     end
@@ -103,6 +98,11 @@ class CheckoutController < ApplicationController
   def create_item(book_id, quantity)
     item = OrderItem.new(book: Book.find(book_id), quantity: quantity, order: @order)
     item.save
+  end
+
+  def place_order
+    details = cart_details
+    @order.update(total_price: details.total + @order.delivery)
   end
 
   def address_params
@@ -118,6 +118,6 @@ class CheckoutController < ApplicationController
   end
 
   def order_params
-    params.permit(:id, :items, :total_price, :coupon, :delivery_id, { shipping_address_attributes: [:address_line, :country, :city, :zip, :phone] }, { billing_address_attributes: [:address_line, :country, :city, :zip, :phone] }, { paymnet_attributes: [:name, :cvv, :expire, :card_number] }).merge(customer: current_customer)
+    params.permit(:total_price, :delivery_id, :coupon, { shipping_address_attributes: [:address_line, :country, :city, :zip, :phone] }, { billing_address_attributes: [:address_line, :country, :city, :zip, :phone] }, { paymnet_attributes: [:name, :cvv, :expire, :card_number] }).merge(customer: current_customer)
   end
 end

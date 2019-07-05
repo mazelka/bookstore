@@ -1,31 +1,7 @@
 %main.container.mb-res-50
-  %h1.general-title-margin Checkout
-  %ul.steps.list-inline
-    %li.step.active
-      %span.step-number 1
-      %span.step-text.hidden-xs Address
-    %li.step-divider
-    %li.step
-      %span.step-number 2
-      %span.step-text.hidden-xs Delivery
-    %li.step-divider
-    %li.step
-      %span.step-number 3
-      %span.step-text.hidden-xs Payment
-    %li.step-divider
-    %li.step
-      %span.step-number 4
-      %span.step-text.hidden-xs Confirm
-    %li.step-divider
-    %li.step
-      %span.step-number 5
-      %span.step-text.hidden-xs Complete
-  %ul
-  - flash.each do |_type, message|
-    -if message.is_a?(Array)
-      -message.each do |m|
-        %li= m
-    -else
+  = render :partial => "checkout_steps", :formats => [:html]
+  - if @order && @order.errors.any?
+    - @order.errors.full_messages.each do |message|
       %li= message
   %h3.general-subtitle Credit Card
   .max-600.mb-80
@@ -70,5 +46,5 @@
             %td
               %strong.font-18 Order Total:
             %td
-              %strong.font-18= @cart_details.total
+              %strong.font-18= Money.new(@order.total_price).format
       = f.submit :'Save and continue', class: 'btn btn-default center-block mb-20 submit-address'

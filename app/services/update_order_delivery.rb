@@ -1,7 +1,7 @@
 class UpdateOrderDelivery
   def initialize(order, params)
+    @params = params
     @order = order
-    @params = params[:delivery_id]
   end
 
   def order
@@ -13,6 +13,7 @@ class UpdateOrderDelivery
   end
 
   def update
-    order.update({ delivery: Delivery.find(params) })
+    binding.pry
+    order.update({ delivery: Delivery.find(params[:delivery_id]) })
   end
 end
