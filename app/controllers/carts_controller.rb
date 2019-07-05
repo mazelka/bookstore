@@ -21,7 +21,7 @@ class CartsController < ApplicationController
   end
 
   def show_cart
-    @coupon = session[:coupon] || 0
+    @coupon = get_coupon_discount(session[:coupon_id]) || 0
     @cart_details = CartDetails.new(@cart, @coupon)
     render 'cart'
   end
@@ -47,12 +47,11 @@ class CartsController < ApplicationController
 
   def apply_coupon
     if coupon_exists?(params[:coupon])
-      @coupon = get_discount(params[:coupon])
-      session[:coupon] = @coupon
-      session[:coupon_id] = Coupon.find_by(name: params[:coupon]).id
+      save_in_session_coupon_id(params[:coupon])
+      @coupon = get_coupon_discount(coupon_id)
       flash[:notice] = 'Your coupon is applied!'
       @cart_details = CartDetails.new(@cart, @coupon)
-      render 'cart'
+      redirect_back fallback_location: root_path
     else
       flash[:notice] = 'Sorry, we don`t have this coupon'
       redirect_back fallback_location: root_path
@@ -69,11 +68,20 @@ class CartsController < ApplicationController
     session[:cart] = @cart
   end
 
-  def get_discount(name)
-    Coupon.all.find_by(name: name).discount
+  def get_coupon_discount(id)
+    session[:coupon_id].nil? ? 0 : Coupon.find(id).discount
   end
 
   def coupon_exists?(name)
     !Coupon.all.find_by(name: name).nil?
+  end
+
+  def save_in_session_coupon_id(name)
+    @coupon = Coupon.find_by(name: name)&.id
+    session[:coupon_id] = @coupon
+  end
+
+  def coupon_id
+    session[:coupon_id]
   end
 end

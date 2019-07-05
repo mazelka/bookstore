@@ -13,7 +13,6 @@ class UpdateOrderDelivery
   end
 
   def update
-    binding.pry
     order.update({ delivery: Delivery.find(params[:delivery_id]) })
   end
 end

@@ -13,7 +13,6 @@ class BooksController < ApplicationController
   end
 
   def category
-    p params
     @books = Category.find(params[:id]).books.order('created_at').page(params[:page]).per(12)
     @active_sorting = 'Newest first'
     books_count

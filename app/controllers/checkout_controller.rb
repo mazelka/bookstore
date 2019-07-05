@@ -1,32 +1,26 @@
 class CheckoutController < ApplicationController
   include Wicked::Wizard
 
-  before_action :authenticate_customer!
+  before_action :authenticate_customer!, :find_order
   steps :address, :delivery, :payment, :confirmation, :complete
 
   def show
     cart_details
-    @order = find_order
     case step
     when :address
-      session[:order_id] = @order.id
       prepopulate_addresses
     when :delivery
       @delivery = Delivery.all
-    else
-      p 'asd'
     end
     render_wizard
   end
 
   def update
-    @order = find_order
     cart_details
     case step
     when :address
       UpdateOrderAddress.new(@order, address_params).update
     when :delivery
-      binding.pry
       UpdateOrderDelivery.new(@order, delivery_params).update
       UpdateOrderSummary.new(@order, cart_details).update
     when :payment
@@ -37,7 +31,7 @@ class CheckoutController < ApplicationController
       @order.errors.add(:base, 'Order is invalid')
     end
     unless OrderSteps.new(@order).validate_properties(step)
-      @order.errors.add(:base, 'You missed enter information for current step!')
+      @order.errors.add(:base, 'You missed information for current step!')
     end
     render_wizard(@order)
   end
@@ -58,21 +52,25 @@ class CheckoutController < ApplicationController
 
   def find_order
     if session[:order_id].nil?
-      create_order_with_items
+      @order = create_order_with_items
     else
-      Order.find(session[:order_id])
+      @order = Order.find(session[:order_id])
     end
   end
 
   def create_order_with_items
-    @order = Order.create(customer: current_customer, coupon: find_coupon)
-    add_items_from_cart
-    session[:order_id] = @order.id
-    @order
+    if session[:cart].nil?
+      redirect_to cart_path
+    else
+      @order = Order.create(customer: current_customer, coupon: find_coupon)
+      add_items_from_cart
+      session[:order_id] = @order.id
+      @order
+    end
   end
 
   def cart_details
-    @coupon = session[:coupon] || 0
+    @coupon = Coupon.find(session[:coupon_id])&.discount || 0
     @cart = find_cart
     @cart_details = CartDetails.new(@cart, @coupon)
   end
@@ -82,7 +80,7 @@ class CheckoutController < ApplicationController
     session.delete(:coupon)
     session.delete(:coupon_id)
     session.delete(:order_id)
-    root_path(current_user)
+    root_path
   end
 
   def find_coupon
@@ -100,10 +98,10 @@ class CheckoutController < ApplicationController
     item.save
   end
 
-  def place_order
-    details = cart_details
-    @order.update(total_price: details.total + @order.delivery)
-  end
+  # def place_order
+  #   details = cart_details
+  #   @order.update(total_price: details.total + @order.delivery)
+  # end
 
   def address_params
     params.permit({ shipping_address_attributes: [:address_line, :country, :city, :zip, :phone] }, { billing_address_attributes: [:address_line, :country, :city, :zip, :phone] })
@@ -114,10 +112,10 @@ class CheckoutController < ApplicationController
   end
 
   def payment_params
-    params.permit({ payment_attributes: [:name, :cvv, :expire, :card_number] })
+    params.permit({ payment_attributes: [:id, :name, :cvv, :expire, :card_number] })
   end
 
   def order_params
-    params.permit(:total_price, :delivery_id, :coupon, { shipping_address_attributes: [:address_line, :country, :city, :zip, :phone] }, { billing_address_attributes: [:address_line, :country, :city, :zip, :phone] }, { paymnet_attributes: [:name, :cvv, :expire, :card_number] }).merge(customer: current_customer)
+    params.permit(:total_price, :delivery_id, :coupon, { shipping_address_attributes: [:address_line, :country, :city, :zip, :phone] }, { billing_address_attributes: [:address_line, :country, :city, :zip, :phone] }, { paymnet_attributes: [:id, :name, :cvv, :expire, :card_number] }).merge(customer: current_customer)
   end
 end

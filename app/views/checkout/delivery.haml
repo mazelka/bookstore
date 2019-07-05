@@ -6,46 +6,45 @@
   %h3.general-subtitle Delivery
   .hidden-xs.mb-res-50
     %table.table.table-hover
-      %thead
-        %tr
-          %th.col-method
-            %span.in-grey-600.ml-40 Method
-          %th
-            %span.in-grey-600 Days
-          %th
-            %span.in-grey-600 Price
-      %tbody
       = form_tag(url: wizard_path, method: 'put') do |f|
-        %input{ type:'hidden', name:'_method', value:'put'}
-        - @delivery.each do |delivery|
+        %thead
           %tr
-            %td
-              .form-group.radio.mt-0.mb-0
-                %label.radio-label
-                  %span.radio-test
-                    = radio_button_tag :delivery_id, delivery.id, true, class: 'test-radio'
-                  %span.radio-text= delivery.name
-            %td
-              %span= delivery.days
-            %td
-              %span.font-16.in-gold-500= Money.new(delivery.price).format
-        .general-text-align
-          %p.in-gold-500.font-18 Order Summary
-          %table.general-summary-table
+            %th.col-method
+              %span.in-grey-600.ml-40 Method
+            %th
+              %span.in-grey-600 Days
+            %th
+              %span.in-grey-600 Price
+        %tbody
+          %input{ type:'hidden', name:'_method', value:'put'}
+          - @delivery.each do |delivery|
             %tr
               %td
-                %p.font-16 Subtotal:
+                .form-group.radio.mt-0.mb-0
+                  %label.radio-label
+                    %span.radio-test
+                      = radio_button_tag :delivery_id, delivery.id, true, class: 'test-radio'
+                    %span.radio-text= delivery.name
               %td
-                %p.font-16= @cart_details.subtotal
-            %tr
+                %span= delivery.days
               %td
-                %p.font-16 Coupon:
-              %td
-                %p.font-16= @cart_details.discount
-            %tr
-              %td
-                %strong.font-18 Order Total:
-              %td
-                %strong.font-18= @cart_details.total
-        = submit_tag :'Save and Continue', class: 'btn btn-default center-block mb-20'
-    
+                %span.font-16.in-gold-500= Money.new(delivery.price).format
+          .general-text-align.general-summary-table
+            %p.in-gold-500.font-18 Order Summary
+            %table.general-summary-table
+              %tr
+                %td
+                  %p.font-16 Subtotal:
+                %td
+                  %p.font-16= @cart_details.subtotal
+              %tr
+                %td
+                  %p.font-16 Coupon:
+                %td
+                  %p.font-16= @cart_details.discount
+              %tr
+                %td
+                  %strong.font-18 Order Total:
+                %td
+                  %strong.font-18= @cart_details.total
+        = submit_tag :'Save and Continue',class: 'btn btn-default center-block mb-20'

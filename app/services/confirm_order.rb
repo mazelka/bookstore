@@ -17,7 +17,7 @@ class ConfirmOrder
     if order_has_all_attributes?
       order.start_prcessing!
     else
-      p 'error'
+      order.errors.add(:base, 'You missed to enter some info!')
     end
   end
 end

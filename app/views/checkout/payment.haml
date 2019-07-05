@@ -7,6 +7,8 @@
   .max-600.mb-80
     = form_for @order, url: wizard_path, method: :put do |f|
       = fields_for :payment_attributes, f.object.payment do |f_pay|
+        - if f_pay.present?
+          = f_pay.hidden_field :id
         .form-group
           = f_pay.label :card_number, class: 'control-label input-label'
           = f_pay.text_field :card_number, class: 'form-control'

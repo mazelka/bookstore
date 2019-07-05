@@ -40,7 +40,7 @@
     .col-sm-3
       %h3.general-subtitle Payment Information
       %p.general-address
-        = @order.payment.card_number
+        = mask(@order.payment.card_number)
         = link_to('edit', wizard_path(:payment), class: 'general-edit')
         %br
         = @order.payment.cvv
@@ -58,8 +58,6 @@
           %th
             %span.in-grey-600 Total
       %tbody
-      = form_tag(url: wizard_path, method: 'put') do |f|
-        %input{ type:'hidden', name:'_method', value:'put'}
         - @order.order_items.each do |item|
           %tr
             %td
@@ -67,36 +65,38 @@
                 %img.cart-img-shadow.pull-left{src: item.book.cover_url, alt: item.book.title}
             %td
               %p.title= item.book.title
-              %p.in-grey-600.fw-300= item.book.description
+              %p.in-grey-600.fw-300= "#{item.book.description[0..200]}... "
             %td
               %span.font-16.in-gold-500= Money.new(item.book.price).format
             %td
               %span.ml-30= item.quantity
             %td
               %span.font-16.in-gold-500= Money.new(item.book.price*item.quantity).format
-          .text-center.general-text-right
-            %p.in-gold-500.font-18 Order Summary
-            %table.general-summary-table.general-summary-table-right.general-text-right
-              %tr
-                %td
-                  %p.font-16 Subtotal:
-                %td
-                  %p.font-16= @cart_details.subtotal
-              %tr
-                %td
-                  %p.font-16 Delivery:
-                %td
-                  %p.font-16= Money.new(@order.delivery.price).format
-              %tr
-                %td
-                  %p.font-16 Coupon:
-                %td
-                  %p.font-16= @order.coupon.nil? ? Money.new(0).format : Money.new(@order.coupon.discount).format
-              %tr
-                %td
-                  %strong.font-18 Order Total:
-                %td
-                  %strong.font-18= Money.new(@order.delivery.price).format
-        = submit_tag('Place Order', class: 'btn btn-default center-block mb-20')
+
+  .text-center.general-text-right
+    %p.in-gold-500.font-18 Order Summary
+    %table.general-summary-table.general-summary-table-right.general-text-right
+      %tr
+        %td
+          %p.font-16 Subtotal:
+        %td
+          %p.font-16= @cart_details.subtotal
+      %tr
+        %td
+          %p.font-16 Delivery:
+        %td
+          %p.font-16= Money.new(@order.delivery.price).format
+      %tr
+        %td
+          %p.font-16 Coupon:
+        %td
+          %p.font-16= @order.coupon.nil? ? Money.new(0).format : Money.new(@order.coupon.discount).format
+      %tr
+        %td
+          %strong.font-18 Order Total:
+        %td
+          %strong.font-18= Money.new(@order.total_price).format
+        .text-center
+  = link_to('Place Order', wizard_path, method: :put, class: 'btn btn-default center-block mb-20 check-center')
 
 

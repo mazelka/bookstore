@@ -6,11 +6,11 @@
   .row.mb-20
     .col-sm-6
       .visible-xs
-        %p.general-order-number.mb-0= "Order #{@order.id}"
-        %p.general-address.mb-30= @order.updated_at
+        %p.general-order-number.mb-0= "Order ##{@order.id}"
+        %p.general-address.mb-30= @order.updated_at.strftime('%e %b %Y %H:%M:%S%p')
       %p.general-address
         = "#{current_customer.first_name} #{current_customer.last_name}"
-        %span.general-edit edit
+        %span.general-edit
         %br
         = @order.shipping_address.address_line
         %br
@@ -71,4 +71,4 @@
         %td
           %strong.font-18= Money.new(@order.total_price).format
   .text-center
-    = link_to('Back to Store', root_path, class: 'btn btn-default mb-20')
+    = link_to('Back to Store', next_wizard_path, class: 'btn btn-default mb-20')

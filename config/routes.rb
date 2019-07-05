@@ -14,18 +14,7 @@ Rails.application.routes.draw do
   post 'orders' => 'orders#create'
   get 'books/category' => 'books#category'
   get 'settings' => 'settings#index'
-  # post 'checkout/update' => 'checkout#update'
-  # get 'checkout/delivery' => 'checkout#delivery'
-  # post 'checkout/update_delivery' => 'checkout#update_delivery'
-
-  # devise÷_sc :customer
-  # do increase_quantity
-  #   get '/login' => 'devise/sessions#new'
-  #   post '/login' => 'devise/sessions#create'
-  #   post '/sign_up' => 'devise/registrations#new'
-  # end
   resources :reviews
-  resources :categories
   resources :books
   resources :authors
   resources :checkout
