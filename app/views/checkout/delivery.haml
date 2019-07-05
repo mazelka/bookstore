@@ -23,7 +23,7 @@
                 .form-group.radio.mt-0.mb-0
                   %label.radio-label
                     %span.radio-test
-                      = radio_button_tag :delivery_id, delivery.id, true, class: 'test-radio'
+                      = radio_button_tag :delivery_id, delivery.id, true, :html => { :class => "test-radio"}
                     %span.radio-text= delivery.name
               %td
                 %span= delivery.days

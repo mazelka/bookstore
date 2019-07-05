@@ -1,4 +1,6 @@
 class Customer < ApplicationRecord
+  attr_accessor :lazy_reg
+
   has_many :reviews
   has_many :orders
   has_many :address, as: :addressable

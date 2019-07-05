@@ -1,7 +1,7 @@
 class CheckoutController < ApplicationController
   include Wicked::Wizard
 
-  before_action :authenticate_customer!, :find_order
+  before_action :find_order
   steps :address, :delivery, :payment, :confirmation, :complete
 
   def show
@@ -70,7 +70,7 @@ class CheckoutController < ApplicationController
   end
 
   def cart_details
-    @coupon = Coupon.find(session[:coupon_id])&.discount || 0
+    @coupon = session[:coupon_id] ? Coupon.find(session[:coupon_id]).discount : 0
     @cart = find_cart
     @cart_details = CartDetails.new(@cart, @coupon)
   end
@@ -97,11 +97,6 @@ class CheckoutController < ApplicationController
     item = OrderItem.new(book: Book.find(book_id), quantity: quantity, order: @order)
     item.save
   end
-
-  # def place_order
-  #   details = cart_details
-  #   @order.update(total_price: details.total + @order.delivery)
-  # end
 
   def address_params
     params.permit({ shipping_address_attributes: [:address_line, :country, :city, :zip, :phone] }, { billing_address_attributes: [:address_line, :country, :city, :zip, :phone] })
