@@ -1,7 +1,7 @@
 class CheckoutController < ApplicationController
   include Wicked::Wizard
 
-  before_action :find_order
+  before_action :find_order, :login_customer
   steps :address, :delivery, :payment, :confirmation, :complete
 
   def show
@@ -37,7 +37,7 @@ class CheckoutController < ApplicationController
   end
 
   def customer_has_address?
-    current_customer.address
+    current_customer.address.present?
   end
 
   def order_has_address?
@@ -96,6 +96,10 @@ class CheckoutController < ApplicationController
   def create_item(book_id, quantity)
     item = OrderItem.new(book: Book.find(book_id), quantity: quantity, order: @order)
     item.save
+  end
+
+  def login_customer
+    redirect_to login_path unless customer_signed_in?
   end
 
   def address_params

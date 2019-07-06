@@ -14,8 +14,8 @@ Rails.application.routes.draw do
   post 'orders' => 'orders#create'
   get 'books/category' => 'books#category'
   get 'settings' => 'settings#index'
-  post 'lazy_login' => 'quick_regs#lazy_sign_up'
-  get 'lazy_login' => 'quick_regs#show_lazy_login'
+  post 'login' => 'quick_registrations#lazy_sign_up'
+  get 'login' => 'quick_registrations#show_lazy_login'
   resources :reviews
   resources :books
   resources :authors
