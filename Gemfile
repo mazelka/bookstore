@@ -57,6 +57,7 @@ gem 'normalize_attributes'
 gem "font-awesome-rails"
 gem "font-awesome-sass"
 gem 'aasm'
+gem 'devise-i18n'
 gem 'activerecord-session_store', github: 'rails/activerecord-session_store'
 
 group :development, :test do

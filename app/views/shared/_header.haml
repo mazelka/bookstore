@@ -17,24 +17,24 @@
       .hidden-xs
         %ul.nav.navbar-nav
           %li
-            %a{href: "/"} Home
+            %a{href: "/"}= t('.home')
           %li.dropdown
-            %a.dropdown-toggle{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"} Shop
+            %a.dropdown-toggle{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}= t('.shop')
             %ul.dropdown-menu
               %li
-                %a{href: "/books"} Catalog
+                %a{href: "/books"}= t('.catalog')
               %li.divider{role: "separator"}
               %li
-                = link_to("Log out", destroy_customer_session_path, method: "delete")
+                = link_to(t('.log_out'), destroy_customer_session_path, method: "delete")
           %li
             - if customer_signed_in?
               %li.dropdown
-                %a.dropdown-toggle{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"} My Account
+                %a.dropdown-toggle{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}= t('.my_account')
                 %ul.dropdown-menu
                   %li
-                    %a{href: "/books"} Settings
+                    %a{href: "/books"}= t('.settings')
                   %li.divider{role: "separator"}
                   %li
-                    = link_to("Log out", destroy_customer_session_path, method: "delete")
+                    = link_to(t('.log_out'), destroy_customer_session_path, method: "delete")
             - else
-              %a{href: "/customers/sign_in"} Log In
+              %a{href: "/customers/sign_in"}= t('.login')

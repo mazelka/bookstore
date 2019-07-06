@@ -31,5 +31,7 @@ module Bookstore
     config.generators.system_tests = nil
     config.assets.paths << "#{Rails.root}/app/assets"
     config.assets.enabled = false
+    config.i18n.default_locale = :en
+    I18n.available_locales = [:en]
   end
 end

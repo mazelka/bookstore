@@ -30,4 +30,45 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  books:
+    index:
+      catalog: "Catalog"
+      newest_first: "Newest first"
+      popular_first: "Popular first"
+      price_low_to_high: "Price: Low to high"
+      price_high_to_low: "Price: High to low"
+      view_more: "View more"
+    show:
+      back_to_results: "Back to results"
+      add_to_cart: "Add to Cart"
+      description: "Description"
+      read_more: "Read more"
+      write_review: "Write a Review"
+      title: "Title"
+      review: "Review"
+      post: "Post"
+  home:
+    index:
+      buy_now: "Buy Now"
+      previous: "Previous"
+      next: "Next"
+      welcome_title: "Welcome to our amazing Bookstore!"
+      welcome_description: "We pore through hundreds of new books each month and select the five best we can find to share with our members."
+      get_started: "Get Started"
+      best_sellers: "Best Sellers"
+  shared:
+    footer:
+      home: "Home"
+      shop: "Shop"
+      orders: "Orders"
+      settings: "Settings"
+    header:
+      home: "Home"
+      catalog: "Catalog"
+      shop: "Shop"
+      log_out: "Log out"
+      orders: "Orders"
+      settings: "Settings"
+      login: "Log in"
+      my_account: "My Account"
   hello: "Hello world"

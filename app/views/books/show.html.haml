@@ -8,7 +8,7 @@
       %li= message
 
   %i.fa.fa-long-arrow-left.mr-15
-  = link_to 'Back to results', :back, class: 'general-back-link'
+  = link_to(t('.back_to_results'), :back, class: 'general-back-link')
   .row
     .col-sm-6
       .product-gallery
@@ -29,27 +29,27 @@
             %a.input-link.increase-quantity{href: "#"}
               %i.fa.fa-plus.line-height-40
         .col-xs-7.col-md-5
-          %button.btn.btn-default.pull-right.general-position{type: 'submit'} Add to Cart
+          %button.btn.btn-default.pull-right.general-position{type: 'submit'}= t('.add_to_cart')
       .general-info-wrap.divider-lg
-        %p Description
+        %p= t('.description')
         %p.lead.small.line-height-2
           %div.book-description
             = @book.description
-          %a.in-gold-500.ml-10.read-more-link{href: "#"} Read More
+          %a.in-gold-500.ml-10.read-more-link{href: "#"}= t('.read_more')
   - if customer_signed_in?
-    %h3 Write a Review
+    %h3= t('.write_review')
     %form.row{action: reviews_path, method: 'post'}
       %input{ type:'hidden', name:'review[book_id]', value:@book.id}
       .col-md-8
         .mb-40
           .form-group
-            %label.control-label.input-label.in-grey-600{for: "title"} Title
+            %label.control-label.input-label.in-grey-600{for: "title"}= t('.title')
             %input#title.form-control{name:"review[title]", type: "text"}
           .form-group
-            %label.control-label.input-label.in-grey-600{for: "text"} Review
+            %label.control-label.input-label.in-grey-600{for: "text"}= t('.review')
             %textarea#review.form-control{name:"review[text]", type: "text"}
         .text-right
-          %button.btn.btn-primary.mb-20{type: 'submit'} Post
+          %button.btn.btn-primary.mb-20{type: 'submit'}= t('.post')
 
   -if @reviews && !@reviews.empty?
     .mb-80
@@ -61,7 +61,7 @@
         .mb-15.review-body
           %p= review.title
           %p= review.text
-      .general-message-wrap.divider-lg-bottom 
+      .general-message-wrap.divider-lg-bottom
 
 = render :partial => "shared/footer"
 

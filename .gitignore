@@ -21,6 +21,7 @@
 .simplecov
 /coverage/*
 .rufo
+.vscode/*
 
 
 /node_modules
