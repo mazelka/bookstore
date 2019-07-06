@@ -6,12 +6,12 @@
           %li
             %a.nav-link{href: "/"}= t('.home')
           %li
-            %a.nav-link{href: "/books"}= t('.home')
+            %a.nav-link{href: "/books"}= t('.catalog')
           - if customer_signed_in?
             %li
-              %a.nav-link{href: "#"}= t('.settings')
+              %a.nav-link{href: "/settings"}= t('.settings')
             %li
-              %a.nav-link{href: "#"}= t('.orders')
+              %a.nav-link{href: "/orders"}= t('.orders')
 
       .col-sm-3
         %p.general-nav-mail support@bookstore.com

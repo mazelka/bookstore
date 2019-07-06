@@ -1,23 +1,23 @@
 %main.container.general-main-wrap
   .text-center
-    %h3.general-login-title Log In
+    %h3.general-login-title= t('.login')
     %a.general-login-icon{href: "/customers/auth/facebook"}
       %i.fa.fa-facebook-official
-    %p.general-login-text or
+    %p.general-login-text= t('.or')
   %form.general-form{ :action => "/customers/sign_in", :method => "post" }
     .control-label.input-label
       %ul
         - flash.each do |_type, message|
           %li= message
     .form-group.mb-30
-      %label.control-label.input-label{for: "email"} Enter Email
-      %input#email.form-control{name:"customer[email]", type: "email", placeholder: "Enter Email"}
+      %label.control-label.input-label{for: "email"}= t('.enter_email')
+      %input#email.form-control{name:"customer[email]", type: "email", placeholder: t('.enter_email')}
     .form-group.mb-30
-      %label.control-label.input-label{for: "password"} Password
-      %input#password.form-control{name:"customer[password]", type: "password", placeholder: "Password"}
-      %a.help-block.in-gold-500.forgot-password{href: "password/new"} Forgot password?
+      %label.control-label.input-label{for: "password"}= t('.password')
+      %input#password.form-control{name:"customer[password]", type: "password", placeholder: t('.password')}
+      %a.help-block.in-gold-500.forgot-password{href: "password/new"}= t('.forgot_password')
     .form-group.checkbox.text-center.mb-30
-      %button.btn.btn-default.mb-20{id:'submit'} Log In
+      %button.btn.btn-default.mb-20{id:'submit'}= t('.login')
   %p.general-sign-text.text-center
-    Don’t have an Account?
-    %a.in-gold-500.sign-up-link{href: "sign_up"} Sign Up
+    = t('.do_not_have_account')
+    %a.in-gold-500.sign-up-link{href: "sign_up"}= t('.sing_up')
