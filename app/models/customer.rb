@@ -1,10 +1,11 @@
 class Customer < ApplicationRecord
   attr_accessor :lazy_reg
 
-  has_many :reviews
-  has_many :orders
-  has_many :address, as: :addressable
-  accepts_nested_attributes_for :address
+  has_many :reviews, dependent: :nullify
+  has_many :orders, dependent: :nullify
+  has_one :billing_address, as: :addressable, class_name: 'Address'
+  has_one :shipping_address, as: :addressable, class_name: 'Address'
+  accepts_nested_attributes_for :billing_address, :shipping_address
   before_save :downcase_email, on: [:create, :update]
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable

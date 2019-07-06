@@ -3,9 +3,9 @@
   - flash.each do |_type, message|
     -if message.is_a?(Array)
       -message.each do |m|
-        %li= m
+        %li.mb-20= m
     -else
-      %li= message
+      %li.mb-20= message
 
   %i.fa.fa-long-arrow-left.mr-15
   = link_to 'Back to results', :back, class: 'general-back-link'

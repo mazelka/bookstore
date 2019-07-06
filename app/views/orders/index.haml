@@ -1,49 +1,45 @@
 %main.container.general-main-wrap
   %h1.mt-0.mb-25 My Orders
-  - if @orders.empty? && @active_sorting == 'All'
+  %p.lead.small.mb-10.visible-xs Sort by
+  .dropdowns.dropdown.general-order-dropdown
+    %a.dropdown-toggle.lead.small{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}
+      = @orders_sorting || "All"
+      %i.fa.fa-angle-down.dropdown-icon.pull-right
+    %ul.dropdown-menu
+      %li
+        %a{href: "/orders"} All
+      %li
+        %a{href: "/orders/in_progress"} In Progress
+      %li
+        %a{href: "/orders/in_delivery"} In Delivery
+      %li
+        %a{href: "/orders/canceled"} Canceled
+      %li
+  - if @orders.empty?
     %h3.mt-60
       = "You don`t have orders yet."
   -else
-    %p.lead.small.mb-10.visible-xs Sort by
-    .dropdowns.dropdown.general-order-dropdown
-      %a.dropdown-toggle.lead.small{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}
-        = @orders_sorting || "All"
-        %i.fa.fa-angle-down.dropdown-icon.pull-right
-      %ul.dropdown-menu
-        %li
-          %a{href: "/orders"} All
-        %li
-          %a{href: "/orders/in_progress"} In Progress
-        %li
-          %a{href: "/orders/in_delivery"} In Delivery
-        %li
-          %a{href: "/orders/canceled"} Canceled
-        %li
-    - if @orders.empty?
-      %h3.mt-60
-        = "You don`t have orders yet."
-    -else
-      .hidden-xs.mb-res-
-        %table.table.table-hover
-          %thead
+    .hidden-xs.mb-res-
+      %table.table.table-hover
+        %thead
+          %tr
+            %th
+              %span.in-grey-600 Number
+            %th
+              %span.in-grey-600 Updated at
+            %th
+              %span.in-grey-600 Status
+            %th
+              %span.in-grey-600 Total
+        %tbody
+          -@orders.each do |order|
             %tr
-              %th
-                %span.in-grey-600 Number
-              %th
-                %span.in-grey-600 Updated at
-              %th
-                %span.in-grey-600 Status
-              %th
-                %span.in-grey-600 Total
-          %tbody
-            -@orders.each do |order|
-              %tr
-                %td
-                  %span.general-order-number= "# #{order.id}"
-                %td
-                  %span.in-grey-900.font-16.fw-300= order.updated_at.strftime('%e %b %Y %H:%M:%S%p')
-                %td
-                  %span.font-16.in-grey-900.fw-300= order.aasm_state.gsub(/[_]/, ' ').capitalize
-                %td
-                  %span.font-16.in-gold-500= Money.new(order.total_price).format
+              %td
+                %span.general-order-number= "# #{order.id}"
+              %td
+                %span.in-grey-900.font-16.fw-300= order.updated_at.strftime('%e %b %Y %H:%M:%S%p')
+              %td
+                %span.font-16.in-grey-900.fw-300= order.aasm_state.gsub(/[_]/, ' ').capitalize
+              %td
+                %span.font-16.in-gold-500= Money.new(order.total_price).format
 

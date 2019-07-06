@@ -11,7 +11,7 @@ class CheckoutController < ApplicationController
       prepopulate_addresses
     when :delivery
       @delivery = Delivery.all
-    when :delivery
+    when :complete
       empty_session
     end
     render_wizard

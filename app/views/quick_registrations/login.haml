@@ -25,12 +25,12 @@
     .col-md-5.col-md-offset-1.mb-60
       .text-center
         %h3.general-subtitle New Customer
-        %a.general-login-icon{href: "#"}
+        %a.general-login-icon{href: "/customers/auth/facebook"}
           %i.fa.fa-facebook-official
         %p.general-login-text or
       .general-form
         .mb-40
-          %p.mb-5 Quik Register
+          %p.mb-5 Quick Register
           %p.general-info-text.font-12.mb-20 You’ll be able to create password later
         = form_for @customer, url: login_path, method: 'post' do |f|
           .form-group.mb-30
