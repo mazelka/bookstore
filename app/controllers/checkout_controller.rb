@@ -11,6 +11,8 @@ class CheckoutController < ApplicationController
       prepopulate_addresses
     when :delivery
       @delivery = Delivery.all
+    when :delivery
+      empty_session
     end
     render_wizard
   end
@@ -76,11 +78,14 @@ class CheckoutController < ApplicationController
   end
 
   def finish_wizard_path
+    root_path
+  end
+
+  def empty_session
     session.delete(:cart)
     session.delete(:coupon)
     session.delete(:coupon_id)
     session.delete(:order_id)
-    root_path
   end
 
   def find_coupon

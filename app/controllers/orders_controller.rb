@@ -1,24 +1,24 @@
 class OrdersController < ApplicationController
-  def coupon
-    @coupon = session[:coupon] || 0
+  def index
+    @orders = current_customer.orders
+    @orders_sorting = 'All'
   end
 
-  def total_price
-    session[:cart].map { |item| item[:price] * item[:quantity] }.sum - coupon
+  def in_progress
+    @orders = current_customer.orders.in_progress
+    @orders_sorting = 'In Progress'
+    render 'index'
   end
 
-  def sub_total
-    total_price - coupon
+  def in_delivery
+    @orders = current_customer.orders.in_delivery
+    @active_sorting = 'In Delivery'
+    render 'index'
   end
 
-  private
-
-  def order_params
-    params.permit(:id, :items, :total_price, { shipping_address_attributes: [:address_line, :country, :city, :zip, :phone] }, { billing_address_attributes: [:address_line, :country, :city, :zip, :phone] }).merge(customer: current_customer)
-  end
-
-  def create_item(book_id, quantity)
-    item = OrderItem.new(book: Book.find(book_id), quantity: quantity, order: @order)
-    item.save
+  def canceled
+    @orders = current_customer.orders.canceled
+    @active_sorting = 'Canceled'
+    render 'index'
   end
 end

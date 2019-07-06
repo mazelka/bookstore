@@ -6,7 +6,7 @@
   .row.mb-20
     .col-sm-6
       .visible-xs
-        %p.general-order-number.mb-0= "Order ##{@order.id}"
+        %p.general-order-number.mb-0= "Order # #{@order.id}"
         %p.general-address.mb-30= @order.updated_at.strftime('%e %b %Y %H:%M:%S%p')
       %p.general-address
         = "#{current_customer.first_name} #{current_customer.last_name}"
@@ -21,7 +21,7 @@
         = @order.shipping_address.phone
     .col-sm-6.hidden-xs.text-right
       %p.general-order-number.mb-0= "Order #{@order.id}"
-      %p.general-address.mb-30= @order.updated_at
+      %p.general-address.mb-30= @order.updated_at.strftime('%e %b %Y %H:%M:%S%p')
   .hidden-xs.divider-lg.pt-20
     %table.table.table-hover
       %thead
@@ -45,7 +45,7 @@
                   %img.cart-img-shadow.pull-left{src: item.book.cover_url, alt: item.book.title}
               %td
                 %p.title= item.book.title
-                %p.in-grey-600.fw-300= item.book.description
+                %p.in-grey-600.fw-300= "#{item.book.description[0..200]}... "
               %td
                 %span.font-16.in-gold-500= Money.new(item.book.price).format
               %td

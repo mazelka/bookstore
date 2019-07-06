@@ -12,6 +12,7 @@ class Order < ApplicationRecord
   accepts_nested_attributes_for :billing_address, :shipping_address, :payment, :delivery, :order_items
 
   scope :in_progress, -> { where(aasm_state: [:in_progress, :in_queue, :in_delivery]) }
+  scope :in_delivery, -> { where(aasm_state: :in_delivery) }
   scope :delivered, -> { where(aasm_state: :delivered) }
   scope :canceled, -> { where(aasm_state: :canceled) }
 

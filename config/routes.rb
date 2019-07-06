@@ -16,10 +16,14 @@ Rails.application.routes.draw do
   get 'settings' => 'settings#index'
   post 'login' => 'quick_registrations#lazy_sign_up'
   get 'login' => 'quick_registrations#show_lazy_login'
+  get 'orders/in_progress' => 'orders#in_progress'
+  get 'orders/in_delivery' => 'orders#in_delivery'
+  get 'orders/canceled' => 'orders#canceled'
   resources :reviews
   resources :books
   resources :authors
   resources :checkout
+  resources :orders
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
