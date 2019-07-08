@@ -1,4 +1,11 @@
 class CustomersController < ApplicationController
+  def discard
+    current_customer.discard
+    Devise.sign_out_all_scopes ? sign_out : sign_out(current_customer)
+    flash[:message] = 'Your account was deleted.'
+    redirect_to root_path
+  end
+
   private
 
   def customer_params

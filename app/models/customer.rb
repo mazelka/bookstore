@@ -1,8 +1,8 @@
 class Customer < ApplicationRecord
-  attr_accessor :lazy_reg
+  include Discard::Model
 
-  has_many :reviews, dependent: :nullify
-  has_many :orders, dependent: :nullify
+  has_many :reviews
+  has_many :orders
   has_one :billing_address, as: :addressable, class_name: 'Address'
   has_one :shipping_address, as: :addressable, class_name: 'Address'
   accepts_nested_attributes_for :billing_address, :shipping_address
@@ -44,12 +44,20 @@ class Customer < ApplicationRecord
     super && provider.blank?
   end
 
+  def active_for_authentication?
+    super && !discarded_at
+  end
+
   def update_with_password(params, *options)
     if encrypted_password.blank?
       update_attributes(params, *options)
     else
       super
     end
+  end
+
+  def inactive_message
+    !discarded_at ? super : :discarded_account
   end
 
   private

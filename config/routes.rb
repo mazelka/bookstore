@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   get 'create_order' => 'orders#create_order'
   put 'settings' => 'settings#update'
   put 'settings' => 'settings#update_email'
+  post 'settings/delete' => 'customers#discard'
   resources :reviews
   resources :books
   resources :authors
