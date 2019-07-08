@@ -30,6 +30,20 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  common:
+    shipping_address: "Shipping Address"
+    billing_address: "Billing Address"
+    all_fields_required: "all fields are required"
+    use_billing_address: "Use Billing Address"
+    address_line: "Address line"
+    save_and_continue: "Save adn continue"
+    back_to_store: "Back to Store"
+  order:
+    order_summary: "Order Summary"
+    item_total: "Item Total:"
+    order_total: "Order Total:"
+    delivery: "Delivery:"
+    coupon: "Coupon:"
   books:
     index:
       catalog: "Catalog"
@@ -106,4 +120,13 @@ en:
         enter_email: "Enter Email"
         email_instructions: 'Email Instructions'
         cancel: 'Cancel'
+    checkout:
+      checkout_steps:
+        address: "Address"
+        delivery: "Delivery"
+        payment: "Payment"
+        confirmation: "Confirmation"
+        complete: "Complete"
+      complete:
+        order_sent: ""
   hello: "Hello world"

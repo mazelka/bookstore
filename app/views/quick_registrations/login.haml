@@ -1,0 +1,40 @@
+
+%main.container
+  %ul
+    - flash.each do |_type, message|
+      %li= message
+  .row
+    .col-md-5.mb-40
+      .text-center
+        %h3.general-subtitle Returning Customer
+        %a.general-login-icon{href: "/customers/auth/facebook"}
+          %i.fa.fa-facebook-official
+        %p.general-login-text or
+      .general-form
+        = form_for @customer, url: customer_session_path, method: :post do |f|
+          .mb-40
+            %p.mb-15 Log In with Password
+            .form-group.mb-30
+              = f.label :email, class: 'control-label input-label'
+              = f.text_field :email, class: 'form-control'
+            .form-group.mb-30
+              = f.label :password, class: 'control-label input-label'
+              = f.text_field :password, class: 'form-control'
+              %a.help-block.in-gold-500{href: "password/new"} Forgot password?
+          = f.submit :'Login with Password', class: 'btn btn-default mb-20'
+    .col-md-5.col-md-offset-1.mb-60
+      .text-center
+        %h3.general-subtitle New Customer
+        %a.general-login-icon{href: "/customers/auth/facebook"}
+          %i.fa.fa-facebook-official
+        %p.general-login-text or
+      .general-form
+        .mb-40
+          %p.mb-5 Quick Register
+          %p.general-info-text.font-12.mb-20 You’ll be able to create password later
+        = form_for @customer, url: login_path, method: 'post' do |f|
+          .form-group.mb-30
+            = f.label :email, class: 'control-label input-label'
+            = f.text_field :email, class: 'form-control'
+          = f.submit :'Continue to Checkout', class: 'btn btn-default mb-20'
+
