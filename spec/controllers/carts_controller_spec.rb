@@ -198,8 +198,10 @@ RSpec.describe CartsController do
     end
 
     it 'renders cart' do
+      request.env['HTTP_REFERER'] = '/cart'
+      get :show_cart
       post :apply_coupon, params: { coupon: coupon.name }, session: { cart: cart }
-      expect(response).to render_template :cart
+      expect(response).to redirect_to('/cart')
     end
 
     it 'has success message' do
@@ -214,7 +216,7 @@ RSpec.describe CartsController do
 
     it 'has updated value in session' do
       post :apply_coupon, params: { coupon: coupon.name }, session: { cart: cart }
-      expect(session[:coupon]).to be_present
+      expect(session[:coupon_id]).to be_present
     end
 
     it 'has cart details' do

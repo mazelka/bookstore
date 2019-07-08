@@ -3,9 +3,9 @@
   - flash.each do |_type, message|
     -if message.is_a?(Array)
       -message.each do |m|
-        %li= m
+        %li.mb-20= m
     -else
-      %li= message
+      %li.mb-20= message
 
   %h1.general-title-margin Cart
   - if @cart.size <= 0
@@ -77,5 +77,4 @@
               %td
                 %strong.font-18= @cart_details.total
           %button.btn.btn-default.mb-20.visible-xs-inline-block Checkout
-  %button.btn.btn-default.mb-20.hidden-xs.center-block Checkout
-  
+  = link_to('Checkout', create_order_path, class: 'btn btn-default mb-20 hidden-xs center-block check-center')

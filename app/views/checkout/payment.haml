@@ -1,0 +1,52 @@
+%main.container.mb-res-50
+  = render :partial => "checkout_steps", :formats => [:html]
+  - if @order && @order.errors.any?
+    - @order.errors.full_messages.each do |message|
+      %li= message
+  %h3.general-subtitle Credit Card
+  .max-600.mb-80
+    = form_for @order, url: wizard_path, method: :put do |f|
+      = fields_for :payment_attributes, f.object.payment do |f_pay|
+        - if f_pay.present?
+          = f_pay.hidden_field :id
+        .form-group
+          = f_pay.label :card_number, class: 'control-label input-label'
+          = f_pay.text_field :card_number, class: 'form-control'
+        .row
+          .col-sm-6
+            .form-group
+              = f_pay.label :'Name on Card', class: 'control-label input-label'
+              = f_pay.text_field :name, class: 'form-control'
+          .col-sm-3
+            .form-group
+              = f_pay.label :Expiration, class: 'control-label input-label'
+              = f_pay.text_field :expire, class: 'form-control'
+          .col-sm-3
+            .form-group.relative
+              = f_pay.label :CVV, class: 'control-label input-label'
+              = f_pay.text_field :cvv, class: 'form-control'
+              %i.fa.fa-question-circle.general-form-help
+      .general-text-align
+        %p.in-gold-500.font-18 Order Summary
+        %table.general-summary-table
+          %tr
+            %td
+              %p.font-16 Subtotal:
+            %td
+              %p.font-16= @cart_details.subtotal
+          %tr
+            %td
+              %p.font-16 Delivery:
+            %td
+              %p.font-16= Money.new(@order.delivery.price).format
+          %tr
+            %td
+              %p.font-16 Coupon:
+            %td
+              %p.font-16= @cart_details.discount
+          %tr
+            %td
+              %strong.font-18 Order Total:
+            %td
+              %strong.font-18= Money.new(@order.total_price).format
+      = f.submit :'Save and continue', class: 'btn btn-default center-block mb-20 submit-address'

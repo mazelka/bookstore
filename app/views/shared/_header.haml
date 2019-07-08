@@ -23,16 +23,15 @@
             %ul.dropdown-menu
               %li
                 %a{href: "/books"} Catalog
-              %li.divider{role: "separator"}
-              %li
-                = link_to("Log out", destroy_customer_session_path, method: "delete")
           %li
             - if customer_signed_in?
               %li.dropdown
                 %a.dropdown-toggle{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"} My Account
                 %ul.dropdown-menu
                   %li
-                    %a{href: "/books"} Settings
+                    %a{href: "/settings"} Settings
+                  %li
+                    %a{href: "/orders"} Orders
                   %li.divider{role: "separator"}
                   %li
                     = link_to("Log out", destroy_customer_session_path, method: "delete")

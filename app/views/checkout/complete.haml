@@ -1,0 +1,74 @@
+%main.container.general-main-wrap
+  = render :partial => "checkout_steps", :formats => [:html]
+  .text-center.mb-40
+    %h3.general-subtitle Thank You for your Order!
+    %p.fw-300= "An order confirmation has been has been sent to #{current_customer.email}"
+  .row.mb-20
+    .col-sm-6
+      .visible-xs
+        %p.general-order-number.mb-0= "Order # #{@order.id}"
+        %p.general-address.mb-30= @order.updated_at.strftime('%e %b %Y %H:%M:%S%p')
+      %p.general-address
+        = "#{current_customer.first_name} #{current_customer.last_name}"
+        %span.general-edit
+        %br
+        = @order.shipping_address.address_line
+        %br
+        = "#{@order.shipping_address.city} #{@order.shipping_address.zip} "
+        %br
+        = @order.shipping_address.country
+        %br
+        = @order.shipping_address.phone
+    .col-sm-6.hidden-xs.text-right
+      %p.general-order-number.mb-0= "Order #{@order.id}"
+      %p.general-address.mb-30= @order.updated_at.strftime('%e %b %Y %H:%M:%S%p')
+  .hidden-xs.divider-lg.pt-20
+    %table.table.table-hover
+      %thead
+        %tr
+          %th
+            %span.in-grey-600 Book
+          %th.col-method
+          %th
+            %span.in-grey-600 Price
+          %th
+            %span.in-grey-600 Quantity
+          %th
+            %span.in-grey-600 Total
+      %tbody
+        = form_tag(url: wizard_path, method: 'put') do |f|
+          %input{ type:'hidden', name:'_method', value:'put'}
+          - @order.order_items.each do |item|
+            %tr
+              %td
+                .general-img-wrap-table
+                  %img.cart-img-shadow.pull-left{src: item.book.cover_url, alt: item.book.title}
+              %td
+                %p.title= item.book.title
+                %p.in-grey-600.fw-300= "#{item.book.description[0..200]}... "
+              %td
+                %span.font-16.in-gold-500= Money.new(item.book.price).format
+              %td
+                %span.ml-30= item.quantity
+              %td
+                %span.font-16.in-gold-500= Money.new(item.book.price*item.quantity).format
+  .text-center.general-text-right
+    %p.in-gold-500.font-18 Order Summary
+    %table.general-summary-table.general-summary-table-right.general-text-right
+      %tr
+        %td
+          %p.font-16 Delivery:
+        %td
+          %p.font-16= Money.new(@order.delivery.price).format
+      %tr
+        %td
+          %p.font-16 Coupon:
+        %td
+          %p.font-16= @order.coupon.nil? ? Money.new(0).format : Money.new(@order.coupon.discount).format
+      %tr
+        %td
+          %strong.font-18 Order Total:
+        %td
+          %strong.font-18= Money.new(@order.total_price).format
+  .text-center
+    = link_to('Back to Store', next_wizard_path, class: 'btn btn-default mb-20')

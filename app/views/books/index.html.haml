@@ -3,9 +3,9 @@
   - flash.each do |_type, message|
     -if message.is_a?(Array)
       -message.each do |m|
-        %li= m
+        %li.mb-20= m
     -else
-      %li= message
+      %li.mb-20= message
 
   %h1.general-title-margin Сatalog
   .hidden-xs.clearfix
@@ -29,10 +29,9 @@
           All
           %span.badge.general-badge= @all_books
       - @popular_categories.each do |category|
-        %li.mr-35
-          %a.filter-link{href: "categories/#{category.id}"}
-            = category.title
-            %span.badge.general-badge= category.books.count
+        %li.mr-35.filter-link
+          = link_to(category.title, books_category_path(id: category.id), class: 'filter-link')
+          %span.badge.general-badge= category.books.count
 
   - paginate(@books)
     - @books.in_groups_of(4) do |group|
@@ -57,4 +56,3 @@
   .text-center.mb-20
     - unless @books.last_page?
       = link_to_next_page(@books, 'View More', class: 'btn btn-primary')
-      

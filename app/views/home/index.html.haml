@@ -20,7 +20,7 @@
                 %p.lead= truncate(book.description, :length =>100) unless book.description.nil?
                 %p.lead.small= "#{book.author.first_name} #{book.author.last_name}"
                 .general-align
-                  %button.disabled.btn Buy Now
+                  = link_to('Buy Now', books_add_to_cart_path(id: book.id, quantity: 1), method: 'post', class: 'btn btn-default')
     
     %a.left.carousel-control{href: "#slider", role: "button", 'data-slide': "prev"}
       %span.icon-prev{'aria-hidden': "true"}

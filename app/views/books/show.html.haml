@@ -3,9 +3,9 @@
   - flash.each do |_type, message|
     -if message.is_a?(Array)
       -message.each do |m|
-        %li= m
+        %li.mb-20= m
     -else
-      %li= message
+      %li.mb-20= message
 
   %i.fa.fa-long-arrow-left.mr-15
   = link_to 'Back to results', :back, class: 'general-back-link'
@@ -61,38 +61,42 @@
         .mb-15.review-body
           %p= review.title
           %p= review.text
-      .general-message-wrap.divider-lg-bottom 
+      .general-message-wrap.divider-lg-bottom
 
-= render :partial => "shared/footer"
 
 -# Read more
 :javascript
-  let book_description = document.querySelector('.book-description')
-  const read_more = document.querySelector('.read-more-link')
-  const full_text = book_description.innerText
-  book_description.innerText = full_text.slice(0, 300)
+  function readMore() {
+    const book_description = document.querySelector('.book-description')
+    const read_more = document.querySelector('.read-more-link')
+    const full_text = book_description.innerText
+    book_description.innerText = full_text.slice(0, 300)
 
-  read_more.addEventListener('click', expand)
+    read_more.addEventListener('click', expand)
 
-  function expand(e) {
-    e.preventDefault()
-    book_description.innerText = full_text;
-    read_more.classList.add('hidden')
+    function expand(e) {
+      e.preventDefault()
+      book_description.innerText = full_text;
+      read_more.classList.add('hidden')
+    }
   }
+  readMore();
 
 -# Quantity handling
 :javascript
-  let input = document.querySelector('.quantity-input');
+  function quantityHandling() {
+    let input = document.querySelector('.quantity-input');
 
-  document.querySelector('.increase-quantity').addEventListener('click', (e) => {
-    e.preventDefault();
+    document.querySelector('.increase-quantity').addEventListener('click', (e) => {
+      e.preventDefault();
 
-    input.value = Number(input.value) + 1;
-  })
+      input.value = Number(input.value) + 1;
+    })
 
-  document.querySelector('.decrease-quantity').addEventListener('click', (e) => {
-    e.preventDefault();
+    document.querySelector('.decrease-quantity').addEventListener('click', (e) => {
+      e.preventDefault();
 
-    input.value = (Number(input.value) - 1) || 1;
-  })
-
+      input.value = (Number(input.value) - 1) || 1;
+    })
+  }
+  quantityHandling();
