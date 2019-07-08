@@ -204,4 +204,28 @@ en:
       remove_account: "Remove Account"
       remove_button: "Please Remove My Account"
       accept_checkbox: "I understand that all data will be lost"
-  hello: "Hello world"
+  authors:
+    destroy:
+      admin:
+        messages:
+          author_deleted: "Author has been deleted."
+  active_admin:
+    resource:
+      index:
+        status: 'Status'
+        delete: 'Delete'
+        confirm_part1: "Are you sure you want to delete this author? They are associated with"
+        confirm_part2: "books."
+      show:
+        status: 'Status'
+        approve: 'Approve'
+        reject: 'Reject'
+  admin:
+    reviews:
+      approve:
+        notice: "Review has been approved!"
+        alert: "Sorry, not all requirements were met for approving"
+      reject:
+        notice: "Review has been rejected!"
+        alert: "Sorry, not all requirements were met for rejecting"
+

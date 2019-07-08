@@ -35,3 +35,7 @@ module Bookstore
     I18n.available_locales = [:en]
   end
 end
+
+def set_admin_locale
+  I18n.locale = :en
+end

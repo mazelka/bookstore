@@ -160,6 +160,7 @@ ActiveAdmin.setup do |config|
   config.filter_attributes = [:encrypted_password, :password, :password_confirmation]
 
   # == Localize Date/Time Format
+  config.before_action :set_admin_locale
   #
   # Set the localize format to display dates and times.
   # To understand how to localize your app with I18n, read more at

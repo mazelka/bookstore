@@ -16,7 +16,7 @@ ActiveAdmin.register Review do
       "#{i.customer.first_name} #{i.customer.last_name}"
     end
     column :book
-    column 'Status', :aasm_state do |review|
+    column t('.status'), :aasm_state do |review|
       state = review.aasm_state
       status_tag(state.to_s, label: state.to_s, class: customize_status_tag(state))
     end
@@ -35,7 +35,7 @@ ActiveAdmin.register Review do
         "#{i.customer.first_name} #{i.customer.last_name}"
       end
       row :text
-      row 'Status', :aasm_state do |review|
+      row t('.status'), :aasm_state do |review|
         state = review.aasm_state
         status_tag(state.to_s, label: state.to_s, class: customize_status_tag(state))
       end
@@ -43,26 +43,26 @@ ActiveAdmin.register Review do
   end
 
   action_item :approve, only: :show do
-    link_to('Approve', approve_admin_review_path(resource), method: :post) if resource.unprocessed?
+    link_to(t('.approve'), approve_admin_review_path(resource), method: :post) if resource.unprocessed?
   end
 
   action_item :reject, only: :show do
-    link_to('Reject', reject_admin_review_path(resource), method: :post) if resource.unprocessed?
+    link_to(t('.reject'), reject_admin_review_path(resource), method: :post) if resource.unprocessed?
   end
 
   member_action :approve, method: :post do
     if resource.approve!
-      redirect_to admin_review_path(resource), notice: 'Review has been approved!'
+      redirect_to admin_review_path(resource), notice: t('.notice')
     else
-      redirect_to admin_review_path(resource), alert: 'Sorry, not all requirements were met for approving'
+      redirect_to admin_review_path(resource), alert: t('.alert')
     end
   end
 
   member_action :reject, method: :post do
     if resource.reject!
-      redirect_to admin_review_path(resource), notice: 'Review has been rejected!'
+      redirect_to admin_review_path(resource), notice: t('.notice')
     else
-      redirect_to admin_review_path(resource), alert: 'Sorry, not all requirements were met for rejecting'
+      redirect_to admin_review_path(resource), alert: t('.alert')
     end
   end
 end
