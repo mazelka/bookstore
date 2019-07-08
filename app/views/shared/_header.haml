@@ -33,6 +33,8 @@
                 %ul.dropdown-menu
                   %li
                     %a{href: "/books"}= t('.settings')
+                  %li
+                    %a{href: "/orders"}= t('.orders')
                   %li.divider{role: "separator"}
                   %li
                     = link_to(t('.log_out'), destroy_customer_session_path, method: "delete")

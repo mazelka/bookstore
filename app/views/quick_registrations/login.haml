@@ -20,7 +20,7 @@
             .form-group.mb-30
               = f.label t('devise.sessions.new.password'), class: 'control-label input-label'
               = f.text_field :password, class: 'form-control'
-              %a.help-block.in-gold-500{href: "password/new"}= ('devise.sessions.new.forgot_password')
+              %a.help-block.in-gold-500{href: "password/new"}= t('devise.sessions.new.forgot_password')
           = f.submit t('.login_button'), class: 'btn btn-default mb-20'
     .col-md-5.col-md-offset-1.mb-60
       .text-center

@@ -132,6 +132,7 @@ en:
   carts:
     cart:
       book: "Book"
+      cart: "Cart"
       price: 'Price'
       quantity: 'Quantity'
       total: 'Total'

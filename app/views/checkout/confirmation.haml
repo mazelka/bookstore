@@ -5,7 +5,7 @@
       %li= message
   .row.mb-20
     .col-sm-3
-      %h3.general-subtitle= t('.common.shipping_address')
+      %h3.general-subtitle= t('.address.shipping_address')
       %p.general-address
         = "#{@order.customer.first_name} #{@order.customer.last_name}"
         = link_to('edit', wizard_path(:address), class: 'general-edit')
@@ -18,7 +18,7 @@
         %br
         = @order.shipping_address.phone
     .col-sm-3
-      %h3.general-subtitle= t('common.billing_address')
+      %h3.general-subtitle= t('address.billing_address')
       %p.general-address
         = "#{@order.customer.first_name} #{@order.customer.last_name}"
         = link_to('edit', wizard_path(:address), class: 'general-edit')
