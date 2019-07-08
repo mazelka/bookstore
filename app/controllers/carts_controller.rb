@@ -5,7 +5,7 @@ class CartsController < ApplicationController
 
   def add_to_cart
     add_book(params[:id], params[:quantity])
-    flash[:notice] = 'Added to Cart!'
+    flash[:notice] = t('carts.cart.added_to_cart')
     redirect_to book_path(params[:id])
   end
 
@@ -49,11 +49,11 @@ class CartsController < ApplicationController
     if coupon_exists?(params[:coupon])
       @coupon = get_discount(params[:coupon])
       session[:coupon] = @coupon
-      flash[:notice] = 'Your coupon is applied!'
+      flash[:notice] = t('carts.cart.coupon_applied')
       @cart_details = CartDetails.new(@cart, @coupon)
       render 'cart'
     else
-      flash[:notice] = 'Sorry, we don`t have this coupon'
+      flash[:notice] = t('carts.cart.invalid_coupon')
       redirect_back fallback_location: root_path
     end
   end

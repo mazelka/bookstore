@@ -7,22 +7,22 @@
     -else
       %li= message
 
-  %h1.general-title-margin Cart
+  %h1.general-title-margin= t('common.shipping_address')
   - if @cart.size <= 0
-    %p You don`t have added books. Go and find something in Catalog!
+    %p= t('.empty_card')
   -else
     .hidden-xs
       %table.table.table-hover
         %tr.no-hover
           %th.col-pic.pl-0
-            %span.in-grey-600 Product
+            %span.in-grey-600= t('.product')
           %th.col-title
           %th.col-price
-            %span.in-grey-600 Price
+            %span.in-grey-600= t('.price')
           %th.col-quantity
-            %span.in-grey-600 Quantity
+            %span.in-grey-600= t('.quantity')
           %th.col-total
-            %span.in-grey-600 SubTotal
+            %span.in-grey-600= t('.subtotal')
           %th.col-close
         - @cart.each do |item|
           %tr
@@ -51,31 +51,29 @@
       .col-sm-4
         -if @cart_details.raw_coupon == 0
           %form.input-group.general-input-group{action: cart_apply_coupon_path, method: 'post'}
-            %label.input-label Enter Your Coupon Code
-            %input.form-control.coupon-input.mb-30{type: "text", placeholder: "Enter Your Coupon Code ", name: 'coupon'}
+            %label.input-label= t('.enter_coupon')
+            %input.form-control.coupon-input.mb-30{type: "text", placeholder: t('.enter_coupon'), name: 'coupon'}
             %div
-              %button.btn.btn-primary.mr-5.mb-15{type: 'submit'} Apply Coupon
+              %button.btn.btn-primary.mr-5.mb-15{type: 'submit'}= t('.apply_coupon')
 
       .col-sm-8
         .res-mr-200.text-center.general-text-right
-          %p.in-gold-500.font-18 Order Summary
+          %p.in-gold-500.font-18= t('order.order_summary')
           %table.general-summary-table.general-summary-table-right.general-text-right
             %tr
               %td
-                %p.font-16 Subtotal:
+                %p.font-16= t('order.subtotal')
               %td
                 %p.font-16= @cart_details.subtotal
             %tr
               %td
-                %p.font-16 Coupon:
+                %p.font-16= t('order.coupon')
               %td
                 %p.font-16
                   = @cart_details.discount
             %tr
               %td
-                %strong.font-18 Order Total:
+                %strong.font-18= t('order.order_total')
               %td
                 %strong.font-18= @cart_details.total
-          %button.btn.btn-default.mb-20.visible-xs-inline-block Checkout
-  %button.btn.btn-default.mb-20.hidden-xs.center-block Checkout
-  
+  %button.btn.btn-default.mb-20.hidden-xs.center-block= t('.checkout')

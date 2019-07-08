@@ -30,6 +30,28 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  facebook:
+    signed_in: "Successfully signed in!"
+  common:
+    save_and_continue: "Save and continue"
+    back_to_store: "Back to Store"
+  order:
+    order_summary: "Order Summary"
+    item_total: "Item Total:"
+    order_total: "Order Total:"
+    delivery: "Delivery:"
+    coupon: "Coupon:"
+    subtotal: 'Subtotal'
+  address:
+    all_fields_required: "all fields are required"
+    use_shipping_address: "Use Shipping Address"
+    shipping_address: "Shipping Address"
+    billing_address: "Billing Address"
+    address_line: "Address"
+    country: "Country"
+    city: "City"
+    zip: "Zip"
+    phone: "Phone"
   books:
     index:
       catalog: "Catalog"
@@ -47,6 +69,7 @@ en:
       title: "Title"
       review: "Review"
       post: "Post"
+      review_sent: "Review was sent to approve!"
   home:
     index:
       buy_now: "Buy Now"
@@ -93,7 +116,7 @@ en:
         password: "Password"
         forgot_password: "Forgot Password?"
         sign_up: 'Sign Up'
-        do_not_have_account: 'Don`t have an Account? '
+        do_not_have_account: "Don`t have an Account? "
     passwords:
       edit:
         set_new_password: "Set new password"
@@ -106,4 +129,79 @@ en:
         enter_email: "Enter Email"
         email_instructions: 'Email Instructions'
         cancel: 'Cancel'
+  carts:
+    cart:
+      book: "Book"
+      price: 'Price'
+      quantity: 'Quantity'
+      total: 'Total'
+      checkout: "Checkout"
+      empty_card: "You don`t have added books. Go and find something in Catalog!"
+      enter_coupon: "Enter Your Coupon Code"
+      apply_coupon: "Apply Coupon"
+      added_to_cart: "Added to Cart!"
+      coupon_applied: "Your coupon is applied!"
+      invalid_coupon: "Sorry, we don`t have this coupon"
+  checkout:
+    checkout_steps:
+      address: "Address"
+      delivery: "Delivery"
+      payment: "Payment"
+      confirmation: "Confirmation"
+      complete: "Complete"
+    complete:
+      order_sent: "An order confirmation has been has been sent to "
+      order: "Order #"
+    confirmation:
+      shipments: 'Shipments'
+      payment_information: "Payment Information"
+      place_order: "Place Order"
+    delivery:
+      method: "Method"
+      days: "Days"
+      price: "Price"
+    payment:
+      credit_card: "Credit Card"
+      name_on_card: "Name on Card"
+      expiration: "Expiration"
+      cvv: "CVV"
+  orders:
+    index:
+      my_orders: "My Orders"
+      sort_by: "Sort by"
+      all: "All"
+      in_progress: "In Progress"
+      in_delivery: "In Delivery"
+      canceled: "Canceled"
+      empty_orders: "You don`t have orders yet."
+      number: 'Number'
+      updated_at: 'Updated at'
+      status: "Status"
+      total: "Total"
+  quick_registrations:
+    login:
+      returning_customer: "Returning Customer"
+      or: "or"
+      login_with_password: "Log In with Password"
+      login_button: "Login with Password"
+      new_customer: "New Customer"
+      quick_register: "Quick Register"
+      set_password_later: "You’ll be able to create password later"
+      email: "Email"
+      continue_to_checkout: "Continue to Checkout"
+  settings:
+    index:
+      settings: "Settings"
+      address: "Address"
+      privacy: "Privacy"
+      email: "Email"
+      password: "Password"
+      old_password: "Old Password"
+      new_password: "New Password"
+      confirm_password: "Confirm Password"
+      update_email: "Update Email"
+      update_password: "Update Password"
+      remove_account: "Remove Account"
+      remove_button: "Please Remove My Account"
+      accept_checkbox: "I understand that all data will be lost"
   hello: "Hello world"

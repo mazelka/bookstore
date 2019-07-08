@@ -1,0 +1,40 @@
+
+%main.container
+  %ul
+    - flash.each do |_type, message|
+      %li.mb-20= message
+  .row
+    .col-md-5.mb-40
+      .text-center
+        %h3.general-subtitle= t('.returning_customer')
+        %a.general-login-icon{href: "/customers/auth/facebook"}
+          %i.fa.fa-facebook-official
+        %p.general-login-text= t('.or')
+      .general-form
+        = form_for @customer, url: customer_session_path, method: :post do |f|
+          .mb-40
+            %p.mb-15= t('.login_with_password')
+            .form-group.mb-30
+              = f.label t('devise.sessions.new.enter_email'), class: 'control-label input-label'
+              = f.text_field :email, class: 'form-control'
+            .form-group.mb-30
+              = f.label t('devise.sessions.new.password'), class: 'control-label input-label'
+              = f.text_field :password, class: 'form-control'
+              %a.help-block.in-gold-500{href: "password/new"}= ('devise.sessions.new.forgot_password')
+          = f.submit t('.login_button'), class: 'btn btn-default mb-20'
+    .col-md-5.col-md-offset-1.mb-60
+      .text-center
+        %h3.general-subtitle= t('.new_customer')
+        %a.general-login-icon{href: "/customers/auth/facebook"}
+          %i.fa.fa-facebook-official
+        %p.general-login-text= t('.or')
+      .general-form
+        .mb-40
+          %p.mb-5= t('.quick_register')
+          %p.general-info-text.font-12.mb-20= t('.set_password_later')
+        = form_for @customer, url: login_path, method: 'post' do |f|
+          .form-group.mb-30
+            = f.label t('.email'), class: 'control-label input-label'
+            = f.text_field :email, class: 'form-control'
+          = f.submit t('.continue_to_checkout'), class: 'btn btn-default mb-20'
+

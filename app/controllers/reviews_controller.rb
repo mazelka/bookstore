@@ -4,7 +4,7 @@ class ReviewsController < ApplicationController
   def create
     @review = Review.new(review_params)
     if @review.save
-      flash.notice = 'Review was sent to approve!'
+      flash.notice = t('.review_sent')
     else
       flash.notice = @review.errors.full_messages
     end
