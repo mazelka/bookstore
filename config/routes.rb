@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get 'orders/in_progress' => 'orders#in_progress'
   get 'orders/in_delivery' => 'orders#in_delivery'
   get 'orders/canceled' => 'orders#canceled'
+  get 'create_order' => 'orders#create_order'
   put 'settings' => 'settings#update'
   put 'settings' => 'settings#update_email'
   resources :reviews

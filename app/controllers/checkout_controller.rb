@@ -1,7 +1,7 @@
 class CheckoutController < ApplicationController
   include Wicked::Wizard
 
-  before_action :find_order, :login_customer
+  before_action :current_order, :login_customer
   steps :address, :delivery, :payment, :confirmation, :complete
 
   def show
@@ -39,7 +39,7 @@ class CheckoutController < ApplicationController
   end
 
   def customer_has_address?
-    current_customer.address.present?
+    current_customer.shipping_address.present?
   end
 
   def order_has_address?
@@ -52,22 +52,11 @@ class CheckoutController < ApplicationController
     end
   end
 
-  def find_order
+  def current_order
     if session[:order_id].nil?
-      @order = create_order_with_items
-    else
-      @order = Order.find(session[:order_id])
-    end
-  end
-
-  def create_order_with_items
-    if session[:cart].nil?
       redirect_to cart_path
     else
-      @order = Order.create(customer: current_customer, coupon: find_coupon)
-      add_items_from_cart
-      session[:order_id] = @order.id
-      @order
+      @order = Order.find(session[:order_id])
     end
   end
 
@@ -90,17 +79,6 @@ class CheckoutController < ApplicationController
 
   def find_coupon
     session[:coupon_id].nil? ? nil : Coupon.find(session[:coupon_id])
-  end
-
-  def add_items_from_cart
-    session[:cart].map do |item|
-      create_item(item[:book_id], item[:quantity])
-    end
-  end
-
-  def create_item(book_id, quantity)
-    item = OrderItem.new(book: Book.find(book_id), quantity: quantity, order: @order)
-    item.save
   end
 
   def login_customer

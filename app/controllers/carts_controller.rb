@@ -21,6 +21,7 @@ class CartsController < ApplicationController
   end
 
   def show_cart
+    session.delete(:order_id)
     @coupon = get_coupon_discount(session[:coupon_id]) || 0
     @cart_details = CartDetails.new(@cart, @coupon)
     render 'cart'
