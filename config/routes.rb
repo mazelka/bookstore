@@ -11,17 +11,23 @@ Rails.application.routes.draw do
   get 'cart/increase_quantity' => 'carts#increase_quantity'
   get 'cart/decrease_quantity' => 'carts#decrease_quantity'
   post 'cart/apply_coupon' => 'carts#apply_coupon'
-
-  # devise÷_sc :customer
-  # do increase_quantity
-  #   get '/login' => 'devise/sessions#new'
-  #   post '/login' => 'devise/sessions#create'
-  #   post '/sign_up' => 'devise/registrations#new'
-  # end
+  post 'orders' => 'orders#create'
+  get 'books/category' => 'books#category'
+  get 'settings' => 'settings#index'
+  post 'login' => 'quick_registrations#lazy_sign_up'
+  get 'login' => 'quick_registrations#show_lazy_login'
+  get 'orders/in_progress' => 'orders#in_progress'
+  get 'orders/in_delivery' => 'orders#in_delivery'
+  get 'orders/canceled' => 'orders#canceled'
+  get 'create_order' => 'orders#create_order'
+  put 'settings' => 'settings#update'
+  put 'settings' => 'settings#update_email'
   resources :reviews
-  resources :categories
   resources :books
   resources :authors
+  resources :checkout
+  resources :orders
+  resources :settings
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

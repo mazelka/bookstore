@@ -8,4 +8,12 @@ module ActiveAdminHelpers
       'unprocessed_tag'
     end
   end
+
+  def order_items_details(order)
+    result = ''
+    order.order_items.each do |item|
+      result.concat("Book title: #{item.book.title}, price: #{Money.new(item.book.price).format}, quantity: #{item.quantity} ")
+    end
+    result
+  end
 end

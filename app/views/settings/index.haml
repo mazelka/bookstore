@@ -1,7 +1,7 @@
 %main.container
-  %h1.general-title-margin= t('.settings')
-  - if @customer && @customer.errors.any?
-    - @customer.errors.full_messages.each do |message|
+  %h1.general-title-margint= t('.settings')
+  - if current_customer && current_customer.errors.any?
+    - current_customer.errors.full_messages.each do |message|
       %li= message
   %ul
   - flash.each do |_type, message|
@@ -30,7 +30,7 @@
                   %span.checkbox-icon
                     %i.fa.fa-check
                   %span.checkbox-text= t('address.use_shipping_address')
-      = form_for @customer, url: settings_path, method: :put,  html: { :onsubmit => "handleBillingAddress(event)" } do |f|
+      = form_for current_customer, url: settings_path, method: :put,  html: { :onsubmit => "handleBillingAddress(event)" } do |f|
         = fields_for :'customer[shipping_address_attributes]', f.object.shipping_address do |ship_f|
           .row
             .col-md-5.mb-40
@@ -85,7 +85,7 @@
                 = f.submit t('.update_email'), class: 'btn btn-default mb-20'
         .col-sm-5.col-sm-offset-1
           %p.in-gold-500.font-18.mb-25= t('.password')
-          = form_for @customer, url: settings_path, method: :put do |f|
+          = form_for current_customer, url: settings_path, method: :put do |f|
             .general-form-md.divider-lg-bottom.pb-25
               .form-group.mb-30
                 = f.label t('.old_password'), class: 'control-label input-label'
@@ -100,7 +100,7 @@
                 = f.submit t('.update_password'), class: 'btn btn-default mb-20'
         .col-sm-12
           %p.in-gold-500.font-18.mb-25= t('.remove_account')
-          = form_for @customer, url: customer_registration_path, method: :delete do |f|
+          = form_for current_customer, url: customer_registration_path, method: :delete do |f|
             .general-settings-btn
               = f.submit t('.remove_account'), class: 'btn btn-default mb-20 remove-customer disabled'
             .form-group.checkbox.general-settings-checkbox
