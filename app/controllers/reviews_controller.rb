@@ -4,7 +4,7 @@ class ReviewsController < ApplicationController
   def create
     @review = Review.new(review_params)
     if @review.save
-      flash.notice = t('.review_sent')
+      flash.notice = t('books.show.review_sent')
     else
       flash.notice = @review.errors.full_messages
     end
