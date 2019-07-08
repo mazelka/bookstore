@@ -22,12 +22,13 @@ Rails.application.routes.draw do
   get 'create_order' => 'orders#create_order'
   put 'settings' => 'settings#update'
   put 'settings' => 'settings#update_email'
-  post 'settings/delete' => 'customers#discard'
+  post 'settings/customer_delete' => 'customers#destroy'
   resources :reviews
   resources :books
   resources :authors
   resources :checkout
   resources :orders
+  resources :customers
   resources :settings
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
