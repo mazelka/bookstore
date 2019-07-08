@@ -1,7 +1,7 @@
 %main.container.general-main-wrap
   = render :partial => "checkout_steps", :formats => [:html]
   .text-center.mb-40
-    %h3.general-subtitle Thank You for your Order!
+    %h3.general-subtitle= t('.thanks_message')
     %p.fw-300= "#{t('.order_sent')}#{current_customer.email}"
   .row.mb-20
     .col-sm-6
@@ -45,7 +45,7 @@
                   %img.cart-img-shadow.pull-left{src: item.book.cover_url, alt: item.book.title}
               %td
                 %p.title= item.book.title
-                %p.in-grey-600.fw-300= "#{item.book.description[0..200]}... "
+                %p.in-grey-600.fw-300= "#{item.book.description[0..200]}... " unless item.book.description.nil?
               %td
                 %span.font-16.in-gold-500= Money.new(item.book.price).format
               %td

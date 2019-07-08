@@ -13,7 +13,7 @@ ActiveAdmin.register Order do
     column :customer do |i|
       "#{i.customer.first_name} #{i.customer.last_name}"
     end
-    column 'Status', :aasm_state do |order|
+    column t('.status'), :aasm_state do |order|
       state = order.aasm_state
       status_tag(state.to_s, label: state.to_s, class: customize_status_tag(state))
     end
@@ -30,14 +30,14 @@ ActiveAdmin.register Order do
       row :customer do |i|
         "#{i.customer.first_name} #{i.customer.last_name}"
       end
-      row 'Items', :order_items do |order|
+      row t('.items'), :order_items do |order|
         order_items_details(order)
       end
       row :total_price
       row :delivery do |order|
         order.delivery.name
       end
-      row 'Status', :aasm_state do |order|
+      row t('.status'), :aasm_state do |order|
         state = order.aasm_state
         status_tag(state.to_s, label: state.to_s, class: customize_status_tag(state))
       end
@@ -47,20 +47,20 @@ ActiveAdmin.register Order do
   end
 
   action_item :start_delivery, only: :show do
-    link_to('In Delivery', start_delivery_admin_order_path(resource), method: :post) if resource.in_queue?
+    link_to(t('.in_delivery'), start_delivery_admin_order_path(resource), method: :post) if resource.in_queue?
   end
 
   action_item :finish_delivery, only: :show do
-    link_to('Delivered', finish_delivery_admin_order_path(resource), method: :post) if resource.in_delivery?
+    link_to(t('.delivered'), finish_delivery_admin_order_path(resource), method: :post) if resource.in_delivery?
   end
 
   action_item :cancel, only: :show do
-    link_to('Cancel', cancel_admin_order_path(resource), method: :post) unless resource.in_progress? || resource.canceled?
+    link_to(t('.cancel'), cancel_admin_order_path(resource), method: :post) unless resource.in_progress? || resource.canceled?
   end
 
   member_action :start_delivery, method: :post do
     if resource.start_delivery!
-      redirect_to admin_order_path(resource), notice: 'Order is in delivery now!'
+      redirect_to admin_order_path(resource), notice: t('.in_delivery')
     else
       redirect_to admin_order_path(resource), alert: 'Sorry, not all requirements were met for delivering'
     end

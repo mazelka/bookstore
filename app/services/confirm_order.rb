@@ -9,11 +9,13 @@ class ConfirmOrder
 
   def order_has_all_attributes?
     order.attributes.each do |attr|
-      return false if order[attr].nil?
+      return false unless order[attr].nil?
     end
   end
 
   def confirm
+    binding.pry
+
     if order_has_all_attributes?
       order.start_processing!
     else

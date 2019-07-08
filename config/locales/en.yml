@@ -153,6 +153,7 @@ en:
     complete:
       order_sent: "An order confirmation has been has been sent to "
       order: "Order #"
+      thanks_message: "Thank You for your Order!"
     confirmation:
       shipments: 'Shipments'
       payment_information: "Payment Information"
@@ -166,6 +167,9 @@ en:
       name_on_card: "Name on Card"
       expiration: "Expiration"
       cvv: "CVV"
+    errors:
+      invalid_order: "Order is invalid"
+      missed_information: "You missed information for current step!"
   orders:
     index:
       my_orders: "My Orders"
@@ -190,6 +194,7 @@ en:
       set_password_later: "You’ll be able to create password later"
       email: "Email"
       continue_to_checkout: "Continue to Checkout"
+      invalid_email: "Your email is invalid"
   settings:
     index:
       settings: "Settings"
@@ -204,6 +209,7 @@ en:
       update_password: "Update Password"
       remove_account: "Remove Account"
       remove_button: "Please Remove My Account"
+      updated: "Your settings updated!"
       accept_checkbox: "I understand that all data will be lost"
   authors:
     destroy:
@@ -221,6 +227,10 @@ en:
         status: 'Status'
         approve: 'Approve'
         reject: 'Reject'
+        items: 'Items'
+        in_delivery: 'In Delivery'
+        delivered: "Delivered"
+        cancel: "Cancel"
   admin:
     reviews:
       approve:

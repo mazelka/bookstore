@@ -1,9 +1,9 @@
 class Order < ApplicationRecord
   include AASM
 
-  has_many :order_items, dependent: :destroy
+  has_many :order_items, dependent: :nullify
   has_one :delivery
-  has_one :payment, dependent: :destroy
+  has_one :payment
   has_one :coupon
   belongs_to :customer
   has_one :billing_address, as: :addressable, class_name: 'Address', dependent: :destroy
