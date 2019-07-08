@@ -1,10 +1,8 @@
 class OrderSteps
+  attr_reader :order
+
   def initialize(order)
     @order = order
-  end
-
-  def order
-    @order
   end
 
   def validate_properties(current_step)

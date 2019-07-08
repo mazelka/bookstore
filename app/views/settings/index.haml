@@ -1,7 +1,7 @@
 %main.container
   %h1.general-title-margin Settings
-  - if @customer && @customer.errors.any?
-    - @customer.errors.full_messages.each do |message|
+  - if current_customer && current_customer.errors.any?
+    - current_customer.errors.full_messages.each do |message|
       %li= message
   %ul
   - flash.each do |_type, message|
@@ -30,7 +30,7 @@
                   %span.checkbox-icon
                     %i.fa.fa-check
                   %span.checkbox-text Use Shipping Adress
-      = form_for @customer, url: settings_path, method: :put,  html: { :onsubmit => "handleBillingAddress(event)" } do |f|
+      = form_for current_customer, url: settings_path, method: :put,  html: { :onsubmit => "handleBillingAddress(event)" } do |f|
         = fields_for :'customer[shipping_address_attributes]', f.object.shipping_address do |ship_f|
           .row
             .col-md-5.mb-40
@@ -77,30 +77,36 @@
         .col-sm-5
           %p.in-gold-500.font-18.mb-25 Email
           .general-form-md
-            = form_for @customer, url: settings_path, method: :put do |f|
-              .form-group.mb-35
+            = form_for current_customer, url: settings_path, method: :put do |f|
+              .form-group.mb-20
                 = f.label :email, class: 'control-label input-label'
                 = f.text_field :email, class: 'form-control'
+              .form-group.mb-20
+                = f.label :first_name, class: 'control-label input-label'
+                = f.text_field :first_name, class: 'form-control'
+                .form-group.mb-20
+                = f.label :last_name, class: 'control-label input-label'
+                = f.text_field :last_name, class: 'form-control'
               .general-text-align
-                = f.submit :'Update email', class: 'btn btn-default mb-20'
+                = f.submit :'Update', class: 'btn btn-default mb-20'
         .col-sm-5.col-sm-offset-1
           %p.in-gold-500.font-18.mb-25 Password
-          = form_for @customer, url: settings_path, method: :put do |f|
+          = form_for current_customer, url: settings_path, method: :put do |f|
             .general-form-md.divider-lg-bottom.pb-25
-              .form-group.mb-30
+              .form-group.mb-20
                 = f.label :'old password', class: 'control-label input-label'
                 = f.password_field :password, class: 'form-control'
-              .form-group.mb-30
+              .form-group.mb-20
                 = f.label :'new password', class: 'control-label input-label'
                 = f.password_field :password, class: 'form-control'
-              .form-group.mb-40
+              .form-group.mb-20
                 = f.label :'confirm password', class: 'control-label input-label'
                 = f.password_field :password, class: 'form-control'
               .general-text-align
                 = f.submit :'Update Password', class: 'btn btn-default mb-20'
         .col-sm-12
           %p.in-gold-500.font-18.mb-25 Remove Account
-          = form_for @customer, url: customer_registration_path, method: :delete do |f|
+          = form_for current_customer, url: customer_registration_path, method: :delete do |f|
             .general-settings-btn
               = f.submit :'Please Remove My Account', class: 'btn btn-default mb-20 remove-customer disabled'
             .form-group.checkbox.general-settings-checkbox

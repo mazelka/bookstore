@@ -1,15 +1,9 @@
 class UpdateOrderDelivery
+  attr_reader :order, :params
+
   def initialize(order, params)
     @params = params
     @order = order
-  end
-
-  def order
-    @order
-  end
-
-  def params
-    @params
   end
 
   def update

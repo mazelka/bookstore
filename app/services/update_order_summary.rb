@@ -1,11 +1,9 @@
 class UpdateOrderSummary
+  attr_reader :order
+
   def initialize(order, cart_details)
     @order = order
     @cart_details = cart_details
-  end
-
-  def order
-    @order
   end
 
   def calculate_total

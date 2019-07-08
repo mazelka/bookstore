@@ -1,19 +1,10 @@
 class SettingsController < ApplicationController
-  def index
-    @customer = current_customer
-  end
-
   def update
-    @customer = current_customer
-    if @customer.update(customer_params)
+    if current_customer.update(customer_params)
       flash[:notice] = 'Your settings updated!'
-      sign_in(:customer, @customer)
+      sign_in(:customer, current_customer)
     end
     render 'index'
-  end
-
-  def update_email
-    current_user.update(params[:user])
   end
 
   def customer_params
