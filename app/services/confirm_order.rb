@@ -14,8 +14,6 @@ class ConfirmOrder
   end
 
   def confirm
-    binding.pry
-
     if order_has_all_attributes?
       order.start_processing!
     else

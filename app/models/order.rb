@@ -1,7 +1,7 @@
 class Order < ApplicationRecord
   include AASM
 
-  has_many :order_items, dependent: :nullify
+  has_many :order_items
   has_one :delivery
   has_one :payment
   has_one :coupon
