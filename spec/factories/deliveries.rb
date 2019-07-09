@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :delivery do
-    name { "MyString" }
-    days { 1 }
-    price { 1.5 }
+    name { FFaker::AnimalUS.common_name }
+    days { Random.rand(40) }
+    price { Random.rand(40) }
   end
 end
