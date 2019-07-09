@@ -3,8 +3,6 @@ class CurrentOrder
     @cart = cart
     @coupon_id = coupon_id
     @order_id = order_id
-    binding.pry
-
     @order = find_order
   end
 
