@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   root to: 'home#index'
-  devise_for :customers, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
+  devise_for :customers, controllers: {
+                           omniauth_callbacks: 'omniauth_callbacks',
+                           registrations: 'customers/registrations',
+                         }
   get '/books/popular_first' => 'books#popular_first'
   get '/books/price_low_to_high' => 'books#price_low_to_high'
   get '/books/price_high_to_low' => 'books#price_high_to_low'
@@ -22,7 +25,6 @@ Rails.application.routes.draw do
   get 'create_order' => 'orders#create_order'
   put 'settings' => 'settings#update'
   put 'settings' => 'settings#update_email'
-  post 'settings/customer_delete' => 'customers#destroy'
   resources :reviews
   resources :books
   resources :authors
