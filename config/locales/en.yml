@@ -35,6 +35,7 @@ en:
   common:
     save_and_continue: "Save and continue"
     back_to_store: "Back to Store"
+    error_missed_info: "You missed to enter some info!"
   order:
     order_summary: "Order Summary"
     item_total: "Item Total:"
