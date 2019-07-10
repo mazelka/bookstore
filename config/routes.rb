@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   root to: 'home#index'
-  devise_for :customers, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
+  devise_for :customers, controllers: {
+                           omniauth_callbacks: 'omniauth_callbacks',
+                           registrations: 'customers/registrations',
+                         }
   get '/books/popular_first' => 'books#popular_first'
   get '/books/price_low_to_high' => 'books#price_low_to_high'
   get '/books/price_high_to_low' => 'books#price_high_to_low'
@@ -27,6 +30,7 @@ Rails.application.routes.draw do
   resources :authors
   resources :checkout
   resources :orders
+  resources :customers
   resources :settings
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)

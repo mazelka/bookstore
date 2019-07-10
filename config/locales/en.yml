@@ -239,4 +239,7 @@ en:
       reject:
         notice: "Review has been rejected!"
         alert: "Sorry, not all requirements were met for rejecting"
-
+  devise:
+    failure:
+      customer:
+        discarded_account: "This account was deleted."

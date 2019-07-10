@@ -1,6 +1,6 @@
 class AuthorsController < ApplicationController
   def destroy
-    Author.find(params[:id]).destroy
+    Author.find(params[:id]).discard
     flash[:notice] = t('.admin.messages.author_deleted')
     redirect_to admin_authors_path
   end
