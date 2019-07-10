@@ -106,7 +106,7 @@
                 = f.submit :'Update Password', class: 'btn btn-default mb-20'
         .col-sm-12
           %p.in-gold-500.font-18.mb-25 Remove Account
-          = form_for current_customer, url: customer_registration_path, method: :delete do |f|
+          = form_for current_customer, url: customer_path(current_customer.id), method: :delete do |f|
             .general-settings-btn
               = f.submit :'Please Remove My Account', class: 'btn btn-default mb-20 remove-customer disabled'
             .form-group.checkbox.general-settings-checkbox

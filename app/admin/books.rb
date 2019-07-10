@@ -1,6 +1,7 @@
 require 'money'
 
 ActiveAdmin.register Book do
+  actions :all, except: [:destroy]
   permit_params :title, :description, :price, :inventory, :author_id, :category_id, :review_id, :cover
 
   index do
@@ -57,5 +58,17 @@ ActiveAdmin.register Book do
     end
     f.button :Save
     f.button :Cancel
+  end
+
+  action_item :discard, only: :show do
+    link_to('Delete', discard_admin_book_path(book), method: :post)
+  end
+
+  member_action :discard, method: :post do
+    if resource.discard
+      redirect_to admin_books_path, notice: 'Book was deleted!'
+    else
+      redirect_to admin_books_path, alert: 'Sorry, not all requirements were met for deleting'
+    end
   end
 end

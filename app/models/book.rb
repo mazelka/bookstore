@@ -1,5 +1,7 @@
 class Book < ApplicationRecord
+  include Discard::Model
   before_save :normalize_price
+  default_scope -> { kept }
 
   belongs_to :author
   belongs_to :category
@@ -9,6 +11,8 @@ class Book < ApplicationRecord
   validates :title, presence: true, length: { maximum: 50 }
   validates :price, presence: true, numericality: true
   validates :inventory, presence: true, numericality: { only_integer: true }
+
+  scope :kept, -> { undiscarded.joins(:author).merge(Author.kept) }
 
   def normalize_price
     self.price = price * 100
