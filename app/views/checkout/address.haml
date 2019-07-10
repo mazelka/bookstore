@@ -6,71 +6,71 @@
   .hidden-xs.hidden-sm.res-mb-100
     .row
       .col-md-5
-        %h3.general-subtitle Shipping Address
-        %p.general-info-text all fields are required
+        %h3.general-subtitle= t('address.shipping_address')
+        %p.general-info-text= t('address.all_fields_required')
       .col-md-5.col-md-offset-1
-        %h3.general-subtitle Billing Address
+        %h3.general-subtitle= t('address.billing_address')
         %p.form-group.checkbox
           %label.checkbox-label
             %input.checkbox-input.test-class{type: "checkbox", hidden: "true", name: 'billing'}
             %span.checkbox-icon
               %i.fa.fa-check
-            %span.checkbox-text Use Billing Adress
+            %span.checkbox-text= t('address.use_shipping_address')
   = form_for @order, url: wizard_path, method: :put,  html: { :onsubmit => "handleBillingAddress(event)" } do |f|
     = fields_for :shipping_address_attributes, f.object.shipping_address do |ship_f|
       .row
         .col-md-5.mb-40
           .visible-xs.visible-sm
-            %h3.general-subtitle Shipping Address
-            %p.general-info-text all fields are required
+            %h3.general-subtitle= t('address.shipping_address')
+            %p.general-info-text= t('address.all_fields_required')
           .form-group
-            = ship_f.label :address_line, class: 'control-label input-label'
+            = ship_f.label t('address.address_line'), class: 'control-label input-label'
             = ship_f.text_field :address_line, class: 'form-control'
           .form-group
-            = ship_f.label :country, class: 'control-label input-label'
+            = ship_f.label t('address.country'), class: 'control-label input-label'
             = ship_f.text_field :country, class: 'form-control'
           .form-group
-            = ship_f.label :city, class: 'control-label input-label'
+            = ship_f.label t('address.city'), class: 'control-label input-label'
             = ship_f.text_field :city, class: 'form-control'
           .form-group
-            = ship_f.label :zip, class: 'control-label input-label'
+            = ship_f.label t('address.zip'), class: 'control-label input-label'
             = ship_f.text_field :zip, class: 'form-control'
           .form-group
-            = ship_f.label :phone, class: 'control-label input-label'
+            = ship_f.label t('address.phone'), class: 'control-label input-label'
             = ship_f.text_field :phone, class: 'form-control'
         .col-md-5.col-md-offset-1.mb-60.billing-section
           .visible-xs.visible-sm
             %h3.general-subtitle Billing Address
           = fields_for :billing_address_attributes, f.object.billing_address do |bill_f|
             .form-group
-              = bill_f.label :address_line, class: 'control-label input-label'
+              = bill_f.label t('address.address_line'), class: 'control-label input-label'
               = bill_f.text_field :address_line, class: 'form-control'
             .form-group
-              = bill_f.label :country, class: 'control-label input-label'
+              = bill_f.label t('address.country'), class: 'control-label input-label'
               = bill_f.text_field :country, class: 'form-control'
             .form-group
-              = bill_f.label :city, class: 'control-label input-label'
+              = bill_f.label t('address.city'), class: 'control-label input-label'
               = bill_f.text_field :city, class: 'form-control'
             .form-group
-              = bill_f.label :zip, class: 'control-label input-label'
+              = bill_f.label t('address.zip'), class: 'control-label input-label'
               = bill_f.text_field :zip, class: 'form-control'
             .form-group
-              = bill_f.label :phone, class: 'control-label input-label'
+              = bill_f.label t('address.phone'), class: 'control-label input-label'
               = bill_f.text_field :phone, class: 'form-control'
       .general-text-align.mb-60
-        %p.in-gold-500.font-18 Order Summary
+        %p.in-gold-500.font-18= t('order.order_summary')
         %table.general-summary-table
           %tr
             %td
-              %p.font-16 Item Total:
+              %p.font-16= t('order.item_total')
             %td
               %p.font-16= @cart_details.subtotal
           %tr
             %td
-              %p.font-16 Order Total:
+              %p.font-16= t('order.order_total')
             %td
               %p.font-16= @cart_details.total
-        = f.submit :'Save and continue', class: 'btn btn-default center-block mb-20 submit-address'
+        = f.submit t('common.save_and_continue'), class: 'btn btn-default center-block mb-20 submit-address'
 
 -# Billing address handling
 :javascript

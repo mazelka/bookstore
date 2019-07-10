@@ -12,24 +12,24 @@ class OrdersController < ApplicationController
 
   def index
     @orders = current_customer.orders
-    @orders_sorting = 'All'
+    @orders_sorting = t('orders.index.all')
   end
 
   def in_progress
     @orders = current_customer.orders.in_progress
-    @orders_sorting = 'In Progress'
+    @orders_sorting = t('orders.index.in_progress')
     render 'index'
   end
 
   def in_delivery
     @orders = current_customer.orders.in_delivery
-    @active_sorting = 'In Delivery'
+    @active_sorting = t('orders.index.in_delivery')
     render 'index'
   end
 
   def canceled
     @orders = current_customer.orders.canceled
-    @active_sorting = 'Canceled'
+    @active_sorting = t('orders.index.canceled')
     render 'index'
   end
 

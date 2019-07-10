@@ -1,7 +1,7 @@
 class SettingsController < ApplicationController
   def update
     if current_customer.update(customer_params)
-      flash[:notice] = 'Your settings updated!'
+      flash[:notice] = t('.settings.index.updated')
       sign_in(:customer, current_customer)
     end
     render 'index'

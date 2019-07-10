@@ -32,5 +32,11 @@ module Bookstore
     config.assets.paths << "#{Rails.root}/app/assets"
     config.autoload_paths << Rails.root.join('lib')
     config.assets.enabled = false
+    config.i18n.default_locale = :en
+    I18n.available_locales = [:en]
   end
+end
+
+def set_admin_locale
+  I18n.locale = :en
 end

@@ -20,7 +20,7 @@ describe 'books/index.html.haml', type: :feature do
 
   it 'does not show view more for 1 book' do
     visit '/books'
-    expect(page).to have_no_selector(:link, 'View More')
+    expect(page).to have_no_selector('.view-more')
   end
 
   it 'has options for sorting' do
@@ -36,7 +36,7 @@ describe 'books/index.html.haml', type: :feature do
 
     it 'shows for at least 13 books' do
       visit '/books'
-      expect(page).to have_selector(:link, 'View More')
+      expect(page).to have_selector('.view-more')
     end
   end
 end

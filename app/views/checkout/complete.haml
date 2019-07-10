@@ -1,12 +1,12 @@
 %main.container.general-main-wrap
   = render :partial => "checkout_steps", :formats => [:html]
   .text-center.mb-40
-    %h3.general-subtitle Thank You for your Order!
-    %p.fw-300= "An order confirmation has been has been sent to #{current_customer.email}"
+    %h3.general-subtitle= t('.thanks_message')
+    %p.fw-300= "#{t('.order_sent')}#{current_customer.email}"
   .row.mb-20
     .col-sm-6
       .visible-xs
-        %p.general-order-number.mb-0= "Order # #{@order.id}"
+        %p.general-order-number.mb-0= "#{t('.order')}#{@order.id}"
         %p.general-address.mb-30= @order.updated_at.strftime('%e %b %Y %H:%M:%S%p')
       %p.general-address
         = "#{current_customer.first_name} #{current_customer.last_name}"
@@ -27,14 +27,14 @@
       %thead
         %tr
           %th
-            %span.in-grey-600 Book
+            %span.in-grey-600= t('carts.cart.book')
           %th.col-method
           %th
-            %span.in-grey-600 Price
+            %span.in-grey-600= t('carts.cart.price')
           %th
-            %span.in-grey-600 Quantity
+            %span.in-grey-600= t('carts.cart.qunatity')
           %th
-            %span.in-grey-600 Total
+            %span.in-grey-600= t('carts.cart.total')
       %tbody
         = form_tag(url: wizard_path, method: 'put') do |f|
           %input{ type:'hidden', name:'_method', value:'put'}
@@ -45,7 +45,7 @@
                   %img.cart-img-shadow.pull-left{src: item.book.cover_url, alt: item.book.title}
               %td
                 %p.title= item.book.title
-                %p.in-grey-600.fw-300= "#{item.book.description[0..200]}... "
+                %p.in-grey-600.fw-300= "#{item.book.description[0..200]}... " unless item.book.description.nil?
               %td
                 %span.font-16.in-gold-500= Money.new(item.book.price).format
               %td
@@ -53,22 +53,22 @@
               %td
                 %span.font-16.in-gold-500= Money.new(item.book.price*item.quantity).format
   .text-center.general-text-right
-    %p.in-gold-500.font-18 Order Summary
+    %p.in-gold-500.font-18= t('order.order_summary')
     %table.general-summary-table.general-summary-table-right.general-text-right
       %tr
         %td
-          %p.font-16 Delivery:
+          %p.font-16= t('order.delivery')
         %td
           %p.font-16= Money.new(@order.delivery.price).format
       %tr
         %td
-          %p.font-16 Coupon:
+          %p.font-16= t('order.coupon')
         %td
           %p.font-16= @order.coupon.nil? ? Money.new(0).format : Money.new(@order.coupon.discount).format
       %tr
         %td
-          %strong.font-18 Order Total:
+          %strong.font-18= t('order.order_total')
         %td
           %strong.font-18= Money.new(@order.total_price).format
   .text-center
-    = link_to('Back to Store', next_wizard_path, class: 'btn btn-default mb-20')
+    = link_to(t('common.back_to_store'), next_wizard_path, class: 'btn btn-default mb-20')

@@ -20,23 +20,21 @@
                 %p.lead= truncate(book.description, :length =>100) unless book.description.nil?
                 %p.lead.small= "#{book.author.first_name} #{book.author.last_name}"
                 .general-align
-                  = link_to('Buy Now', books_add_to_cart_path(id: book.id, quantity: 1), method: 'post', class: 'btn btn-default')
-    
+                  = link_to(t('.buy_now'), books_add_to_cart_path(id: book.id, quantity: 1), method: 'post', class: 'btn btn-default')
     %a.left.carousel-control{href: "#slider", role: "button", 'data-slide': "prev"}
       %span.icon-prev{'aria-hidden': "true"}
-      %span.sr-only Previous
+      %span.sr-only= t('.previous')
     %a.right.carousel-control{href: "#slider", role: "button", 'data-slide': "next"}
       %span.icon-next{'aria-hidden': "true"}
-      %span.sr-only Next
+      %span.sr-only= t('.next')
 .container
   .jumbotron.text-center.mb-0
-    %h2.h1 Welcome to our amazing Bookstore!
+    %h2.h1= t('.welcome_title')
     .mb-res-50
-      %p We pore through hundreds of new books each month and select the five best we can find to share with our members.
-      = link_to 'Get Started', books_path, class:'btn btn-default'
-      -# Get Started
+      %p= t('.welcome_description')
+      = link_to t('.get_started'), books_path, class:'btn btn-default'
   #bestsellers.mb-35
-    %h3 Best Sellers
+    %h3= t('.best_sellers')
     .row
       - @bestsellers.each do |book|
         .col-sm-6.col-md-3

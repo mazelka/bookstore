@@ -2,20 +2,20 @@
 %ul.steps.list-inline
   %li{class: fill_if_complete(:address)}
     %span.step-number 1
-    %span.step-text.hidden-xs Address
+    %span.step-text.hidden-xs= t('.address')
   %li.step-divider
   %li{class: fill_if_complete(:delivery)}
     %span.step-number 2
-    %span.step-text.hidden-xs Delivery
+    %span.step-text.hidden-xs= t('.delivery')
   %li.step-divider
   %li{class: fill_if_complete(:payment)}
     %span.step-number 3
-    %span.step-text.hidden-xs Payment
+    %span.step-text.hidden-xs= t('.payment')
   %li.step-divider
   %li{class: fill_if_complete(:confirmation)}
     %span.step-number 4
-    %span.step-text.hidden-xs Confirmation
+    %span.step-text.hidden-xs= t('.confirmation')
   %li.step-divider
   %li{class: fill_if_complete(:complete)}
     %span.step-number 5
-    %span.step-text.hidden-xs Complete
+    %span.step-text.hidden-xs= t('.complete')
