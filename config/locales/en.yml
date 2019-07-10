@@ -30,4 +30,8 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  devise:
+    failure:
+      customer:
+        discarded_account: "This account was deleted."
   hello: "Hello world"

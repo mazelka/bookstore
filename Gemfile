@@ -58,6 +58,7 @@ gem "font-awesome-sass"
 gem 'aasm'
 gem 'activerecord-session_store', github: 'rails/activerecord-session_store'
 gem 'wicked'
+gem 'discard'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

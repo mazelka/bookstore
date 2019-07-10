@@ -61,9 +61,11 @@ describe 'Book', type: :feature do
     visit 'admin/books'
     books_before_delete = page.all('#index_table_books tbody tr').length
     search_by_title(book.title)
+    click_link 'View'
+    save_and_open_page
     click_link 'Delete'
     books_after_delete = page.all('#index_table_books tbody tr').length
     expect(books_after_delete).to eq(books_before_delete - 1)
-    expect(page).to have_content('Book was successfully destroyed.')
+    expect(page).to have_content('Book was deleted!')
   end
 end

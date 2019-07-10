@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   root to: 'home#index'
-  devise_for :customers, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
+  devise_for :customers, controllers: {
+                           omniauth_callbacks: 'omniauth_callbacks',
+                           registrations: 'customers/registrations',
+                         }
   post 'add_to_cart' => 'carts#add_to_cart'
   get 'cart/remove_item' => 'carts#remove_item'
   get 'cart/increase_quantity' => 'carts#increase_quantity'
