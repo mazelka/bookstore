@@ -1,5 +1,5 @@
 class ReviewsController < ApplicationController
-  before_action :authenticate_customer!, only: :create
+  before_action :authenticate_customer!, only: :new
 
   def create
     @review = Review.new(review_params)

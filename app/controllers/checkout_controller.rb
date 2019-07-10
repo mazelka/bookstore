@@ -54,7 +54,7 @@ class CheckoutController < ApplicationController
 
   def current_order
     if session[:order_id].nil?
-      redirect_to cart_path
+      redirect_to carts_path
     else
       @order = Order.find(session[:order_id])
     end
@@ -77,7 +77,7 @@ class CheckoutController < ApplicationController
     session.delete(:order_id)
   end
 
-  def find_coupon
+  def find_coupons
     session[:coupon_id].nil? ? nil : Coupon.find(session[:coupon_id])
   end
 

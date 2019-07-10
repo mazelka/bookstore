@@ -20,8 +20,8 @@
                 %p.lead= truncate(book.description, :length =>100) unless book.description.nil?
                 %p.lead.small= "#{book.author.first_name} #{book.author.last_name}"
                 .general-align
-                  = link_to('Buy Now', books_add_to_cart_path(id: book.id, quantity: 1), method: 'post', class: 'btn btn-default')
-    
+                  = link_to('Buy Now', add_to_cart_path(id: book.id, quantity: 1), method: 'post', class: 'btn btn-default')
+
     %a.left.carousel-control{href: "#slider", role: "button", 'data-slide': "prev"}
       %span.icon-prev{'aria-hidden': "true"}
       %span.sr-only Previous
@@ -47,7 +47,7 @@
                 .general-thumb-link-wrap
                   %a.thumb-hover-link.show-book{href: "/books/#{book.id}"}
                     %i.fa.fa-eye.thumb-icon{'aria-hidden': "true"}
-                    = link_to((fa_icon 'shopping-cart', class: 'thumb-icon'), books_add_to_cart_path(id: book.id, quantity: 1), method: 'post', class: 'thumb-hover-link add-to-cart')
+                    = link_to((fa_icon 'shopping-cart', class: 'thumb-icon'), add_to_cart_path(id: book.id, quantity: 1), method: 'post', class: 'thumb-hover-link add-to-cart')
 
           .mb-35
             .clearfix

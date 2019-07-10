@@ -7,20 +7,20 @@ RSpec.describe CartsController do
 
   context 'empty cart' do
     it 'render cart' do
-      get :show_cart
+      get :index
       expect(response).to render_template :cart
     end
     it 'does not have items' do
-      get :show_cart
+      get :index
       expect(assigns(:cart)).to match_array([])
     end
     it 'does not have coupon' do
-      get :show_cart
+      get :index
       expect(assigns(:coupon)).to eq(0)
     end
 
     it 'has cart details' do
-      get :show_cart
+      get :index
       expect(assigns(:cart_details)).to_not be_nil
     end
   end
@@ -137,7 +137,7 @@ RSpec.describe CartsController do
 
     it 'redirects back' do
       request.env['HTTP_REFERER'] = '/cart'
-      get :show_cart
+      get :index
       post :increase_quantity, params: { book_id: book.id }, session: { cart: cart }
       expect(response).to redirect_to('/cart')
     end
@@ -162,7 +162,7 @@ RSpec.describe CartsController do
 
     it 'redirects back' do
       request.env['HTTP_REFERER'] = '/cart'
-      get :show_cart
+      get :index
       cart = [{ book_id: book.id, title: book.title, price: book.price, url: book.cover_url, quantity: 2 }]
       post :decrease_quantity, params: { book_id: book.id }, session: { cart: cart }
       expect(response).to redirect_to('/cart')
@@ -199,7 +199,7 @@ RSpec.describe CartsController do
 
     it 'renders cart' do
       request.env['HTTP_REFERER'] = '/cart'
-      get :show_cart
+      get :index
       post :apply_coupon, params: { coupon: coupon.name }, session: { cart: cart }
       expect(response).to redirect_to('/cart')
     end
@@ -236,7 +236,7 @@ RSpec.describe CartsController do
 
     it 'redirects back' do
       request.env['HTTP_REFERER'] = '/cart'
-      get :show_cart
+      get :index
       post :apply_coupon, params: { coupon: 'not existed' }, session: { cart: cart }
       expect(response).to redirect_to('/cart')
     end

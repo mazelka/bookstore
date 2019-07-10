@@ -8,18 +8,6 @@ RSpec.describe BooksController do
       get :index
       expect(response).to render_template :index
     end
-    it 'renders :index template for price_low_to_high' do
-      get :price_low_to_high
-      expect(response).to render_template :index
-    end
-    it 'renders :index template for popular_first' do
-      get :popular_first
-      expect(response).to render_template :index
-    end
-    it 'renders :index template for price_high_to_low' do
-      get :price_high_to_low
-      expect(response).to render_template :index
-    end
   end
 
   context 'assigns @active_sorting' do
@@ -30,15 +18,15 @@ RSpec.describe BooksController do
       expect(assigns(:active_sorting)).to eq('Newest first')
     end
     it 'is Price: Low to high' do
-      get :price_low_to_high
+      get :index, params: { sort: 'price', direction: 'asc', active_sorting: 'Price: Low to high' }
       expect(assigns(:active_sorting)).to eq('Price: Low to high')
     end
     it 'is Popular first' do
-      get :popular_first
+      get :index, params: { sort: 'inventory', direction: 'asc', active_sorting: 'Popular first' }
       expect(assigns(:active_sorting)).to eq('Popular first')
     end
     it 'is Price: High to low' do
-      get :price_high_to_low
+      get :index, params: { sort: 'price', direction: 'desc', active_sorting: 'Price: High to low' }
       expect(assigns(:active_sorting)).to eq('Price: High to low')
     end
   end
@@ -56,17 +44,17 @@ RSpec.describe BooksController do
     end
 
     it 'shows books in order by price low to high' do
-      get :price_low_to_high
+      get :index, params: { sort: 'price', direction: 'asc', active_sorting: 'Price: Low to high' }
       expect(assigns(:books)).to match_array(Book.order(:price))
     end
 
     it 'shows books in order by price high to low' do
-      get :price_high_to_low
+      get :index, params: { sort: 'inventory', direction: 'asc', active_sorting: 'Popular first' }
       expect(assigns(:books)).to match_array(Book.order(price: :desc))
     end
 
     it 'shows books in order by popularity' do
-      get :popular_first
+      get :index, params: { sort: 'price', direction: 'desc', active_sorting: 'Price: High to low' }
       expect(assigns(:books)).to match_array(Book.order(inventory: :desc))
     end
   end

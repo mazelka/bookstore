@@ -20,7 +20,7 @@ class CartsController < ApplicationController
     end
   end
 
-  def show_cart
+  def index
     session.delete(:order_id)
     @coupon = get_coupon_discount(session[:coupon_id]) || 0
     @cart_details = CartDetails.new(@cart, @coupon)

@@ -7,13 +7,13 @@
       %i.fa.fa-angle-down.dropdown-icon.pull-right
     %ul.dropdown-menu
       %li
-        %a{href: "/orders"} All
+        = link_to 'All', orders_path(sorting: 'All')
       %li
-        %a{href: "/orders/in_progress"} In Progress
+        = link_to 'In Progress', orders_path(sorting: 'In Progress')
       %li
-        %a{href: "/orders/in_delivery"} In Delivery
+        = link_to 'In Delivery', orders_path(sorting: 'In Delivery')
       %li
-        %a{href: "/orders/canceled"} Canceled
+        = link_to 'Canceled', orders_path(sorting: 'Canceled')
       %li
   - if @orders.empty?
     %h3.mt-60

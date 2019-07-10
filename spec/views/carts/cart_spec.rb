@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'carts', type: :feature do
   context 'empty cart' do
     it 'does not have added books on session start' do
-      visit '/cart'
+      visit '/carts'
       expect(page).to have_selector('.shop-quantity', text: '0')
       expect(page).to have_content('You don`t have added books. Go and find something in Catalog!')
     end
@@ -18,21 +18,21 @@ describe 'carts', type: :feature do
     it 'from home page' do
       visit '/'
       page.find('.add-to-cart').click
-      visit '/cart'
+      visit '/carts'
       expect(page).to have_content(book.title)
     end
 
     it 'from books page' do
       visit '/books'
       page.find('.add-to-cart').click
-      visit '/cart'
+      visit '/carts'
       expect(page).to have_content(book.title)
     end
 
     it 'from book show page' do
       visit "/books/#{book.id}"
       page.find_button(text: 'Add to Cart').click
-      visit '/cart'
+      visit '/carts'
       expect(page).to have_content(book.title)
     end
 
@@ -40,7 +40,7 @@ describe 'carts', type: :feature do
       visit "/books/#{book.id}"
       page.find('.quantity-input').set('3')
       page.find_button(text: 'Add to Cart').click
-      visit '/cart'
+      visit '/carts'
       expect(page).to have_content(book.title)
       expect(page).to have_selector(".quantity-input[value='3']")
     end
@@ -55,7 +55,7 @@ describe 'carts', type: :feature do
     end
 
     it 'increase' do
-      visit '/cart'
+      visit '/carts'
       page.find('.increase').click
       expect(page).to have_selector(".quantity-input[value='2']")
     end
@@ -63,13 +63,13 @@ describe 'carts', type: :feature do
     it 'decrease' do
       visit '/books'
       page.find('.add-to-cart').click
-      visit '/cart'
+      visit '/carts'
       page.find('.decrease').click
       expect(page).to have_selector(".quantity-input[value='1']")
     end
 
     it 'cannot decrease from 1' do
-      visit '/cart'
+      visit '/carts'
       expect(page).to have_no_selector('.decrease')
       expect(page).to have_selector(".quantity-input[value='1']")
     end
@@ -84,7 +84,7 @@ describe 'carts', type: :feature do
     end
 
     it 'clicks remove' do
-      visit '/cart'
+      visit '/carts'
       page.find('.general-cart-close').click
       expect(page).to have_no_content(book.title)
       expect(page).to have_selector('.shop-quantity', text: '0')
@@ -102,12 +102,12 @@ describe 'carts', type: :feature do
     end
 
     it 'coupon form is shown' do
-      visit '/cart'
+      visit '/carts'
       expect(page).to have_selector('.general-input-group')
     end
 
     it 'valid coupon' do
-      visit '/cart'
+      visit '/carts'
       page.find('.coupon-input').set(coupon.name)
       page.find_button(text: 'Apply Coupon').click
       expect(page).to have_no_selector('.general-input-group')
@@ -115,7 +115,7 @@ describe 'carts', type: :feature do
     end
 
     it 'not valid coupon' do
-      visit '/cart'
+      visit '/carts'
       page.find('.coupon-input').set('not valid')
       page.find_button(text: 'Apply Coupon').click
       expect(page).to have_selector('.general-input-group')

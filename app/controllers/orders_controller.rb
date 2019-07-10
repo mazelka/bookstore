@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
-  before_action :login_customer, only: :create_order
+  before_action :login_customer, only: :create
 
-  def create_order
+  def create
     if session[:order_id].nil?
       create_order_with_items
     else
@@ -11,26 +11,18 @@ class OrdersController < ApplicationController
   end
 
   def index
-    @orders = current_customer.orders
-    @orders_sorting = 'All'
-  end
-
-  def in_progress
-    @orders = current_customer.orders.in_progress
-    @orders_sorting = 'In Progress'
-    render 'index'
-  end
-
-  def in_delivery
-    @orders = current_customer.orders.in_delivery
-    @active_sorting = 'In Delivery'
-    render 'index'
-  end
-
-  def canceled
-    @orders = current_customer.orders.canceled
-    @active_sorting = 'Canceled'
-    render 'index'
+    @orders_sorting = params[:sorting]
+    case @orders_sorting
+    when 'In Progress'
+      @orders = current_customer.orders.in_progress
+    when 'In Delivery'
+      @orders = current_customer.orders.in_delivery
+    when 'Canceled'
+      @orders = current_customer.orders.canceled
+    else
+      @orders = current_customer.orders
+      @orders_sorting = 'All'
+    end
   end
 
   private
@@ -47,7 +39,7 @@ class OrdersController < ApplicationController
   end
 
   def login_customer
-    redirect_to login_path unless customer_signed_in?
+    redirect_to quick_registrations_path unless customer_signed_in?
   end
 
   def create_order_with_items

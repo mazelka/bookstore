@@ -25,10 +25,10 @@ describe 'books/index.html.haml', type: :feature do
 
   it 'has options for sorting' do
     visit '/books'
-    expect(page).to have_selector(:link, 'Newest first', href: '/books')
-    expect(page).to have_selector(:link, 'Popular first', href: '/books/popular_first')
-    expect(page).to have_selector(:link, 'Price: Low to high', href: '/books/price_low_to_high')
-    expect(page).to have_selector(:link, 'Price: High to low', href: '/books/price_high_to_low')
+    expect(page).to have_selector(:link, 'Newest first')
+    expect(page).to have_selector(:link, 'Popular first')
+    expect(page).to have_selector(:link, 'Price: Low to high')
+    expect(page).to have_selector(:link, 'Price: High to low')
   end
 
   context 'view more' do

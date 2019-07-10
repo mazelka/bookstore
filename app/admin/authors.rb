@@ -1,6 +1,6 @@
 ActiveAdmin.register Author do
   permit_params :first_name, :last_name, :biography
-  actions :all, except: [:destroy, :show, :new]
+  actions :all
 
   index do
     id_column
@@ -8,8 +8,18 @@ ActiveAdmin.register Author do
     column :last_name
     column :biography
     actions defaults: false do |author|
-      link_to 'Delete', admin_author_path(author), method: :delete, data: { confirm: "Are you sure you want to delete this author? They are associated with #{author.books.count} books." }
+      item 'Edit', edit_admin_author_path(author), class: 'member_link'
+      item 'Delete', admin_author_path(author), method: :delete, data: { confirm: "Are you sure you want to delete this author? They are associated with #{author.books.count} books." }, class: 'member_link'
     end
+  end
+
+  form do |f|
+    f.inputs do
+      f.input :first_name
+      f.input :last_name
+      f.input :biography
+    end
+    f.actions
   end
 
   filter :first_name

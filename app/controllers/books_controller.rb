@@ -1,7 +1,7 @@
 class BooksController < ApplicationController
   def index
     @books = BooksSorting.new.sort(params[:sort], params[:direction]).page(params[:page]).per(12)
-    @active_sorting = params[:active_sorting]
+    @active_sorting = params[:active_sorting] || 'Newest first'
     books_count
     popular_categories
   end
@@ -11,38 +11,6 @@ class BooksController < ApplicationController
     @reviews = @book.reviews.approved
     @quantity = 1
   end
-
-  def category
-    @books = Category.find(params[:id]).books.order('created_at').page(params[:page]).per(12)
-    @active_sorting = 'Newest first'
-    books_count
-    popular_categories
-    render 'index'
-  end
-
-  # def price_low_to_high
-  #   @books = BooksSorting.new.sort(:price).page(params[:page]).per(12)
-  #   books_count
-  #   popular_categories
-  #   @active_sorting = 'Price: Low to high'
-  #   render 'index'
-  # end
-
-  # def popular_first
-  #   @books = BooksSorting.new.sort(params[:sort], params[:direction]).page(params[:page]).per(12)
-  #   books_count
-  #   popular_categories
-  #   @active_sorting = 'Popular first'
-  #   render 'index'
-  # end
-
-  # def price_high_to_low
-  #   @books = BooksSorting.new.sort(price: :desc).page(params[:page]).per(12)
-  #   books_count
-  #   popular_categories
-  #   @active_sorting = 'Price: High to low'
-  #   render 'index'
-  # end
 
   private
 

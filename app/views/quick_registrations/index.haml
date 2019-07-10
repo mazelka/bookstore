@@ -32,7 +32,7 @@
         .mb-40
           %p.mb-5 Quick Register
           %p.general-info-text.font-12.mb-20 You’ll be able to create password later
-        = form_for @customer, url: login_path, method: 'post' do |f|
+        = form_for @customer, url: quick_registrations_path, method: 'post' do |f|
           .form-group.mb-30
             = f.label :email, class: 'control-label input-label'
             = f.text_field :email, class: 'form-control'
