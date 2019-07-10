@@ -1,7 +1,7 @@
 class BooksController < ApplicationController
   def index
     @books = BooksSorting.new.sort(params[:sort], params[:direction]).page(params[:page]).per(12)
-    @active_sorting = params[:active_sorting] || 'Newest first'
+    @active_sorting = params[:active_sorting] || t('.newest_first')
     books_count
     popular_categories
   end

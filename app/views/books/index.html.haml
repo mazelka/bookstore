@@ -12,17 +12,17 @@
     .dropdowns.pull-right
       .dropdown.width-240
         %a.dropdown-toggle.lead.small{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}
-          = @active_sorting || "Newest first"
+          = @active_sorting || t('.newest_first')
           %i.fa.fa-angle-down.dropdown-icon.pull-right
         %ul.dropdown-menu
           %li
-            = link_to 'Newest first', books_path(sort: 'created_at', direction: 'asc', active_sorting: 'Newest First')
+            = link_to 'Newest first', books_path(sort: 'created_at', direction: 'asc', active_sorting: t('.newest_first'))
           %li
-            = link_to 'Popular first', books_path(sort: 'inventory', direction: 'asc', active_sorting: 'Popular first')
+            = link_to 'Popular first', books_path(sort: 'inventory', direction: 'asc', active_sorting: t('.popular_first'))
           %li
-            = link_to 'Price: Low to high', books_path(sort: 'price', direction: 'asc', active_sorting: 'Price: Low to high')
+            = link_to 'Price: Low to high', books_path(sort: 'price', direction: 'asc', active_sorting: t('.price_low_to_high'))
           %li
-            = link_to 'Price: High to low', books_path(sort: 'price', direction: 'desc', active_sorting: 'Price: High to low')
+            = link_to 'Price: High to low', books_path(sort: 'price', direction: 'desc', active_sorting: t('.price_high_to_low'))
     %ul.list-inline.pt-10.mb-25.mr-240
       %li.mr-35
         %a.filter-link{href: "/books"}
@@ -55,4 +55,4 @@
 
   .text-center.mb-20
     - unless @books.last_page?
-      = link_to_next_page(@books, 'View More', class: 'btn btn-primary')
+      = link_to_next_page(@books, t('.view_more'), class: 'btn btn-primary view-more')

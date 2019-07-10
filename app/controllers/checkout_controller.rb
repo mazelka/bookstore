@@ -30,10 +30,10 @@ class CheckoutController < ApplicationController
     when :confirmation
       ConfirmOrder.new(@order).confirm
     else
-      @order.errors.add(:base, 'Order is invalid')
+      @order.errors.add(:base, t('checkout.errors.invalid_order'))
     end
     unless OrderSteps.new(@order).validate_properties(step)
-      @order.errors.add(:base, 'You missed information for current step!')
+      @order.errors.add(:base, t('checkout.errors.missed_information'))
     end
     render_wizard(@order)
   end

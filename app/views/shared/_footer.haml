@@ -4,14 +4,14 @@
       .col-sm-9
         %ul.list-inline.general-align.mb-25
           %li
-            %a.nav-link{href: "/"} Home
+            %a.nav-link{href: "/"}= t('.home')
           %li
-            %a.nav-link{href: "/books"} Shop
+            %a.nav-link{href: "/books"}= t('.catalog')
           - if customer_signed_in?
             %li
-              %a.nav-link{href: "#"} Orders
+              %a.nav-link{href: "/settings"}= t('.settings')
             %li
-              %a.nav-link{href: "#"} Settings
+              %a.nav-link{href: "/orders"}= t('.orders')
 
       .col-sm-3
         %p.general-nav-mail support@bookstore.com

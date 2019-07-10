@@ -6,10 +6,9 @@ ActiveAdmin.register Author do
     id_column
     column :first_name
     column :last_name
-    column :biography
     actions defaults: false do |author|
-      item 'Edit', edit_admin_author_path(author), class: 'member_link'
-      item 'Delete', admin_author_path(author), method: :delete, data: { confirm: "Are you sure you want to delete this author? They are associated with #{author.books.count} books." }, class: 'member_link'
+      item t('.edit'), edit_admin_author_path(author), class: 'member_link'
+      item t('.delete'), admin_author_path(author), method: :delete, data: { confirm: "#{t('.confirm_part1')} #{author.books.count} #{t('.confirm_part2')}" }, class: 'member_link'
     end
   end
 
@@ -27,7 +26,7 @@ ActiveAdmin.register Author do
 
   controller do
     def destroy
-      Author.find(params[:id]).destroy
+      Author.find(params[:id]).discard
       flash[:notice] = 'Author has been deleted.'
       redirect_to admin_authors_path
     end

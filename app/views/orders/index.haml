@@ -1,36 +1,36 @@
 %main.container.general-main-wrap
-  %h1.mt-0.mb-25 My Orders
-  %p.lead.small.mb-10.visible-xs Sort by
+  %h1.mt-0.mb-25= t('.my_orders')
+  %p.lead.small.mb-10.visible-xs= t('.sort_by')
   .dropdowns.dropdown.general-order-dropdown
     %a.dropdown-toggle.lead.small{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}
       = @orders_sorting || "All"
       %i.fa.fa-angle-down.dropdown-icon.pull-right
     %ul.dropdown-menu
       %li
-        = link_to 'All', orders_path(sorting: 'All')
+        = link_to 'All', orders_path(sorting: t('.all'))
       %li
-        = link_to 'In Progress', orders_path(sorting: 'In Progress')
+        = link_to 'In Progress', orders_path(sorting: t('.in_progress'))
       %li
-        = link_to 'In Delivery', orders_path(sorting: 'In Delivery')
+        = link_to 'In Delivery', orders_path(sorting: t('.in_delivery'))
       %li
-        = link_to 'Canceled', orders_path(sorting: 'Canceled')
+        = link_to 'Canceled', orders_path(sorting: t('.canceled'))
       %li
   - if @orders.empty?
     %h3.mt-60
-      = "You don`t have orders yet."
+      = t('.empty_orders')
   -else
     .hidden-xs.mb-res-
       %table.table.table-hover
         %thead
           %tr
             %th
-              %span.in-grey-600 Number
+              %span.in-grey-600= t('.number')
             %th
-              %span.in-grey-600 Updated at
+              %span.in-grey-600= t('.updated_at')
             %th
-              %span.in-grey-600 Status
+              %span.in-grey-600= t('.status')
             %th
-              %span.in-grey-600 Total
+              %span.in-grey-600= t('.total')
         %tbody
           -@orders.each do |order|
             %tr

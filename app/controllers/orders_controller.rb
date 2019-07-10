@@ -13,15 +13,15 @@ class OrdersController < ApplicationController
   def index
     @orders_sorting = params[:sorting]
     case @orders_sorting
-    when 'In Progress'
+    when t('orders.index.in_progress')
       @orders = current_customer.orders.in_progress
-    when 'In Delivery'
+    when t('orders.index.in_delivery')
       @orders = current_customer.orders.in_delivery
-    when 'Canceled'
+    when t('orders.index.canceled')
       @orders = current_customer.orders.canceled
     else
       @orders = current_customer.orders
-      @orders_sorting = 'All'
+      @orders_sorting = t('orders.index.all')
     end
   end
 
