@@ -1,10 +1,4 @@
 class AuthorsController < ApplicationController
-  def destroy
-    Author.find(params[:id]).destroy
-    flash[:notice] = 'Author has been deleted.'
-    redirect_to admin_authors_path
-  end
-
   private
 
   def author_params

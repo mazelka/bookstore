@@ -10,6 +10,8 @@ class Book < ApplicationRecord
   validates :price, presence: true, numericality: true
   validates :inventory, presence: true, numericality: { only_integer: true }
 
+  scope :latest, -> { order(created_at: :asc).last(3) }
+
   def normalize_price
     self.price = price * 100
   end

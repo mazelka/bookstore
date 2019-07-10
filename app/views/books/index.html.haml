@@ -16,13 +16,13 @@
           %i.fa.fa-angle-down.dropdown-icon.pull-right
         %ul.dropdown-menu
           %li
-            = link_to 'Newest first', books_path
+            = link_to 'Newest first', books_path(sort: 'created_at', direction: 'asc', active_sorting: 'Newest First')
           %li
-            = link_to 'Popular first', books_popular_first_path
+            = link_to 'Popular first', books_path(sort: 'inventory', direction: 'asc', active_sorting: 'Popular first')
           %li
-            = link_to 'Price: Low to high', books_price_low_to_high_path
+            = link_to 'Price: Low to high', books_path(sort: 'price', direction: 'asc', active_sorting: 'Price: Low to high')
           %li
-            = link_to 'Price: High to low', books_price_high_to_low_path
+            = link_to 'Price: High to low', books_path(sort: 'price', direction: 'desc', active_sorting: 'Price: High to low')
     %ul.list-inline.pt-10.mb-25.mr-240
       %li.mr-35
         %a.filter-link{href: "/books"}
