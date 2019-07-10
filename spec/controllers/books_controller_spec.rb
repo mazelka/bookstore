@@ -100,4 +100,34 @@ RSpec.describe BooksController do
       expect(assigns(:quantity)).to eq(1)
     end
   end
+
+  context '#category' do
+    let(:category) { create(:category) }
+    let(:book) { create(:book, category: category) }
+    before :each do
+      book
+      category
+      allow(Book).to receive(:find).and_return book
+    end
+
+    it 'renders :index template' do
+      get :category, params: { id: category.id }
+      expect(response).to render_template :index
+    end
+
+    it 'has default sorting' do
+      get :category, params: { id: category.id }
+      expect(assigns(:active_sorting)).to eq('Newest first')
+    end
+
+    it 'has book count' do
+      get :category, params: { id: category.id }
+      expect(assigns(:all_books)).to eq(1)
+    end
+
+    it 'has popular categories' do
+      get :category, params: { id: category.id }
+      expect(assigns(:popular_categories)).to eq([category])
+    end
+  end
 end

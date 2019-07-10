@@ -33,9 +33,16 @@ ActiveAdmin.register Order do
       row t('.items'), :order_items do |order|
         order_items_details(order)
       end
-      row :total_price
+      row :total_price do |order|
+        Money.new(order.total_price).format
+      end
       row :delivery do |order|
-        order.delivery.name
+        order.delivery.present? ? order.delivery.name : nil
+      end
+
+      row :payment do |order|
+        payment = order.payment.present? ? 'PAID' : 'NOT PAID'
+        status_tag(payment, label: payment, class: customize_payment_tag(payment))
       end
       row t('.status'), :aasm_state do |order|
         state = order.aasm_state

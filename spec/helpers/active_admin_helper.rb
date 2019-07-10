@@ -31,4 +31,11 @@ module Features
       click_button 'Filter'
     end
   end
+
+  def search_order_by_customer_name(first_name)
+    within('#filters_sidebar_section') do
+      select(first_name, from: 'q_customer_id')
+      click_button 'Filter'
+    end
+  end
 end

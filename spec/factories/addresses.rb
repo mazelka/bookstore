@@ -1,8 +1,7 @@
 FactoryBot.define do
   factory :address do
-    customer_address
     address_line { FFaker::AddressUS.street_address }
-    country { FFaker::AddressUS.country }
+    country { %w[Ukraine USA Poland Germany].sample }
     city { FFaker::AddressUS.city }
     zip { FFaker::AddressUS.zip_code }
     phone { FFaker::PhoneNumberAU.international_mobile_phone_number }
