@@ -1,6 +1,8 @@
 class CategoriesController < ApplicationController
   def show
-    @books = Category.find(params[:id]).books.order('created_at').page(params[:page]).per(12)
+    category_books = Category.find(params[:id]).books
+    @books = BooksSorting.new(category_books).sort(params[:sort], params[:direction]).page(params[:page]).per(12)
+    @active_sorting = params[:active_sorting] || t('books.index.newest_first')
     books_count
     popular_categories
     render 'books/index'

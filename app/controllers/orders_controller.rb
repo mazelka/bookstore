@@ -12,17 +12,7 @@ class OrdersController < ApplicationController
 
   def index
     @orders_sorting = params[:sorting]
-    case @orders_sorting
-    when t('orders.index.in_progress')
-      @orders = current_customer.orders.in_progress
-    when t('orders.index.in_delivery')
-      @orders = current_customer.orders.in_delivery
-    when t('orders.index.canceled')
-      @orders = current_customer.orders.canceled
-    else
-      @orders = current_customer.orders
-      @orders_sorting = t('orders.index.all')
-    end
+    @orders = OrdersFilter.call(current_customer, @orders_sorting)
   end
 
   private

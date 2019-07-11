@@ -1,10 +1,9 @@
 class BooksSorting
-  def initialize
-    @books = Book.all
+  def initialize(books = Book.all)
+    @books = books
   end
 
   def sort(sort = 'created_at', direction = 'asc')
-    @books = Book.order("#{sort} #{direction}")
+    @books = @books.order("#{sort} #{direction}")
   end
-
 end

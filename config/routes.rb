@@ -19,11 +19,7 @@ Rails.application.routes.draw do
     resources :books, shallow: true do
     end
   end
-  resources :books, only: :index do
-    collection do
-      get :index
-    end
-  end
+  resources :books, only: :index
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)

@@ -31,7 +31,7 @@
                     %i.fa.fa-check
                   %span.checkbox-text= t('address.use_shipping_address')
       = form_for current_customer, url: settings_path, method: :put,  html: { :onsubmit => "handleBillingAddress(event)" } do |f|
-        = fields_for :'customer[shipping_address_attributes]', f.object.shipping_address do |ship_f|
+        = fields_for :shipping_address_attributes, f.object.shipping_address do |ship_f|
           .row
             .col-md-5.mb-40
               .visible-xs.visible-sm
@@ -55,7 +55,7 @@
             .col-md-5.col-md-offset-1.mb-60.billing-section
               .visible-xs.visible-sm
                 %h3.general-subtitle= t('address.billing_address')
-              = fields_for :'customer[billing_address_attributes]', f.object.billing_address do |bill_f|
+              = fields_for :billing_address_attributes, f.object.billing_address do |bill_f|
                 .form-group
                   = bill_f.label t('address.address_line'), class: 'control-label input-label'
                   = bill_f.text_field :address_line, class: 'form-control'
@@ -100,7 +100,7 @@
                 = f.submit t('.update_password'), class: 'btn btn-default mb-20'
         .col-sm-12
           %p.in-gold-500.font-18.mb-25= t('.remove_account')
-          = form_for current_customer, url: customer_path(current_customer.id), method: :delete do |f|
+          = form_for current_customer, url: customer_registration_path(current_customer.id), method: :delete do |f|
             .general-settings-btn
               = f.submit t('.remove_account'), class: 'btn btn-default mb-20 remove-customer disabled'
             .form-group.checkbox.general-settings-checkbox
