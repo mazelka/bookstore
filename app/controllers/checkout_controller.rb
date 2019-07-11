@@ -1,5 +1,6 @@
 class CheckoutController < ApplicationController
   include Wicked::Wizard
+  wrap_parameters :order, include: [:shipping_address_attributes, :billing_address_attributes]
 
   before_action :current_order, :login_customer
   steps :address, :delivery, :payment, :confirmation, :complete
@@ -21,6 +22,7 @@ class CheckoutController < ApplicationController
     cart_details
     case step
     when :address
+      binding.pry
       UpdateOrderAddress.new(@order, address_params).update
     when :delivery
       UpdateOrderDelivery.new(@order, delivery_params).update

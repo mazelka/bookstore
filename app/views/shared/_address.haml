@@ -1,4 +1,4 @@
-= form_for resource, url: wizard_path, method: :put,  html: { :onsubmit => "handleBillingAddress(event)" } do |f|
+= form_for resource, url: url, method: :put,  html: { :onsubmit => "handleBillingAddress(event)" } do |f|
   = fields_for :shipping_address_attributes, f.object.shipping_address do |ship_f|
     .row
       .col-md-5.mb-40

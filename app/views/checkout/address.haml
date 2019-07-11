@@ -16,7 +16,7 @@
             %span.checkbox-icon
               %i.fa.fa-check
             %span.checkbox-text= t('address.use_shipping_address')
-  = render partial: 'shared/address', locals: {resource: @order}
+  = render partial: 'shared/address', locals: {resource: @order, url: wizard_path}
   .general-text-align.mb-60
     %p.in-gold-500.font-18= t('order.order_summary')
     %table.general-summary-table

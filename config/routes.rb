@@ -9,12 +9,13 @@ Rails.application.routes.draw do
   get 'cart/increase_quantity' => 'carts#increase_quantity'
   get 'cart/decrease_quantity' => 'carts#decrease_quantity'
   post 'cart/apply_coupon' => 'carts#apply_coupon'
+  put 'settings/update' => 'settings#update'
   resources :reviews, only: :create
   resources :carts, only: :index
   resources :orders, only: [:index, :create]
   resources :quick_registrations, only: [:index, :create]
   resources :checkout, only: [:show, :update]
-  resources :settings, only: [:index, :update, :update_email]
+  resources :settings, only: [:index]
   resources :categories, only: :show do
     resources :books, shallow: true do
     end

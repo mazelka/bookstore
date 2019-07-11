@@ -1,4 +1,6 @@
 class SettingsController < ApplicationController
+  wrap_parameters :customer
+
   def update
     if current_customer.update(customer_params)
       flash[:notice] = t('.settings.index.updated')
