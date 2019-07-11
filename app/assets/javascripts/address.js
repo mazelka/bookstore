@@ -11,7 +11,6 @@ $(document).ready(function() {
 $(document).ready(function() {
   $(".submit-address").submit(function(e) {
     if ($('[name="billing"]').prop("checked")) {
-      console.log(1);
       $("#billing_address_attributes_address_line").val(
         $("#shipping_address_attributes_address_line").val()
       );

@@ -22,7 +22,6 @@ class CheckoutController < ApplicationController
     cart_details
     case step
     when :address
-      binding.pry
       UpdateOrderAddress.new(@order, address_params).update
     when :delivery
       UpdateOrderDelivery.new(@order, delivery_params).update
