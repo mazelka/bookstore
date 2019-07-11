@@ -19,7 +19,7 @@ class Review < ApplicationRecord
     end
   end
 
-  belongs_to :book
+  belongs_to :book, counter_cache: true
   belongs_to :customer
   VALID_STRING_REGEX = /[a-zA-Z0-9!#$%&'*+-\/=?^_`{|}~]/
 

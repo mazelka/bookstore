@@ -62,23 +62,23 @@ ActiveAdmin.register Order do
     if resource.start_delivery!
       redirect_to admin_order_path(resource), notice: t('.in_delivery')
     else
-      redirect_to admin_order_path(resource), alert: 'Sorry, not all requirements were met for delivering'
+      redirect_to admin_order_path(resource), alert: t('.failed_start_delivery')
     end
   end
 
   member_action :finish_delivery, method: :post do
     if resource.finish_delivery!
-      redirect_to admin_order_path(resource), notice: 'Order has been delivered!'
+      redirect_to admin_order_path(resource), notice: t('.delivered')
     else
-      redirect_to admin_order_path(resource), alert: 'Sorry, not all requirements were met to finish delivering'
+      redirect_to admin_order_path(resource), alert: t('.delivery_failed')
     end
   end
 
   member_action :cancel, method: :post do
     if resource.cancel!
-      redirect_to admin_order_path(resource), notice: 'Order has been canceled!'
+      redirect_to admin_order_path(resource), notice: t('.canceled')
     else
-      redirect_to admin_order_path(resource), alert: 'Sorry, not all requirements were met for canceling'
+      redirect_to admin_order_path(resource), alert: t('.cancel_failed')
     end
   end
 end

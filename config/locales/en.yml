@@ -241,6 +241,16 @@ en:
       reject:
         notice: "Review has been rejected!"
         alert: "Sorry, not all requirements were met for rejecting"
+    orders:
+      start_delivery:
+        in_delivery: "Order is in delivery now!"
+        failed_start_delivery: "Sorry, not all requirements were met for delivering"
+      finish_delivery:
+        delivered: "Order has been delivered!"
+        delivery_failed: 'Sorry, not all requirements were met to finish delivering'
+      cancel:
+        canceled: "Order has been canceled!"
+        failed_cancel: "Sorry, not all requirements were met for canceling"
   devise:
     failure:
       customer:

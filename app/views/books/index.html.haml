@@ -18,7 +18,7 @@
           %li
             = link_to 'Newest first', books_path(sort: 'created_at', direction: 'asc', active_sorting: t('.newest_first'))
           %li
-            = link_to 'Popular first', books_path(sort: 'inventory', direction: 'asc', active_sorting: t('.popular_first'))
+            = link_to 'Popular first', books_path(sort: 'reviews_count', direction: 'desc', active_sorting: t('.popular_first'))
           %li
             = link_to 'Price: Low to high', books_path(sort: 'price', direction: 'asc', active_sorting: t('.price_low_to_high'))
           %li

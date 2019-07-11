@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_08_115252) do
+ActiveRecord::Schema.define(version: 2019_07_11_053738) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(version: 2019_07_08_115252) do
     t.bigint "category_id"
     t.string "cover"
     t.datetime "discarded_at"
+    t.integer "reviews_count", default: 0
     t.index ["author_id"], name: "index_books_on_author_id"
     t.index ["category_id"], name: "index_books_on_category_id"
     t.index ["discarded_at"], name: "index_books_on_discarded_at"
