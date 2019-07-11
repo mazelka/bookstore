@@ -29,6 +29,7 @@
                   %input.checkbox-input.test-class{type: "checkbox", hidden: "true", name: 'billing'}
                   %span.checkbox-icon
                     %i.fa.fa-check
+                  %span.checkbox-text= t('address.use_shipping_address')
       = render partial: 'shared/address', locals: {resource: current_customer, url: settings_update_path}
     #privacy.tab-pane.fade{role: "tabpanel"}
       .row.mb-60
@@ -36,9 +37,15 @@
           %p.in-gold-500.font-18.mb-25= t('.email')
           .general-form-md
             = form_for current_customer, url: settings_path, method: :put do |f|
-              .form-group.mb-35
+              .form-group.mb-30
                 = f.label t('.email'), class: 'control-label input-label'
                 = f.text_field :email, class: 'form-control'
+              .form-group.mb-40
+                = f.label t('.first_name'), class: 'control-label input-label'
+                = f.text_field :first_name, class: 'form-control'
+              .form-group.mb-40
+                = f.label t('.last_name'), class: 'control-label input-label'
+                = f.text_field :last_name, class: 'form-control'
               .general-text-align
                 = f.submit t('.update_email'), class: 'btn btn-default mb-20'
         .col-sm-5.col-sm-offset-1
@@ -60,51 +67,10 @@
           %p.in-gold-500.font-18.mb-25= t('.remove_account')
           = form_for current_customer, url: customer_registration_path(current_customer.id), method: :delete do |f|
             .general-settings-btn
-              = f.submit t('.remove_account'), class: 'btn btn-default mb-20 remove-customer disabled'
+              = f.submit t('.remove_account'), class: 'btn btn-default mb-20 remove-customer', disabled: :true
             .form-group.checkbox.general-settings-checkbox
               %label.checkbox-label
                 %input.checkbox-input.agree-remove{type: "checkbox", hidden: "true"}
                 %span.checkbox-icon
                   %i.fa.fa-check
                 %span.checkbox-text= t('.accept_checkbox')
-
-
--# Billing address handling
-:javascript
-  function hideBillingAddress() {
-    let billingSection = document.querySelector('.billing-section');
-    let billingCheckbox = document.querySelector("input[name=billing]")
-
-    billingCheckbox.addEventListener('click', (e) => {
-
-      billingSection.classList.contains('hidden') ? billingSection.classList.remove('hidden') : billingSection.classList.add('hidden')
-    })
-  }
-
-  hideBillingAddress();
-
-  function handleBillingAddress(e) {
-    let billingCheckbox = document.querySelector("input[name=billing]")
-
-    if (billingCheckbox.checked) {
-      document.getElementById('billing_address_attributes_address_line').value = document.getElementById('shipping_address_attributes_address_line').value
-      document.getElementById('billing_address_attributes_country').value = document.getElementById('shipping_address_attributes_country').value
-      document.getElementById('billing_address_attributes_city').value = document.getElementById('shipping_address_attributes_city').value
-      document.getElementById('billing_address_attributes_zip').value = document.getElementById('shipping_address_attributes_zip').value
-      document.getElementById('billing_address_attributes_phone').value = document.getElementById('shipping_address_attributes_phone').value
-    }
-  }
-
--# Billing address handling
-:javascript
-  function confirmRemovingCustomer() {
-    let removeCustomerCheckbox = document.querySelector('.agree-remove');
-    let removeCustomerButton = document.querySelector(".remove-customer")
-
-    removeCustomerCheckbox.addEventListener('click', (e) => {
-
-      removeCustomerButton.classList.contains('disabled') ? removeCustomerButton.classList.remove('disabled') : removeCustomerButton.classList.add('disabled')
-    })
-  }
-
-  confirmRemovingCustomer();

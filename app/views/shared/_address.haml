@@ -1,7 +1,7 @@
-= form_for resource, url: url, method: :put,  html: { :onsubmit => "handleBillingAddress(event)" } do |f|
+= form_for resource, url: url, method: :put,  html: {:class => 'submit-address' } do |f|
   = fields_for :shipping_address_attributes, f.object.shipping_address do |ship_f|
     .row
-      .col-md-5.mb-40
+      .col-md-5.mb-40.shipping-section
         .visible-xs.visible-sm
           %h3.general-subtitle= t('address.shipping_address')
           %p.general-info-text= t('address.all_fields_required')
@@ -22,7 +22,7 @@
           = ship_f.text_field :phone, class: 'form-control'
       .col-md-5.col-md-offset-1.mb-40.billing-section
         .visible-xs.visible-sm
-          %h3.general-subtitle Billing Address
+          %h3.general-subtitle= t('address.billing_address')
         = fields_for :billing_address_attributes, f.object.billing_address do |bill_f|
           .form-group
             = bill_f.label t('address.address_line'), class: 'control-label input-label'

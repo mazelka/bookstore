@@ -30,30 +30,3 @@
           %p.font-16= t('order.order_total')
         %td
           %p.font-16= @cart_details.total
-
--# Billing address handling
-:javascript
-  function hideBillingAddress() {
-    let billingSection = document.querySelector('.billing-section');
-    let billingCheckbox = document.querySelector("input[name=billing]")
-
-    billingCheckbox.addEventListener('click', (e) => {
-
-      billingSection.classList.contains('hidden') ? billingSection.classList.remove('hidden') : billingSection.classList.add('hidden')
-    })
-  }
-
-  // hideBillingAddress();
-
-  function handleBillingAddress(e) {
-    let billingCheckbox = document.querySelector("input[name=billing]")
-
-    if (billingCheckbox.checked) {
-      document.getElementById('billing_address_attributes_address_line').value = document.getElementById('shipping_address_attributes_address_line').value
-      document.getElementById('billing_address_attributes_country').value = document.getElementById('shipping_address_attributes_country').value
-      document.getElementById('billing_address_attributes_city').value = document.getElementById('shipping_address_attributes_city').value
-      document.getElementById('billing_address_attributes_zip').value = document.getElementById('shipping_address_attributes_zip').value
-      document.getElementById('billing_address_attributes_phone').value = document.getElementById('shipping_address_attributes_phone').value
-    }
-  }
-

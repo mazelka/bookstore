@@ -202,6 +202,8 @@ en:
       address: "Address"
       privacy: "Privacy"
       email: "Email"
+      first_name: "First name"
+      last_name: "Last name"
       password: "Password"
       old_password: "Old Password"
       new_password: "New Password"

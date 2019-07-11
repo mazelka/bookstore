@@ -34,7 +34,7 @@ RSpec.describe HomeController do
 
     it 'create books collection' do
       get :index
-      expect(assigns(:bestsellers)).to_not be_nil
+      expect(assigns(:books)).to_not be_nil
     end
 
     it 'include 4 most ordered books' do
@@ -42,7 +42,7 @@ RSpec.describe HomeController do
       bestsellers = Category.all.select { |category| category.books.count.positive? }.map do |category|
         category.books.max { |book| book.reviews.count }
       end[0...4]
-      expect(assigns(:bestsellers)).to eql(bestsellers)
+      expect(assigns(:books)).to eql(bestsellers)
     end
   end
 end
