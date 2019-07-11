@@ -77,10 +77,6 @@ class CheckoutController < ApplicationController
     session.delete(:order_id)
   end
 
-  def find_coupons
-    session[:coupon_id].nil? ? nil : Coupon.find(session[:coupon_id])
-  end
-
   def login_customer
     redirect_to login_path unless customer_signed_in?
   end
