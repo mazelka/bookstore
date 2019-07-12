@@ -24,4 +24,8 @@ module ActiveAdminHelpers
     end
     result
   end
+
+  def address_details(address)
+    address.attributes.slice('address_line', 'country', 'city', 'zip', 'phone').map { |k, v| "#{k.capitalize}: #{v}" }.join(',  ')
+  end
 end

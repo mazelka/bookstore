@@ -2,7 +2,7 @@ class CheckoutController < ApplicationController
   include Wicked::Wizard
   wrap_parameters :order, include: [:shipping_address_attributes, :billing_address_attributes]
 
-  before_action :current_order, :login_customer
+  before_action :login_customer, :current_order
   steps :address, :delivery, :payment, :confirmation, :complete
 
   def show
@@ -49,7 +49,7 @@ class CheckoutController < ApplicationController
 
   def prepopulate_addresses
     if customer_has_address? && !order_has_address?
-      @order.build_shipping_address(current_customer.address.last.address_params)
+      @order.build_shipping_address(current_customer.shipping_address.address_params)
     end
   end
 
@@ -79,7 +79,7 @@ class CheckoutController < ApplicationController
   end
 
   def login_customer
-    redirect_to login_path unless customer_signed_in?
+    redirect_to quick_registrations_path unless customer_signed_in?
   end
 
   def address_params

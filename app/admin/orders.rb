@@ -9,7 +9,7 @@ ActiveAdmin.register Order do
   scope :canceled
 
   index do
-    selectable_column
+    column :id
     column :customer do |i|
       "#{i.customer.first_name} #{i.customer.last_name}"
     end
@@ -28,7 +28,13 @@ ActiveAdmin.register Order do
   show do
     attributes_table do
       row :customer do |i|
-        "#{i.customer.first_name} #{i.customer.last_name}"
+        "#{i.customer.email}, #{i.customer.first_name} #{i.customer.last_name}"
+      end
+      row :shipping_address do |order|
+        order.shipping_address.present? ? address_details(order.shipping_address) : nil
+      end
+      row :billing_address do |order|
+        order.billing_address.present? ? address_details(order.billing_address) : nil
       end
       row t('.items'), :order_items do |order|
         order_items_details(order)

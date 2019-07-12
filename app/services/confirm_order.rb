@@ -7,17 +7,15 @@ class ConfirmOrder
     @order
   end
 
-  def order_has_all_attributes?
-    order.attributes.each do |attr|
-      return false unless order[attr].nil?
-    end
+  def order_can_be_started?
+    order.delivery.present? && order.payment.present? && order.shipping_address.present? && order.billing_address.present? && order.order_items.present?
   end
 
   def confirm
-    if order_has_all_attributes?
+    if order_can_be_started?
       order.start_processing!
     else
-      order.errors.add(:base, t('common.error_missed_info'))
+      order.errors.add(:base, I18n.t('common.error_missed_info'))
     end
   end
 end

@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :login_customer, only: :create
+  before_action :login_customer, :fill_cart, only: :create
 
   def create
     if session[:order_id].nil?
@@ -11,7 +11,7 @@ class OrdersController < ApplicationController
   end
 
   def index
-    @orders_sorting = params[:sorting]
+    @orders_sorting = params[:sorting] || t('orders.index.in_progress')
     @orders = OrdersFilter.call(current_customer, @orders_sorting)
   end
 
@@ -33,17 +33,17 @@ class OrdersController < ApplicationController
   end
 
   def create_order_with_items
-    if session[:cart].nil?
-      redirect_to cart_path
-    else
-      @order = Order.create(customer: current_customer, coupon: find_coupon)
-      add_items_from_cart
-      session[:order_id] = @order.id
-      @order
-    end
+    @order = Order.create(customer: current_customer, coupon: find_coupon)
+    add_items_from_cart
+    session[:order_id] = @order.id
+    @order
   end
 
   def find_coupon
     session[:coupon_id].nil? ? nil : Coupon.find(session[:coupon_id])
+  end
+
+  def fill_cart
+    redirect_to carts_path if session[:cart].nil?
   end
 end

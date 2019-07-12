@@ -28,8 +28,8 @@ FactoryBot.define do
         order.payment = build(:payment)
       end
     end
+  end
 
-    trait :with_customer do
-    end
+  trait :with_customer do
   end
 end

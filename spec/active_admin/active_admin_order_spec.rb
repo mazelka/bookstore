@@ -21,6 +21,11 @@ describe 'Order', type: :feature do
       click_link 'View'
       expect(page).to have_content(order.customer.first_name)
       expect(page).to have_content(order.customer.last_name)
+      expect(page).to have_content(order.customer.email)
+      expect(page).to have_content(order.aasm_state)
+      expect(page).to have_content('Shipping Address')
+      expect(page).to have_content('Billing Address')
+      expect(page).to have_content('Payment')
       expect(page).to have_content(order.aasm_state)
       expect(page).to have_content(Money.new(order.total_price).format)
       expect(page).to have_content(order.delivery.name)
@@ -71,16 +76,118 @@ describe 'Order', type: :feature do
     let(:delivered_order) { create(:order, aasm_state: 'delivered') }
     before :each do
       in_progerss_order
+      in_queue_order
       canceled_order
       in_delivery_order
+      delivered_order
       sign_in
     end
 
-    it 'contain in_progress reviews' do
-      visit '/admin/reviews?scope=unprocessed'
-      expect(page).to have_content(unprocessed_review.title)
-      expect(page).to have_no_content(approved_review.title)
-      expect(page).to have_no_content(rejected_review.title)
+    it 'contains in_progress orders' do
+      visit '/admin/orders?scope=in_progress'
+      expect(page).to have_selector('.col-id', text: in_progerss_order.id)
+      expect(page).to have_selector('.col-id', text: in_queue_order.id)
+      expect(page).to have_selector('.col-id', text: in_delivery_order.id)
+      expect(page).to have_no_selector('.col-id', text: delivered_order.id)
+      expect(page).to have_no_selector('.col-id', text: canceled_order.id)
+    end
+
+    it 'contains delivered orders' do
+      visit '/admin/orders?scope=delivered'
+      expect(page).to have_selector('.col-id', text: delivered_order.id)
+      expect(page).to have_no_selector('.col-id', text: in_progerss_order.id)
+      expect(page).to have_no_selector('.col-id', text: in_queue_order.id)
+      expect(page).to have_no_selector('.col-id', text: in_delivery_order.id)
+      expect(page).to have_no_selector('.col-id', text: canceled_order.id)
+    end
+
+    it 'contains canceled orders' do
+      visit '/admin/orders?scope=canceled'
+      expect(page).to have_selector('.col-id', text: canceled_order.id)
+      expect(page).to have_no_selector('.col-id', text: delivered_order.id)
+      expect(page).to have_no_selector('.col-id', text: in_progerss_order.id)
+      expect(page).to have_no_selector('.col-id', text: in_queue_order.id)
+      expect(page).to have_no_selector('.col-id', text: in_delivery_order.id)
+    end
+
+    context 'after changing status' do
+      it 'shown in in_progress after start delivery' do
+        visit '/admin/orders?scope=in_progress'
+        search_order_by_customer_name(in_queue_order.customer.first_name)
+        click_link 'View'
+        click_link 'In Delivery'
+        visit '/admin/orders?scope=in_progress'
+        expect(page).to have_selector('.col-id', text: in_queue_order.id)
+      end
+
+      it 'shown in delivered after finish delivery' do
+        visit '/admin/orders?scope=in_progress'
+        search_order_by_customer_name(in_delivery_order.customer.first_name)
+        click_link 'View'
+        click_link 'Delivered'
+        visit '/admin/orders?scope=in_progress'
+        expect(page).to have_no_selector('.col-id', text: in_delivery_order.id)
+        visit '/admin/orders?scope=delivered'
+        expect(page).to have_selector('.col-id', text: in_delivery_order.id)
+      end
+
+      it 'shown in canceled after cancel in_queue' do
+        visit '/admin/orders?scope=in_progress'
+        search_order_by_customer_name(in_queue_order.customer.first_name)
+        click_link 'View'
+        click_link 'Cancel'
+        visit '/admin/orders?scope=in_progress'
+        expect(page).to have_no_selector('.col-id', text: in_queue_order.id)
+        visit '/admin/orders?scope=canceled'
+        expect(page).to have_selector('.col-id', text: in_queue_order.id)
+      end
+
+      it 'shown in canceled after cancel delivered' do
+        visit '/admin/orders?scope=delivered'
+        search_order_by_customer_name(delivered_order.customer.first_name)
+        click_link 'View'
+        click_link 'Cancel'
+        visit '/admin/orders?scope=delivered'
+        expect(page).to have_no_selector('.col-id', text: delivered_order.id)
+        visit '/admin/orders?scope=canceled'
+        expect(page).to have_selector('.col-id', text: delivered_order.id)
+      end
+
+      it 'shown in canceled after cancel in_delivery' do
+        visit '/admin/orders?scope=in_progress'
+        search_order_by_customer_name(in_delivery_order.customer.first_name)
+        click_link 'View'
+        click_link 'Cancel'
+        visit '/admin/orders?scope=in_progress'
+        expect(page).to have_no_selector('.col-id', text: in_delivery_order.id)
+        visit '/admin/orders?scope=canceled'
+        expect(page).to have_selector('.col-id', text: in_delivery_order.id)
+      end
+    end
+  end
+  context 'when order in progress' do
+    let!(:order) { create(:order, :with_customer) }
+    before do
+      sign_in
+    end
+
+    it 'shows available order details' do
+      visit '/admin/orders'
+      search_order_by_customer_name(order.customer.first_name)
+      click_link 'View'
+      expect(page).to have_content(order.customer.first_name)
+      expect(page).to have_content(order.customer.last_name)
+      expect(page).to have_content(order.customer.email)
+      expect(page).to have_selector('.row-shipping_address', text: 'Empty')
+      expect(page).to have_selector('.row-shipping_address', text: 'Empty')
+      expect(page).to have_selector('.row-payment .status_tag', text: 'NOT PAID')
+      expect(page).to have_selector('.row-status .status_tag', text: 'in_progress')
+      expect(page).to have_content(Money.new(order.total_price).format)
+      expect(page).to have_selector('.row-delivery', text: 'Empty')
+      expect(page).to have_no_link('Edit')
+      expect(page).to have_no_link('Delete')
+      expect(page).to have_no_link('Cancel')
+      expect(page).to have_no_link('In Delivery')
     end
   end
 end

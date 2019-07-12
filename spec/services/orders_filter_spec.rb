@@ -22,6 +22,6 @@ RSpec.describe OrdersFilter, type: :model do
   end
 
   it 'shows all orders' do
-    expect(OrdersFilter.call(customer, 'some string')).to match_array(customer.orders.all)
+    expect(OrdersFilter.call(customer, 'not existed filter')).to match_array(customer.orders.all)
   end
 end

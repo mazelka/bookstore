@@ -25,6 +25,13 @@ RSpec.describe CartsController do
     end
   end
 
+  context 'not complete order in session' do
+    it 'removes order_id if back to cart' do
+      get :index, session: { order_id: 1 }
+      expect(session[:order_id]).to be_nil
+    end
+  end
+
   context 'when adds 1 book to cart' do
     let(:book) { create(:book) }
     before :each do
