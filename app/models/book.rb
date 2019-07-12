@@ -12,6 +12,7 @@ class Book < ApplicationRecord
   validates :price, presence: true, numericality: true
   validates :inventory, presence: true, numericality: { only_integer: true }
 
+  scope :latest, -> { kept.order(created_at: :asc).last(3) }
   scope :kept, -> { undiscarded.joins(:author).merge(Author.kept) }
 
   def normalize_price

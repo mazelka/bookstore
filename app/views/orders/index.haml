@@ -3,17 +3,17 @@
   %p.lead.small.mb-10.visible-xs= t('.sort_by')
   .dropdowns.dropdown.general-order-dropdown
     %a.dropdown-toggle.lead.small{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}
-      = @orders_sorting || "All"
+      = @orders_sorting || t('.all')
       %i.fa.fa-angle-down.dropdown-icon.pull-right
     %ul.dropdown-menu
       %li
-        %a{href: "/orders"}= t('.all')
+        = link_to t('.all'), orders_path(sorting: t('.all'))
       %li
-        %a{href: "/orders/in_progress"}= t('.in_progress')
+        = link_to t('.in_progress'), orders_path(sorting: t('.in_progress'))
       %li
-        %a{href: "/orders/in_delivery"}= t('.in_delivery')
+        = link_to t('.in_delivery'), orders_path(sorting: t('.in_delivery'))
       %li
-        %a{href: "/orders/canceled"}= t('.canceled')
+        = link_to t('.canceled'), orders_path(sorting: t('.canceled'))
       %li
   - if @orders.empty?
     %h3.mt-60

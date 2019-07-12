@@ -32,7 +32,7 @@
         .mb-40
           %p.mb-5= t('.quick_register')
           %p.general-info-text.font-12.mb-20= t('.set_password_later')
-        = form_for @customer, url: login_path, method: 'post' do |f|
+        = form_for @customer, url: quick_registrations_path, method: 'post' do |f|
           .form-group.mb-30
             = f.label t('.email'), class: 'control-label input-label'
             = f.text_field :email, class: 'form-control'

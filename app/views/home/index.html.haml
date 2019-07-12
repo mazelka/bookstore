@@ -20,7 +20,7 @@
                 %p.lead= truncate(book.description, :length =>100) unless book.description.nil?
                 %p.lead.small= "#{book.author.first_name} #{book.author.last_name}"
                 .general-align
-                  = link_to(t('.buy_now'), books_add_to_cart_path(id: book.id, quantity: 1), method: 'post', class: 'btn btn-default')
+                  = link_to(t('.buy_now'), add_to_cart_path(id: book.id, quantity: 1), method: 'post', class: 'btn btn-default')
     %a.left.carousel-control{href: "#slider", role: "button", 'data-slide': "prev"}
       %span.icon-prev{'aria-hidden': "true"}
       %span.sr-only= t('.previous')
@@ -36,20 +36,5 @@
   #bestsellers.mb-35
     %h3= t('.best_sellers')
     .row
-      - @bestsellers.each do |book|
-        .col-sm-6.col-md-3
-          .general-thumb-wrap
-            .thumbnail.general-thumbnail
-              %img.img-shadow.general-thumbnail-img{src: book.cover_url, alt: book.title}
-              .thumb-hover
-                .general-thumb-link-wrap
-                  %a.thumb-hover-link.show-book{href: "/books/#{book.id}"}
-                    %i.fa.fa-eye.thumb-icon{'aria-hidden': "true"}
-                    = link_to((fa_icon 'shopping-cart', class: 'thumb-icon'), books_add_to_cart_path(id: book.id, quantity: 1), method: 'post', class: 'thumb-hover-link add-to-cart')
+      = render partial: 'books/books_collection', collection: @books, as: :book
 
-          .mb-35
-            .clearfix
-              %p.pull-right.font-16.in-gold-500= Money.new(book.price).format
-              %p.title.mr-55= book.title
-            %span.divider-sm
-            %p.lead.small= "#{book.author.first_name} #{book.author.last_name}"

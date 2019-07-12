@@ -1,5 +1,6 @@
 class CheckoutController < ApplicationController
   include Wicked::Wizard
+  wrap_parameters :order, include: [:shipping_address_attributes, :billing_address_attributes]
 
   before_action :current_order, :login_customer
   steps :address, :delivery, :payment, :confirmation, :complete
@@ -54,7 +55,7 @@ class CheckoutController < ApplicationController
 
   def current_order
     if session[:order_id].nil?
-      redirect_to cart_path
+      redirect_to carts_path
     else
       @order = Order.find(session[:order_id])
     end
@@ -75,10 +76,6 @@ class CheckoutController < ApplicationController
     session.delete(:coupon)
     session.delete(:coupon_id)
     session.delete(:order_id)
-  end
-
-  def find_coupon
-    session[:coupon_id].nil? ? nil : Coupon.find(session[:coupon_id])
   end
 
   def login_customer

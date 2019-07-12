@@ -35,6 +35,7 @@ en:
   common:
     save_and_continue: "Save and continue"
     back_to_store: "Back to Store"
+    error_missed_info: "You missed to enter some info!"
   order:
     order_summary: "Order Summary"
     item_total: "Item Total:"
@@ -184,7 +185,7 @@ en:
       status: "Status"
       total: "Total"
   quick_registrations:
-    login:
+    index:
       returning_customer: "Returning Customer"
       or: "or"
       login_with_password: "Log In with Password"
@@ -201,6 +202,8 @@ en:
       address: "Address"
       privacy: "Privacy"
       email: "Email"
+      first_name: "First name"
+      last_name: "Last name"
       password: "Password"
       old_password: "Old Password"
       new_password: "New Password"
@@ -221,6 +224,7 @@ en:
       index:
         status: 'Status'
         delete: 'Delete'
+        edit: 'Edit'
         confirm_part1: "Are you sure you want to delete this author? They are associated with"
         confirm_part2: "books."
       show:
@@ -239,6 +243,16 @@ en:
       reject:
         notice: "Review has been rejected!"
         alert: "Sorry, not all requirements were met for rejecting"
+    orders:
+      start_delivery:
+        in_delivery: "Order is in delivery now!"
+        failed_start_delivery: "Sorry, not all requirements were met for delivering"
+      finish_delivery:
+        delivered: "Order has been delivered!"
+        delivery_failed: 'Sorry, not all requirements were met to finish delivering'
+      cancel:
+        canceled: "Order has been canceled!"
+        failed_cancel: "Sorry, not all requirements were met for canceling"
   devise:
     failure:
       customer:
