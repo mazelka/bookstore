@@ -5,4 +5,8 @@ FactoryBot.define do
     email { FFaker::Internet.email }
     password { '123qweASD' }
   end
+
+  trait :with_addresses do
+    shipping_address { build(:address, :customer_address) }
+  end
 end
