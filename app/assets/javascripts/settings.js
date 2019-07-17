@@ -6,9 +6,6 @@ $(document).ready(function() {
       $(".remove-customer").prop("disabled", true);
     }
   });
-});
-
-$(document).ready(function() {
   $('[name="billing"]').click(function(e) {
     if (e.target.checked) {
       $(".billing-section").hide();
@@ -16,9 +13,6 @@ $(document).ready(function() {
       $(".billing-section").show();
     }
   });
-});
-
-$(document).ready(function() {
   $(".submit-address").submit(function(e) {
     if ($('[name="billing"]').prop("checked")) {
       $("#customer_billing_address_attributes_address_line").val(

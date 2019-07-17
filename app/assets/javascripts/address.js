@@ -6,9 +6,6 @@ $(document).ready(function() {
       $(".billing-section").show();
     }
   });
-});
-
-$(document).ready(function() {
   $(".submit-address").submit(function(e) {
     if ($('[name="billing"]').prop("checked")) {
       $("#order_billing_address_attributes_address_line").val(

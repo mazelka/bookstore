@@ -33,6 +33,7 @@ module Bookstore
     config.autoload_paths << Rails.root.join('lib')
     config.assets.enabled = false
     config.i18n.default_locale = 'en'
+    config.i18n.fallbacks = true
   end
 end
 
