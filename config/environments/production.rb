@@ -65,9 +65,9 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "bookstore_#{Rails.env}"
 
   config.action_mailer.perform_caching = false
-  config.action_mailer.default_url_options = { host: 'https://mazelka-bookstore.herokuapp.com/', port: 3000 }
+  config.action_mailer.default_url_options = { host: 'mazelka-bookstore.herokuapp.com', port: 3000 }
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = { :address => 'https://mazelka-bookstore.herokuapp.com/', :port => 1025 }
+  config.action_mailer.smtp_settings = { :address => 'mazelka-bookstore.herokuapp.com', :port => 1025 }
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
