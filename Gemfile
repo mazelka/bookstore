@@ -40,16 +40,39 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'omniauth-facebook'
 gem 'dotenv-rails'
 gem 'haml-rails'
+gem 'jquery-rails'
+gem 'rails-ujs'
 gem 'kaminari'
 gem 'travis'
-
-
+gem 'bootstrap-sass', '~> 3.4.1'
+gem 'sassc-rails', '>= 2.1.0'
+gem 'compass-rails', github: 'Compass/compass-rails'
 gem 'devise'
 gem 'cancancan'
+gem 'carrierwave', '~> 1.0'
+gem 'rmagick'
+gem 'money'
+gem 'normalize_attributes'
+gem "font-awesome-rails"
+gem "font-awesome-sass"
+gem 'devise-i18n'
+gem 'activerecord-session_store', github: 'rails/activerecord-session_store'
+gem 'wicked'
+gem 'discard'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'ffaker'
+  gem 'factory_bot_rails'
+  gem 'rspec'
+  gem 'rspec-rails', '~> 3.8'
+  gem 'rails-controller-testing'
+  gem 'database_cleaner'
+  gem 'capybara'
+  gem 'shoulda-matchers'
+  gem 'simplecov', require: false
+  gem 'pry-rails'
 end
 
 group :development do

@@ -30,4 +30,198 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  facebook:
+    signed_in: "Successfully signed in!"
+  common:
+    save_and_continue: "Save and continue"
+    back_to_store: "Back to Store"
+    error_missed_info: "You missed to enter some info!"
+  order:
+    order_summary: "Order Summary"
+    item_total: "Item Total:"
+    order_total: "Order Total:"
+    delivery: "Delivery:"
+    coupon: "Coupon:"
+    subtotal: "Subtotal"
+  address:
+    all_fields_required: "all fields are required"
+    use_shipping_address: "Use Shipping Address"
+    shipping_address: "Shipping Address"
+    billing_address: "Billing Address"
+    address_line: "Address"
+    country: "Country"
+    city: "City"
+    zip: "Zip"
+    phone: "Phone"
+  books:
+    index:
+      catalog: "Catalog"
+      newest_first: "Newest first"
+      popular_first: "Popular first"
+      price_low_to_high: "Price: Low to high"
+      price_high_to_low: "Price: High to low"
+      view_more: "View more"
+    show:
+      back_to_results: "Back to results"
+      add_to_cart: "Add to Cart"
+      description: "Description"
+      read_more: "Read more"
+      write_review: "Write a Review"
+      title: "Title"
+      review: "Review"
+      post: "Post"
+      review_sent: "Review was sent to approve!"
+  home:
+    index:
+      buy_now: "Buy Now"
+      previous: "Previous"
+      next: "Next"
+      welcome_title: "Welcome to our amazing Bookstore!"
+      welcome_description: "We pore through hundreds of new books each month and select the five best we can find to share with our members."
+      get_started: "Get Started"
+      best_sellers: "Best Sellers"
+  shared:
+    footer:
+      home: "Home"
+      shop: "Shop"
+      orders: "Orders"
+      settings: "Settings"
+      catalog: "Catalog"
+    header:
+      home: "Home"
+      catalog: "Catalog"
+      shop: "Shop"
+      log_out: "Log out"
+      orders: "Orders"
+      settings: "Settings"
+      login: "Log In"
+      my_account: "My Account"
+  carts:
+    cart:
+      book: "Book"
+      cart: "Cart"
+      price: "Price"
+      quantity: "Quantity"
+      total: "Total"
+      checkout: "Checkout"
+      empty_card: "You don`t have added books. Go and find something in Catalog!"
+      enter_coupon: "Enter Your Coupon Code"
+      apply_coupon: "Apply Coupon"
+      added_to_cart: "Added to Cart!"
+      coupon_applied: "Your coupon is applied!"
+      invalid_coupon: "Sorry, we don`t have this coupon"
+  checkout:
+    checkout_steps:
+      address: "Address"
+      delivery: "Delivery"
+      payment: "Payment"
+      confirmation: "Confirmation"
+      complete: "Complete"
+    complete:
+      order_sent: "An order confirmation has been has been sent to "
+      order: "Order #"
+      thanks_message: "Thank You for your Order!"
+    confirmation:
+      shipments: "Shipments"
+      payment_information: "Payment Information"
+      place_order: "Place Order"
+    delivery:
+      method: "Method"
+      days: "Days"
+      price: "Price"
+    payment:
+      credit_card: "Credit Card"
+      name_on_card: "Name on Card"
+      expiration: "Expiration"
+      cvv: "CVV"
+    errors:
+      invalid_order: "Order is invalid"
+      missed_information: "You missed information for current step!"
+  orders:
+    index:
+      my_orders: "My Orders"
+      sort_by: "Sort by"
+      all: "All"
+      in_progress: "In Progress"
+      in_delivery: "In Delivery"
+      canceled: "Canceled"
+      empty_orders: "You don`t have orders yet."
+      number: "Number"
+      updated_at: "Updated at"
+      status: "Status"
+      total: "Total"
+  quick_registrations:
+    index:
+      returning_customer: "Returning Customer"
+      or: "or"
+      enter_email: "Enter Email"
+      password: "Password"
+      login_with_password: "Log In with Password"
+      login_button: "Login with Password"
+      new_customer: "New Customer"
+      quick_register: "Quick Register"
+      set_password_later: "You’ll be able to create password later"
+      email: "Email"
+      continue_to_checkout: "Continue to Checkout"
+      invalid_email: "Your email is invalid"
+  settings:
+    index:
+      settings: "Settings"
+      address: "Address"
+      privacy: "Privacy"
+      email: "Email"
+      first_name: "First name"
+      last_name: "Last name"
+      password: "Password"
+      old_password: "Old Password"
+      new_password: "New Password"
+      confirm_password: "Confirm Password"
+      update_email: "Update Email"
+      update_password: "Update Password"
+      remove_account: "Remove Account"
+      remove_button: "Please Remove My Account"
+      updated: "Your settings updated!"
+      accept_checkbox: "I understand that all data will be lost"
+  authors:
+    destroy:
+      admin:
+        messages:
+          author_deleted: "Author has been deleted."
+  active_admin:
+    resource:
+      index:
+        status: "Status"
+        delete: "Delete"
+        edit: "Edit"
+        confirm_part1: "Are you sure you want to delete this author? They are associated with"
+        confirm_part2: "books."
+      show:
+        status: "Status"
+        approve: "Approve"
+        reject: "Reject"
+        items: "Items"
+        in_delivery: "In Delivery"
+        delivered: "Delivered"
+        cancel: "Cancel"
+  admin:
+    reviews:
+      approve:
+        notice: "Review has been approved!"
+        alert: "Sorry, not all requirements were met for approving"
+      reject:
+        notice: "Review has been rejected!"
+        alert: "Sorry, not all requirements were met for rejecting"
+    orders:
+      start_delivery:
+        in_delivery: "Order is in delivery now!"
+        failed_start_delivery: "Sorry, not all requirements were met for delivering"
+      finish_delivery:
+        delivered: "Order has been delivered!"
+        delivery_failed: "Sorry, not all requirements were met to finish delivering"
+      cancel:
+        canceled: "Order has been canceled!"
+        failed_cancel: "Sorry, not all requirements were met for canceling"
+  devise:
+    failure:
+      customer:
+        discarded_account: "This account was deleted."

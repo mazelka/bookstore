@@ -1,0 +1,39 @@
+%header.navbar.navbar-default
+  .container
+    .navbar-header
+      %button.navbar-toggle.pull-left{type: "button", 'data-toggle': "collapse", 'data-target': "#navbar"}
+        %span.sr-only
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      %a.navbar-brand Bookstore
+      %a.shop-link.pull-right.visible-xs{href: "#"}
+        %span.shop-icon
+          %span.shop-quantity= @cart.count
+    %a.shop-link.pull-right.hidden-xs{href: "/carts"}
+      %span.shop-icon
+        %span.shop-quantity= @cart.count
+    #navbar.navbar-collapse.collapse.pl-30{'aria-expanded': "false"}
+      .hidden-xs
+        %ul.nav.navbar-nav
+          %li
+            %a{href: "/"}= t('.home')
+          %li.dropdown
+            %a.dropdown-toggle{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}= t('.shop')
+            %ul.dropdown-menu
+              %li
+                %a{href: "/books"}= t('.catalog')
+          %li
+            - if customer_signed_in?
+              %li.dropdown
+                %a.dropdown-toggle{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}= t('.my_account')
+                %ul.dropdown-menu
+                  %li
+                    %a{href: "/settings"}= t('.settings')
+                  %li
+                    %a{href: "/orders"}= t('.orders')
+                  %li.divider{role: "separator"}
+                  %li
+                    = link_to(t('.log_out'), destroy_customer_session_path, method: "delete")
+            - else
+              %a{href: "/customers/sign_in"}= t('.login')

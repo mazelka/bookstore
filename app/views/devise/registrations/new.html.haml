@@ -1,0 +1,29 @@
+%main.container.general-main-wrap
+  .text-center
+    %h3.general-login-title= t('.sign_up')
+    %a.general-login-icon{href: "/customers/auth/facebook"}
+      %i.fa.fa-facebook-official
+    %p.general-login-text= t('.or')
+  %form.general-form{ :action => "/customers", :method => "post" }
+    .control-label.input-label
+      =render "devise/shared/error_messages"
+    .form-group.mb-30
+      %label.control-label.input-label{for: "email"}= t('.enter_email')
+      %input#email.form-control{name:"customer[email]", type: "email", placeholder: t('.enter_email')}
+    .form-group.mb-30
+      %label.control-label.input-label{for: "first_name"}= t('.enter_first_name')
+      %input#first_name.form-control{name:"customer[first_name]", type: "first_name", placeholder: t('.enter_first_name')}
+    .form-group.mb-30
+      %label.control-label.input-label{for: "last_name"}= t('.enter_last_name')
+      %input#last_name.form-control{name:"customer[last_name]", type: "last_name", placeholder: t('.enter_last_name')}
+    .form-group.mb-30
+      -if @customer.password_required?
+        %label.control-label.input-label{for: "password"}= t('.password')
+        %input#password.form-control{name:"customer[password]", type: "password", placeholder: t('.password')}
+        %a.help-block.in-gold-500.forgot-password{href: "password/new"}= t('.forgot_password')
+    .form-group.checkbox.text-center.mb-30
+    .text-center
+      %button.btn.btn-default.mb-20{id:'submit'}= t('.sign_up')
+  %p.general-sign-text.text-center
+    = t('.have_account')
+    %a.in-gold-500.log-in-link{href: "sign_in"}= t('.login')

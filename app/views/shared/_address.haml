@@ -1,0 +1,46 @@
+= form_for resource, url: url, method: :put,  html: {:class => 'submit-address' } do |f|
+  = f.fields_for :shipping_address_attributes, resource.shipping_address do |ship_f|
+    .row
+      .col-md-5.mb-40.shipping-section
+        .visible-xs.visible-sm
+          %h3.general-subtitle= t('address.shipping_address')
+          %p.general-info-text= t('address.all_fields_required')
+        -if ship_f.present?
+          = ship_f.hidden_field :id
+        .form-group
+          = ship_f.label t('address.address_line'), class: 'control-label input-label'
+          = ship_f.text_field :address_line, class: 'form-control'
+        .form-group
+          = ship_f.label t('address.country'), class: 'control-label input-label'
+          = ship_f.text_field :country, class: 'form-control'
+        .form-group
+          = ship_f.label t('address.city'), class: 'control-label input-label'
+          = ship_f.text_field :city, class: 'form-control'
+        .form-group
+          = ship_f.label t('address.zip'), class: 'control-label input-label'
+          = ship_f.text_field :zip, class: 'form-control'
+        .form-group
+          = ship_f.label t('address.phone'), class: 'control-label input-label'
+          = ship_f.text_field :phone, class: 'form-control'
+      .col-md-5.col-md-offset-1.mb-40.billing-section
+        .visible-xs.visible-sm
+          %h3.general-subtitle= t('address.billing_address')
+        = f.fields_for :billing_address_attributes, f.object.billing_address do |bill_f|
+          -if bill_f.present?
+            = bill_f.hidden_field :id
+          .form-group
+            = bill_f.label t('address.address_line'), class: 'control-label input-label'
+            = bill_f.text_field :address_line, class: 'form-control'
+          .form-group
+            = bill_f.label t('address.country'), class: 'control-label input-label'
+            = bill_f.text_field :country, class: 'form-control'
+          .form-group
+            = bill_f.label t('address.city'), class: 'control-label input-label'
+            = bill_f.text_field :city, class: 'form-control'
+          .form-group
+            = bill_f.label t('address.zip'), class: 'control-label input-label'
+            = bill_f.text_field :zip, class: 'form-control'
+          .form-group
+            = bill_f.label t('address.phone'), class: 'control-label input-label'
+            = bill_f.text_field :phone, class: 'form-control'
+  = f.submit t('common.save_and_continue'), class: 'btn btn-default center-block mb-20 submit-address-button'

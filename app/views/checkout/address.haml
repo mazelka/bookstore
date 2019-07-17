@@ -1,0 +1,32 @@
+%main.container
+  = render :partial => "checkout_steps", :formats => [:html]
+  - if @order && @order.errors.any?
+    - @order.errors.full_messages.each do |message|
+      %li= message
+  .hidden-xs.hidden-sm.res-mb-100
+    .row
+      .col-md-5
+        %h3.general-subtitle= t('address.shipping_address')
+        %p.general-info-text= t('address.all_fields_required')
+      .col-md-5.col-md-offset-1.billing
+        %h3.general-subtitle= t('address.billing_address')
+        %p.form-group.checkbox
+          %label.checkbox-label
+            %input.checkbox-input.test-class{type: "checkbox", hidden: "true", name: 'billing'}
+            %span.checkbox-icon
+              %i.fa.fa-check
+            %span.checkbox-text= t('address.use_shipping_address')
+  = render partial: 'shared/address', locals: {resource: @order, url: wizard_path}
+  .general-text-align.mb-60
+    %p.in-gold-500.font-18= t('order.order_summary')
+    %table.general-summary-table
+      %tr
+        %td
+          %p.font-16= t('order.item_total')
+        %td
+          %p.font-16= @cart_details.subtotal
+      %tr
+        %td
+          %p.font-16= t('order.order_total')
+        %td
+          %p.font-16= @cart_details.total

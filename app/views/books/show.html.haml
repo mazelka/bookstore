@@ -1,0 +1,102 @@
+%main.container
+  %ul
+  - flash.each do |_type, message|
+    -if message.is_a?(Array)
+      -message.each do |m|
+        %li.mb-20= m
+    -else
+      %li.mb-20= message
+
+  %i.fa.fa-long-arrow-left.mr-15
+  = link_to(t('.back_to_results'), :back, class: 'general-back-link')
+  .row
+    .col-sm-6
+      .product-gallery
+        .mb-20
+          %img.img-responsive{src: @book.cover_url}
+    %form.col-sm-6.row{action: add_to_cart_path, method: 'post'}
+      %h1.mt-res-0= @book.title
+      %p.lead.small= "#{@book.author.first_name} #{@book.author.last_name}"
+      .row
+        .col-xs-12.col-md-4
+          %p.h1.in-gold-500.mt-10= Money.new(@book.price, 'USD').format
+        .col-xs-5.col-md-3
+          .input-group.general-position
+            %a.input-link.decrease-quantity{href: '#'}
+              %i.fa.fa-minus.line-height-40
+            %input.form-control.quantity-input{name: 'quantity', type: "text", value: 1}
+            %input{ type:'hidden', name:'id', value: @book.id}
+            %a.input-link.increase-quantity{href: "#"}
+              %i.fa.fa-plus.line-height-40
+        .col-xs-7.col-md-5
+          %button.btn.btn-default.pull-right.general-position{type: 'submit'}= t('.add_to_cart')
+      .general-info-wrap.divider-lg
+        %p= t('.description')
+        %p.lead.small.line-height-2
+          %div.book-description
+            = @book.description
+          %a.in-gold-500.ml-10.read-more-link{href: "#"}= t('.read_more')
+  - if customer_signed_in?
+    %h3= t('.write_review')
+    %form.row{action: reviews_path, method: 'post'}
+      %input{ type:'hidden', name:'review[book_id]', value:@book.id}
+      .col-md-8
+        .mb-40
+          .form-group
+            %label.control-label.input-label.in-grey-600{for: "title"}= t('.title')
+            %input#title.form-control{name:"review[title]", type: "text"}
+          .form-group
+            %label.control-label.input-label.in-grey-600{for: "text"}= t('.review')
+            %textarea#review.form-control{name:"review[text]", type: "text"}
+        .text-right
+          %button.btn.btn-primary.mb-20{type: 'submit'}= t('.post')
+
+  -if @reviews && !@reviews.empty?
+    .mb-80
+      %h3.in-gold-500.mb-25= "Reviews (#{@reviews.count})"
+      -@reviews.each do |review|
+        .general-message-wrap.divider-lg
+        .general-message-date= review.created_at.to_date
+        .general-message-name= "#{review.customer.first_name} #{review.customer.last_name}"
+        .mb-15.review-body
+          %p= review.title
+          %p= review.text
+      .general-message-wrap.divider-lg-bottom
+
+
+-# Read more
+:javascript
+  function readMore() {
+    const book_description = document.querySelector('.book-description')
+    const read_more = document.querySelector('.read-more-link')
+    const full_text = book_description.innerText
+    book_description.innerText = full_text.slice(0, 300)
+
+    read_more.addEventListener('click', expand)
+
+    function expand(e) {
+      e.preventDefault()
+      book_description.innerText = full_text;
+      read_more.classList.add('hidden')
+    }
+  }
+  readMore();
+
+-# Quantity handling
+:javascript
+  function quantityHandling() {
+    let input = document.querySelector('.quantity-input');
+
+    document.querySelector('.increase-quantity').addEventListener('click', (e) => {
+      e.preventDefault();
+
+      input.value = Number(input.value) + 1;
+    })
+
+    document.querySelector('.decrease-quantity').addEventListener('click', (e) => {
+      e.preventDefault();
+
+      input.value = (Number(input.value) - 1) || 1;
+    })
+  }
+  quantityHandling();

@@ -1,0 +1,11 @@
+%main.container.general-main-wrap
+  .text-center
+    %h1.mb-30= t('.forgot_your_password')
+    %p.general-password-text= t('.password_text')
+  %form.general-form{ :action => "/customers/password", :method => "post" }
+    = render "devise/shared/error_messages", resource: resource
+    .form-group.mb-25
+      %input#email.form-control{name:"customer[email]", type: "email", placeholder: t('.enter_email')}
+    %button.btn.btn-default.center-block.mb-20= t('.email_instructions')
+    .text-center
+      %a.in-gold-500.mb-20{href: "/"}= t('.cancel')

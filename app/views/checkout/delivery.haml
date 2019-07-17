@@ -1,0 +1,52 @@
+%main.container.general-main-wrap
+  = render :partial => "checkout_steps", :formats => [:html]
+  - if @order && @order.errors.any?
+    - @order.errors.full_messages.each do |message|
+      %li= message
+  %h3.general-subtitle= t('cehckout.checkout_steps.delivery')
+  .hidden-xs.mb-res-50
+  = form_tag(url: wizard_path, method: 'put') do |f|
+    %table.table.table-hover
+      %thead
+        %tr
+          %th.col-method
+            %span.in-grey-600.ml-40= t('.method')
+          %th
+            %span.in-grey-600= t('.days')
+          %th
+            %span.in-grey-600= t('.price')
+      %tbody
+        %input{ type:'hidden', name:'_method', value:'put'}
+        - @delivery.each do |delivery|
+          %tr
+            %td
+              .form-group.radio.mt-0.mb-0
+                %label.radio-label
+                  %span.radio-test
+                    = radio_button_tag :delivery_id, delivery.id, true, :html => { :class => "test-radio"}
+                  %span.radio-text= delivery.name
+            %td
+              %span= delivery.days
+            %td
+              %span.font-16.in-gold-500= Money.new(delivery.price).format
+
+    = submit_tag t('common.save_and_continue'), class: 'btn btn-default center-block mb-20'
+
+    .general-text-align.general-summary-table
+      %p.in-gold-500.font-18= t('order.order_summary')
+      %table.general-summary-table
+        %tr
+          %td
+            %p.font-16= t('order.subtotal')
+          %td
+            %p.font-16= @cart_details.subtotal
+        %tr
+          %td
+            %p.font-16= t('order.coupon')
+          %td
+            %p.font-16= @cart_details.discount
+        %tr
+          %td
+            %strong.font-18= t('order.order_total')
+          %td
+            %strong.font-18= @cart_details.total
