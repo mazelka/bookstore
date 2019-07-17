@@ -11,10 +11,6 @@ RSpec.describe ConfirmOrder do
     it 'validates order for required parameters' do
       expect(ConfirmOrder.new(order).order_can_be_started?).to be true
     end
-
-    it 'starts processing valid order' do
-      expect { ConfirmOrder.new(order).confirm }.to change(Order.in_queue, :count).from(0).to(1)
-    end
   end
 
   context 'not complete order' do
