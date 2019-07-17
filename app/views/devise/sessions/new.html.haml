@@ -13,8 +13,8 @@
       %label.control-label.input-label{for: "email"}= t('.enter_email')
       %input#email.form-control{name:"customer[email]", type: "email", placeholder: t('.enter_email')}
     .form-group.mb-30
-      %label.control-label.input-label{for: "password"}= t('.password')
-      %input#password.form-control{name:"customer[password]", type: "password", placeholder: t('.password')}
+      %label.control-label.input-label{for: "password"}= t('devise.sessions.new.password')
+      %input#password.form-control{name:"customer[password]", type: "password", placeholder: t('devise.sessions.new.password')}
       %a.help-block.in-gold-500.forgot-password{href: "password/new"}= t('.forgot_password')
     .form-group.checkbox.text-center.mb-30
       %button.btn.btn-default.mb-20{id:'submit'}= t('.login')

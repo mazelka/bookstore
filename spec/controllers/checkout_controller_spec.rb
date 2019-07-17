@@ -82,7 +82,7 @@ RSpec.describe CheckoutController, type: :controller do
       it 'when customer does not have address' do
         shipping_address = { 'address_line' => '123 qdf asdf', 'country' => 'qwe', 'city' => 'qwer', 'zip' => '12', 'phone' => '+12453' }
         billing_address = { 'address_line' => '1234 sdf asd', 'country' => 'qwe', 'city' => 'qwer', 'zip' => '12', 'phone' => '+12453' }
-        put :update, params: { billing_addres_attributes: billing_address, shipping_address_attributes: shipping_address, id: :address }, session: { order_id: order.id }
+        put :update, params: { order:{billing_addres_attributes: billing_address, shipping_address_attributes: shipping_address}, id: :address }, session: { order_id: order.id }
         expect(order.shipping_address.present?).to be true
         expect(order.billing_address.present?).to be true
       end
@@ -90,7 +90,7 @@ RSpec.describe CheckoutController, type: :controller do
       it 'does not save invalid address' do
         shipping_address = { 'address_line' => 'asdf', 'country' => 'qwe', 'city' => 'qwer', 'zip' => '12', 'phone' => '+12453' }
         billing_address = { 'address_line' => 'asd', 'country' => 'qwe', 'city' => 'qwer', 'zip' => '12', 'phone' => '+12453' }
-        put :update, params: { billing_addres_attributes: billing_address, shipping_address_attributes: shipping_address, id: :address }, session: { order_id: order.id }
+        put :update, params: { order: {billing_addres_attributes: billing_address, shipping_address_attributes: shipping_address}, id: :address }, session: { order_id: order.id }
         expect(order.shipping_address.present?).to be false
         expect(order.billing_address.present?).to be false
       end
@@ -144,11 +144,12 @@ RSpec.describe CheckoutController, type: :controller do
         sign_in customer
       end
 
-      # it "order change status to 'in_queue'" do
-      #   order = create(:order, :complete, aasm_state: 'in_progress', customer: customer)
-      #   put :update, params: { id: :confirmation }, session: { order_id: order.id }
-      #   expect(order.aasm_state).to eq('in_queue')
-      # end
+      it "changes status of order to 'in_queue'" do
+        order = create(:order, :complete, aasm_state: 'in_progress', customer: customer)
+        expect do
+          put :update, params: { id: :confirmation }, session: { order_id: order.id }
+        end.to change(Order.in_queue, :count).from(0).to(1)
+      end
 
       it 'has the same status if some attribute is missing' do
         order = create(:order, :with_customer, aasm_state: 'in_progress', customer: customer)

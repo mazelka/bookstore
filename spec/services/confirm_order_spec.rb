@@ -13,8 +13,7 @@ RSpec.describe ConfirmOrder do
     end
 
     it 'starts processing valid order' do
-      ConfirmOrder.new(order).confirm
-      expect(order.aasm_state).to eq('in_queue')
+      expect { ConfirmOrder.new(order).confirm }.to change(Order.in_queue, :count).from(0).to(1)
     end
   end
 

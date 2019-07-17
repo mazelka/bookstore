@@ -99,7 +99,7 @@ RSpec.describe OrdersController, type: :controller do
 
     it 'has default orders_sorting' do
       post :index, params: { current_customer: Customer.last }
-      expect(assigns(:orders_sorting)).to eq('In Progress')
+      expect(assigns(:orders_sorting)).to eq('All')
     end
 
     it 'has orders_sorting from params' do

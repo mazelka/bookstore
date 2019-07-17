@@ -1,10 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Address, type: :model do
-  context 'associations' do
-    it { should belong_to(:addressable) }
-  end
-
   context 'validations of presence' do
     it 'is invalid without an address_line' do
       expect((build :address, :customer_address, address_line: nil)).not_to be_valid
@@ -70,14 +66,14 @@ RSpec.describe Address, type: :model do
 
     it 'zip is invalid with letters and spaces' do
       expect((build :address, zip: 'AS-12345')).not_to be_valid
-      expect((build :address, zip: '12 2345')).not_to be_valid
+      expect((build :address, zip: ' 12 2 345G')).not_to be_valid
     end
 
     it 'is invalid without a phone number format' do
       expect((build :address, phone: '123456789')).not_to be_valid
       expect((build :address, phone: '+1')).not_to be_valid
-      expect((build :address, phone: '+112ASD')).not_to be_valid
-      expect((build :address, phone: '  +1128745932')).not_to be_valid
+      expect((build :address, phone: '+1 12ASD')).not_to be_valid
+      expect((build :address, phone: '  +1 128745932')).not_to be_valid
     end
   end
 end

@@ -76,5 +76,4 @@
                 %strong.font-18= t('order.order_total')
               %td
                 %strong.font-18= @cart_details.total
-          %button.btn.btn-default.mb-20.visible-xs-inline-block Checkout
   = link_to(t('.checkout'), orders_path, method: :post, class: checkout_style(@cart))

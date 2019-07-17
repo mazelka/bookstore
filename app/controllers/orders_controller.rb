@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
-  before_action :login_customer, :fill_cart, only: :create
+  before_action :fill_cart, only: :create
+  before_action :login_customer, only: [:index, :create]
 
   def create
     if session[:order_id].nil?
@@ -11,7 +12,7 @@ class OrdersController < ApplicationController
   end
 
   def index
-    @orders_sorting = params[:sorting] || t('orders.index.in_progress')
+    @orders_sorting = params[:sorting] || t('orders.index.all')
     @orders = OrdersFilter.call(current_customer, @orders_sorting)
   end
 
@@ -29,6 +30,7 @@ class OrdersController < ApplicationController
   end
 
   def login_customer
+    # binding.pry
     redirect_to quick_registrations_path unless customer_signed_in?
   end
 

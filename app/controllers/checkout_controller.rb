@@ -83,7 +83,7 @@ class CheckoutController < ApplicationController
   end
 
   def address_params
-    params.permit({ shipping_address_attributes: [:address_line, :country, :city, :zip, :phone] }, { billing_address_attributes: [:address_line, :country, :city, :zip, :phone] })
+    params.require(:order).permit({ shipping_address_attributes: [:address_line, :country, :city, :zip, :phone] }, { billing_address_attributes: [:address_line, :country, :city, :zip, :phone] })
   end
 
   def delivery_params
