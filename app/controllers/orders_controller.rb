@@ -30,7 +30,6 @@ class OrdersController < ApplicationController
   end
 
   def login_customer
-    # binding.pry
     redirect_to quick_registrations_path unless customer_signed_in?
   end
 

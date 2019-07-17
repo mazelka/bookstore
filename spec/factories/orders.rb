@@ -19,10 +19,7 @@ FactoryBot.define do
         3.times do
           order.order_items << build(:order_item)
         end
-        shipping_address = build(:address, :shipping_address)
-        binding.pry unless shipping_address.valid?
-
-        order.shipping_address = shipping_address
+        order.shipping_address = build(:address, :shipping_address)
         order.billing_address = order.shipping_address
         order.payment = build(:payment)
       end
