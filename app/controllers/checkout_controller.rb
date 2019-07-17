@@ -14,6 +14,7 @@ class CheckoutController < ApplicationController
       @delivery = Delivery.all
     when :complete
       empty_session
+      ApplicationMailer.order_confirmation(current_customer, @order).deliver
     end
     render_wizard
   end
