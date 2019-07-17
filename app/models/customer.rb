@@ -74,10 +74,6 @@ class Customer < ApplicationRecord
     end
   end
 
-  def trim_password
-    password.strip! if password
-  end
-
   def downcase_email
     email.downcase!
   end

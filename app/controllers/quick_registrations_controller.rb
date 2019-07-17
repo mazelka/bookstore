@@ -14,7 +14,7 @@ class QuickRegistrationsController < ApplicationController
       redirect_to carts_path
       customer.send_reset_password_instructions
     else
-      flash[:notice] = t('quick_registrations.login.invalid_email')
+      flash[:notice] = t('quick_registrations.index.invalid_email')
     end
   end
 

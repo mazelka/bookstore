@@ -4,6 +4,9 @@ require 'rails_helper'
 RSpec.describe Customer, type: :model do
   context 'associations' do
     it { should have_many(:reviews) }
+    it { should have_many(:orders) }
+    it { should have_one(:billing_address) }
+    it { should have_one(:shipping_address) }
   end
 
   context 'validations' do

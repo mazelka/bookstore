@@ -19,4 +19,14 @@ describe 'home/index.html.haml', type: :view do
     page.find('.show-book').click
     expect(response).to render_template(:show)
   end
+
+  context 'add to cart' do
+    let!(:book) {create(:book)}
+
+    it 'clicks buy now' do
+      visit '/'
+      page.find_link('Buy Now').click
+      expect(page).to have_content('Added to Cart!')
+    end
+  end
 end

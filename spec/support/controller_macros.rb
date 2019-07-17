@@ -1,4 +1,8 @@
 module ControllerMacros
+  def customer_set_up_devise
+    @request.env['devise.mapping'] = Devise.mappings[:customer]
+  end
+
   def valid_facebook_login_setup
     @request.env['devise.mapping'] = Devise.mappings[:customer]
     if Rails.env.test?

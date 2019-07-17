@@ -9,7 +9,7 @@ ActiveAdmin.register Order do
   scope :canceled
 
   index do
-    selectable_column
+    column :id
     column :customer do |i|
       "#{i.customer.first_name} #{i.customer.last_name}"
     end
@@ -28,14 +28,27 @@ ActiveAdmin.register Order do
   show do
     attributes_table do
       row :customer do |i|
-        "#{i.customer.first_name} #{i.customer.last_name}"
+        "#{i.customer.email}, #{i.customer.first_name} #{i.customer.last_name}"
+      end
+      row :shipping_address do |order|
+        order.shipping_address.present? ? address_details(order.shipping_address) : nil
+      end
+      row :billing_address do |order|
+        order.billing_address.present? ? address_details(order.billing_address) : nil
       end
       row t('.items'), :order_items do |order|
         order_items_details(order)
       end
-      row :total_price
+      row :total_price do |order|
+        Money.new(order.total_price).format
+      end
       row :delivery do |order|
-        order.delivery.name
+        order.delivery.present? ? order.delivery.name : nil
+      end
+
+      row :payment do |order|
+        payment = order.payment.present? ? 'PAID' : 'NOT PAID'
+        status_tag(payment, label: payment, class: customize_payment_tag(payment))
       end
       row t('.status'), :aasm_state do |order|
         state = order.aasm_state

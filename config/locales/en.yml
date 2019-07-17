@@ -42,7 +42,7 @@ en:
     order_total: "Order Total:"
     delivery: "Delivery:"
     coupon: "Coupon:"
-    subtotal: 'Subtotal'
+    subtotal: "Subtotal"
   address:
     all_fields_required: "all fields are required"
     use_shipping_address: "Use Shipping Address"
@@ -96,47 +96,13 @@ en:
       settings: "Settings"
       login: "Log In"
       my_account: "My Account"
-  devise:
-    registrations:
-      new:
-        sign_up: "Sign Up"
-        or: "or"
-        enter_email: "Enter Email"
-        enter_first_name: "Enter First Name"
-        enter_last_name: "Enter Last Name"
-        password: "Password"
-        forgot_password: "Forgot Password?"
-        sign_up: 'Sign Up'
-        login: 'Log In'
-        have_account: 'Already have an Account? '
-    sessions:
-      new:
-        login: 'Log In'
-        or: "or"
-        enter_email: "Enter Email"
-        password: "Password"
-        forgot_password: "Forgot Password?"
-        sign_up: 'Sign Up'
-        do_not_have_account: "Don`t have an Account? "
-    passwords:
-      edit:
-        set_new_password: "Set new password"
-        type_new_password: "Type a new Password"
-        confirm_password: "Confirm Password"
-        change: "Change"
-      new:
-        forgot_your_password: "Forgot your Password?"
-        password_text: "We'll email you instructions on how to reset it"
-        enter_email: "Enter Email"
-        email_instructions: 'Email Instructions'
-        cancel: 'Cancel'
   carts:
     cart:
       book: "Book"
       cart: "Cart"
-      price: 'Price'
-      quantity: 'Quantity'
-      total: 'Total'
+      price: "Price"
+      quantity: "Quantity"
+      total: "Total"
       checkout: "Checkout"
       empty_card: "You don`t have added books. Go and find something in Catalog!"
       enter_coupon: "Enter Your Coupon Code"
@@ -156,7 +122,7 @@ en:
       order: "Order #"
       thanks_message: "Thank You for your Order!"
     confirmation:
-      shipments: 'Shipments'
+      shipments: "Shipments"
       payment_information: "Payment Information"
       place_order: "Place Order"
     delivery:
@@ -180,14 +146,16 @@ en:
       in_delivery: "In Delivery"
       canceled: "Canceled"
       empty_orders: "You don`t have orders yet."
-      number: 'Number'
-      updated_at: 'Updated at'
+      number: "Number"
+      updated_at: "Updated at"
       status: "Status"
       total: "Total"
   quick_registrations:
     index:
       returning_customer: "Returning Customer"
       or: "or"
+      enter_email: "Enter Email"
+      password: "Password"
       login_with_password: "Log In with Password"
       login_button: "Login with Password"
       new_customer: "New Customer"
@@ -222,17 +190,17 @@ en:
   active_admin:
     resource:
       index:
-        status: 'Status'
-        delete: 'Delete'
-        edit: 'Edit'
+        status: "Status"
+        delete: "Delete"
+        edit: "Edit"
         confirm_part1: "Are you sure you want to delete this author? They are associated with"
         confirm_part2: "books."
       show:
-        status: 'Status'
-        approve: 'Approve'
-        reject: 'Reject'
-        items: 'Items'
-        in_delivery: 'In Delivery'
+        status: "Status"
+        approve: "Approve"
+        reject: "Reject"
+        items: "Items"
+        in_delivery: "In Delivery"
         delivered: "Delivered"
         cancel: "Cancel"
   admin:
@@ -249,7 +217,7 @@ en:
         failed_start_delivery: "Sorry, not all requirements were met for delivering"
       finish_delivery:
         delivered: "Order has been delivered!"
-        delivery_failed: 'Sorry, not all requirements were met to finish delivering'
+        delivery_failed: "Sorry, not all requirements were met to finish delivering"
       cancel:
         canceled: "Order has been canceled!"
         failed_cancel: "Sorry, not all requirements were met for canceling"
