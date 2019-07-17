@@ -23,9 +23,6 @@
             %ul.dropdown-menu
               %li
                 %a{href: "/books"}= t('.catalog')
-              %li.divider{role: "separator"}
-              %li
-                = link_to(t('.log_out'), destroy_customer_session_path, method: "delete")
           %li
             - if customer_signed_in?
               %li.dropdown
