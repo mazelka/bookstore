@@ -2,7 +2,7 @@
   .col-xs-6.col-sm-3
     .general-thumb-wrap
       .thumbnail.general-thumbnail
-        %img.img-shadow.general-thumbnail-img{src: book.cover_url, alt: book.title}
+        %img.img-shadow.general-thumbnail-img{src: book.cover_url(:full), alt: book.title}
         .thumb-hover
           .general-thumb-link-wrap
             %a.thumb-hover-link.show-book{href: "/books/#{book.id}"}

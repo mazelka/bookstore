@@ -13,7 +13,7 @@
           .row
             .col-sm-5
               .general-img-wrap
-                %img.img-shadow.general-thumbnail-img{src: book.cover_url, alt: book.title}
+                %img.img-shadow.general-thumbnail-img{src: book.cover_url(:full), alt: book.title}
             .col-sm-7
               .mb-60
                 %h1= book.title
