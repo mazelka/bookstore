@@ -6,8 +6,8 @@ Rails.application.routes.draw do
                          }
   post 'add_to_cart' => 'carts#add_to_cart'
   get 'cart/remove_item' => 'carts#remove_item'
-  get 'cart/increase_quantity' => 'carts#increase_quantity'
-  get 'cart/decrease_quantity' => 'carts#decrease_quantity'
+  post 'cart/increase_quantity' => 'carts#increase_quantity'
+  post 'cart/decrease_quantity' => 'carts#decrease_quantity'
   post 'cart/apply_coupon' => 'carts#apply_coupon'
   put 'settings/update' => 'settings#update'
   resources :reviews, only: :create
