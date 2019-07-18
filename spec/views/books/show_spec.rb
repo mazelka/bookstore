@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'books/show.html.haml', type: :feature do
   context 'attributes' do
-    let(:book) { create(:book) }
+    let(:book) { create(:book, :with_cover) }
     before :each do
       book
     end
@@ -16,7 +16,7 @@ describe 'books/show.html.haml', type: :feature do
 
     it 'shows book cover' do
       visit "/books/#{book.id}"
-      expect(page).to have_selector("img[src = \"/uploads/book/cover/#{book.id}/2017-07-24_12.22.44.jpg\"]")
+      expect(page).to have_selector("img[src*='https://dl.dropboxusercontent.com']")
     end
   end
   context 'description' do
