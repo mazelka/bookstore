@@ -14,4 +14,8 @@ module CheckoutHelper
   def mask(number)
     "************#{last_digits(number)}"
   end
+
+  def hidden_cvv(cvv)
+    '*' * cvv.length
+  end
 end

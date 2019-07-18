@@ -43,7 +43,7 @@
         = mask(@order.payment.card_number)
         = link_to('edit', wizard_path(:payment), class: 'general-edit')
         %br
-        = @order.payment.cvv
+        = hidden_cvv(@order.payment.cvv)
   .hidden-xs.divider-lg.pt-20
     %table.table.table-hover
       %thead
