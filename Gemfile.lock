@@ -18,6 +18,15 @@ GIT
       rack (>= 1.5.2, < 3)
       railties (>= 4.0)
 
+GIT
+  remote: https://github.com/robin850/carrierwave-dropbox.git
+  revision: 9b50c220f6bcb36e902d8a9568cadd2a5a578009
+  tag: v2.0.0.rc1
+  specs:
+    carrierwave-dropbox (2.0.0.rc1)
+      carrierwave (~> 1.2)
+      dropbox-sdk-v2 (~> 0.0.3)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -147,10 +156,14 @@ GEM
     discard (1.1.0)
       activerecord (>= 4.2, < 7)
     docile (1.3.2)
+    domain_name (0.5.20190701)
+      unf (>= 0.0.5, < 1.0.0)
     dotenv (2.7.2)
     dotenv-rails (2.7.2)
       dotenv (= 2.7.2)
       railties (>= 3.2, < 6.1)
+    dropbox-sdk-v2 (0.0.3)
+      http (~> 2.0)
     erubi (1.8.0)
     erubis (2.7.0)
     ethon (0.12.0)
@@ -202,6 +215,15 @@ GEM
       haml (>= 4.0, < 6)
       nokogiri (>= 1.6.0)
       ruby_parser (~> 3.5)
+    http (2.2.2)
+      addressable (~> 2.3)
+      http-cookie (~> 1.0)
+      http-form_data (~> 1.0.1)
+      http_parser.rb (~> 0.6.0)
+    http-cookie (1.0.3)
+      domain_name (~> 0.5)
+    http-form_data (1.0.3)
+    http_parser.rb (0.6.0)
     i18n (1.6.0)
       concurrent-ruby (~> 1.0)
     inherited_resources (1.10.0)
@@ -421,6 +443,9 @@ GEM
       thread_safe (~> 0.1)
     uglifier (4.1.20)
       execjs (>= 0.3.0, < 3)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.6)
     warden (1.2.8)
       rack (>= 2.0.6)
     web-console (3.7.0)
@@ -450,6 +475,7 @@ DEPENDENCIES
   cancancan
   capybara
   carrierwave (~> 1.0)
+  carrierwave-dropbox!
   coffee-rails (~> 4.2)
   compass-rails!
   database_cleaner
