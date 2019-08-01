@@ -10,8 +10,8 @@ RSpec.describe Book, type: :model do
 
   context 'validations' do
     it 'has valid cover image' do
-      book = FactoryBot.create :book
-      expect(book.cover_url).to include('2017-07-24_12.22.44.jpg')
+      book = FactoryBot.create(:book, :with_cover)
+      expect(book.cover.instance_variable_get(:@filename)).to eq('2017-07-24_12.22.44.jpg')
     end
     it 'is invalid without a title' do
       expect((FactoryBot.build :book, title: nil)).not_to be_valid

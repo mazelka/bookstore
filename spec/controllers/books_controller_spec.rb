@@ -55,7 +55,7 @@ RSpec.describe BooksController do
 
     it 'shows books in order by popularity' do
       get :index, params: { sort: 'price', direction: 'desc', active_sorting: 'Price: High to low' }
-      expect(assigns(:books)).to match_array(Book.order(inventory: :desc))
+      expect(assigns(:books)).to match_array(Book.order(reviews_count: :desc))
     end
   end
 

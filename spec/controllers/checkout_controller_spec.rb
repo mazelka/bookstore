@@ -82,15 +82,15 @@ RSpec.describe CheckoutController, type: :controller do
       it 'when customer does not have address' do
         shipping_address = { 'address_line' => '123 qdf asdf', 'country' => 'qwe', 'city' => 'qwer', 'zip' => '12', 'phone' => '+12453' }
         billing_address = { 'address_line' => '1234 sdf asd', 'country' => 'qwe', 'city' => 'qwer', 'zip' => '12', 'phone' => '+12453' }
-        put :update, params: { order:{billing_addres_attributes: billing_address, shipping_address_attributes: shipping_address}, id: :address }, session: { order_id: order.id }
+        put :update, params: { order: { billing_addres_attributes: billing_address, shipping_address_attributes: shipping_address }, id: :address }, session: { order_id: order.id }
         expect(order.shipping_address.present?).to be true
         expect(order.billing_address.present?).to be true
       end
 
       it 'does not save invalid address' do
-        shipping_address = { 'address_line' => 'asdf', 'country' => 'qwe', 'city' => 'qwer', 'zip' => '12', 'phone' => '+12453' }
-        billing_address = { 'address_line' => 'asd', 'country' => 'qwe', 'city' => 'qwer', 'zip' => '12', 'phone' => '+12453' }
-        put :update, params: { order: {billing_addres_attributes: billing_address, shipping_address_attributes: shipping_address}, id: :address }, session: { order_id: order.id }
+        shipping_address = { 'address_line' => 'asdf*&^%$', 'country' => 'qwe', 'city' => 'qwer', 'zip' => '12', 'phone' => '+12453' }
+        billing_address = { 'address_line' => 'asd *&^%', 'country' => 'qwe', 'city' => 'qwer', 'zip' => '12', 'phone' => '+12453' }
+        put :update, params: { order: { billing_addres_attributes: billing_address, shipping_address_attributes: shipping_address }, id: :address }, session: { order_id: order.id }
         expect(order.shipping_address.present?).to be false
         expect(order.billing_address.present?).to be false
       end

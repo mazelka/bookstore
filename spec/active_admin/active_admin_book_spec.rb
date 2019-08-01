@@ -54,7 +54,7 @@ describe 'Book', type: :feature do
     end
     click_button 'Save'
     expect(page).to have_content('Book was successfully updated.')
-    expect(page).to have_selector("img[src=\"/uploads/book/cover/#{book.id}/thumb_2017-07-24_12.22.44.jpg\"]")
+    expect(page).to have_selector('img[src*="https://dl.dropboxusercontent.com"]')
   end
 
   it 'deletes book' do
