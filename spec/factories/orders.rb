@@ -28,4 +28,8 @@ FactoryBot.define do
 
   trait :with_customer do
   end
+
+  trait :updated_at do
+    updated_at { Time.zone.now - 25.hours }
+  end
 end
