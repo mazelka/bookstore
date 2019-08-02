@@ -19,9 +19,8 @@ class OrdersController < ApplicationController
   private
 
   def add_items_from_cart
-    cart = session[:cart].map { |i| i.with_indifferent_access }
+    cart = session[:cart].map(&:with_indifferent_access)
     cart.map do |item|
-      # binding.pry
       item.with_indifferent_access
       create_item(item[:book_id], item[:quantity])
     end

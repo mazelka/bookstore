@@ -64,7 +64,7 @@ class CartsController < ApplicationController
   end
 
   def cart_to_session
-    session[:cart] = @cart.map { |item| item.with_indifferent_access }
+    session[:cart] = @cart.map(&:with_indifferent_access)
   end
 
   def get_coupon_discount(id)

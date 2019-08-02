@@ -5,10 +5,10 @@ class OrderReminder
 
   def perform
     Customer.all.map do |customer|
-      if customer.orders.last.present?
-        if in_progress?(customer.orders.last)
-          ApplicationMailer.order_reminder(customer).deliver
-        end
+      next unless customer.orders.last.present?
+
+      if in_progress?(customer.orders.last)
+        ApplicationMailer.order_reminder(customer).deliver
       end
     end
   end
