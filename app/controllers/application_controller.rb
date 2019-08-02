@@ -16,6 +16,6 @@ class ApplicationController < ActionController::Base
   private
 
   def find_cart
-    @cart = session[:cart] || []
+    @cart = session[:cart] ? session[:cart].map { |i| i.with_indifferent_access } : []
   end
 end

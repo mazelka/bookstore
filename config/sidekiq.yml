@@ -1,0 +1,4 @@
+:schedule:
+  order_reminder:
+    every: ["24h", first_in: "120s"]
+    class: OrderReminder

@@ -9,12 +9,12 @@ class CheckoutController < ApplicationController
     cart_details
     case step
     when :address
+      OrderReminderWorker.perform_in(5.minutes.from_now, current_customer.id, @order.id)
       prepopulate_addresses
     when :delivery
       @delivery = Delivery.all
     when :complete
       empty_session
-      ApplicationMailer.order_confirmation(current_customer, @order).deliver
     end
     render_wizard
   end

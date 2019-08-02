@@ -21,6 +21,7 @@ class CartsController < ApplicationController
   end
 
   def index
+    # binding.pry
     session.delete(:order_id)
     @coupon = get_coupon_discount(session[:coupon_id]) || 0
     @cart_details = CartDetails.new(@cart, @coupon)
@@ -65,6 +66,7 @@ class CartsController < ApplicationController
   end
 
   def cart_to_session
+    # binding.pry
     session[:cart] = @cart
   end
 
