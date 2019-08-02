@@ -72,9 +72,10 @@ RSpec.describe CartsController do
     it 'has 2 different books in cart' do
       first_item = { book_id: first_book.id, title: first_book.title, price: first_book.price, url: first_book.cover_url, quantity: 1 }
       second_item = { book_id: second_book.id, title: second_book.title, price: second_book.price, url: second_book.cover_url, quantity: 1 }
+      expected_cart = [first_item.stringify_keys, second_item.stringify_keys]
       post :add_to_cart, params: { id: first_book.id, quantity: 1 }
       post :add_to_cart, params: { id: second_book.id, quantity: 1 }
-      expect(assigns(:cart)).to eq([first_item, second_item])
+      expect(session[:cart]).to eq(expected_cart)
     end
 
     it 'has 1 the same book in cart' do
@@ -96,7 +97,7 @@ RSpec.describe CartsController do
       post :add_to_cart, params: { id: book.id, quantity: 1 }
       post :add_to_cart, params: { id: book.id, quantity: 1 }
       post :add_to_cart, params: { id: book.id, quantity: 1 }
-      expect(session[:cart]).to eq([item])
+      expect(session[:cart]).to eq([item.stringify_keys])
     end
   end
 
@@ -156,7 +157,7 @@ RSpec.describe CartsController do
 
     it 'has updated cart in session' do
       post :increase_quantity, params: { book_id: book.id }, session: { cart: cart }
-      expect(session[:cart]).to eq([{ book_id: book.id, title: book.title, price: book.price, url: book.cover_url, quantity: 2 }])
+      expect(session[:cart]).to eq([{ book_id: book.id, title: book.title, price: book.price, url: book.cover_url, quantity: 2 }.stringify_keys])
     end
   end
 
@@ -190,7 +191,7 @@ RSpec.describe CartsController do
     it 'has updated cart in session' do
       cart = [{ book_id: book.id, title: book.title, price: book.price, url: book.cover_url, quantity: 2 }]
       post :decrease_quantity, params: { book_id: book.id }, session: { cart: cart }
-      expect(session[:cart]).to eq([{ book_id: book.id, title: book.title, price: book.price, url: book.cover_url, quantity: 1 }])
+      expect(session[:cart]).to eq([{ book_id: book.id, title: book.title, price: book.price, url: book.cover_url, quantity: 1 }.stringify_keys])
     end
   end
 

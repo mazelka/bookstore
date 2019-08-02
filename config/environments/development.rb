@@ -16,27 +16,20 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address:  "smtp.gmail.com",
+    address: 'smtp.gmail.com',
     port: 587,
     user_name: ENV['gmail_username'],
     password: ENV['gmail_password'],
-    authentication: "plain",
-    enable_starttls_auto: true
+    authentication: 'plain',
+    enable_starttls_auto: true,
   }
+  config.cache_store = :redis_cache_store, { url: ENV['CACHE_STORE_REDIS_URL'] }
+  Sidekiq.configure_server do |config|
+    config.redis = { url: ENV['SIDEKIQ_REDIS_STORE_URL'] }
+  end
 
-  # Enable/disable caching. By default caching is disabled.
-  # Run rails dev:cache to toggle caching.
-  if Rails.root.join('tmp', 'caching-dev.txt').exist?
-    config.action_controller.perform_caching = true
-
-    config.cache_store = :memory_store
-    config.public_file_server.headers = {
-      'Cache-Control' => "public, max-age=#{2.days.to_i}",
-    }
-  else
-    config.action_controller.perform_caching = false
-
-    config.cache_store = :null_store
+  Sidekiq.configure_client do |config|
+    config.redis = { url: ENV['SIDEKIQ_REDIS_STORE_URL'] }
   end
 
   # Store uploaded files on the local file system (see config/storage.yml for options)

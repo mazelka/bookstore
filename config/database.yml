@@ -86,4 +86,4 @@ production:
   adapter: postgresql
   encoding: unicode
   database: bookstore_production
-  pool: 5
+  pool: 25

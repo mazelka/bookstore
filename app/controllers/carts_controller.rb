@@ -40,7 +40,6 @@ class CartsController < ApplicationController
   end
 
   def decrease_quantity
-    @cart = session[:cart]
     current_item = find_in_cart(params[:book_id].to_i)
     current_item[:quantity] == 1 ? current_item[:quantity] : current_item[:quantity] -= 1
     redirect_back fallback_location: root_path
@@ -61,11 +60,11 @@ class CartsController < ApplicationController
   private
 
   def find_in_cart(id)
-    @cart.find { |item| item[:book_id] == id }
+    @cart.find { |item| item.with_indifferent_access[:book_id] == id }
   end
 
   def cart_to_session
-    session[:cart] = @cart
+    session[:cart] = @cart.map(&:with_indifferent_access)
   end
 
   def get_coupon_discount(id)

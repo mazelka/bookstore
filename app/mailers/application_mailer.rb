@@ -7,4 +7,9 @@ class ApplicationMailer < ActionMailer::Base
     @order = order.id
     mail to: customer.email, subject: 'Order Confirmation'
   end
+
+  def order_reminder(customer)
+    @email = customer.email
+    mail to: customer.email, subject: 'Your Order Misses You'
+  end
 end
