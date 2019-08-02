@@ -4,16 +4,10 @@ class OrderReminder
   include Sidekiq::Worker
 
   def perform
-    Customer.all.map do |customer|
-      next unless customer.orders.last.present?
-
-      if in_progress?(customer.orders.last)
-        ApplicationMailer.order_reminder(customer).deliver
-      end
+    day_before_yesterday = Time.zone.now - 48.hour
+    yesterday = Time.zone.now - 24.hour
+    Order.where(aasm_state: 'in_progress', updated_at: day_before_yesterday..yesterday).each do |order|
+      ApplicationMailer.order_reminder(order.customer).deliver
     end
-  end
-
-  def in_progress?(order)
-    order.aasm_state == 'in_progress' && (Time.zone.now - order.updated_at) > 24.hours && (Time.zone.now - order.updated_at) < 48.hours
   end
 end
